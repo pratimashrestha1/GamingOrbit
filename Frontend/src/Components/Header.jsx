@@ -6,19 +6,19 @@ import { IoLogOut } from "react-icons/io5";
 import { useGlobalComponent } from '../GlobalComponentContext';
 
 const Header = () => {
-  const { toggleComponentVisibility } = useGlobalComponent();
+  const { toggleComponentVisibility,componentVisibleFalse } = useGlobalComponent();
   
   return (
     <MainHeader>
       <ul>
-        <li><NavLink className="navs" to="/"><img src="./images/crop thikkako no bg.png" alt="logo" className="logo" /></NavLink></li>
-        <li><NavLink className="navs" to="/host">Host</NavLink></li>
-        <li><NavLink className="navs" to="/community">Community</NavLink></li>
-        <li><NavLink className="navs" to="/news">News</NavLink></li>
-        <li><NavLink className="navs" to="/topgames">Top games</NavLink></li>
-        <li><NavLink className="navs" to="/about">About us</NavLink></li>
+        <li><NavLink onClick={componentVisibleFalse} className="navs" to="/"><img src="./images/crop thikkako no bg.png" alt="logo" className="logo" /></NavLink></li>
+        <li><NavLink onClick={componentVisibleFalse} className="navs" to="/host">Host</NavLink></li>
+        <li><NavLink onClick={componentVisibleFalse} className="navs" to="/community">Community</NavLink></li>
+        <li><NavLink onClick={componentVisibleFalse} className="navs" to="/news">News</NavLink></li>
+        <li><NavLink onClick={componentVisibleFalse} className="navs" to="/topgames">Top games</NavLink></li>
+        <li><NavLink onClick={componentVisibleFalse} className="navs" to="/about">About us</NavLink></li>
         <li><FaUserCircle onClick={toggleComponentVisibility} size={30}/></li>
-        <li><IoLogOut size={30}/> </li>
+        <li><IoLogOut size={30}/> </li> 
       </ul>
     </MainHeader>
     //Above is the header of logo.

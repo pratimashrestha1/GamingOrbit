@@ -18,7 +18,9 @@ function App() {
       white: "#ddd",
       footer: "#222",
       button: "rgb(43, 139, 213)",
-      gradient: "linear-gradient(to right, #000033 , #330000)"
+      gradient: "linear-gradient(to right, #000033 , #330000)",
+      logoRed: "#FC0D50",
+      logoBlue: "#1092EA"
     },
     fontFamily: { all: "Ubuntu,Kanit,sans-serif;",
       games: "Space Grotesk, sans-serif;", 

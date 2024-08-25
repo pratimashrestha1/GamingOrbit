@@ -9,8 +9,12 @@ export const GlobalComponentProvider = ({ children }) => {
     setComponentVisible(!isComponentVisible);
   };
 
+  const componentVisibleFalse=()=>{
+    setComponentVisible(false);
+  }
+
   return (
-    <GlobalComponentContext.Provider value={{ isComponentVisible, toggleComponentVisibility }}>
+    <GlobalComponentContext.Provider value={{ isComponentVisible, toggleComponentVisibility, componentVisibleFalse }}>
       {children}
     </GlobalComponentContext.Provider>
   );
