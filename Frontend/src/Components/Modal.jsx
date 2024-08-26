@@ -14,8 +14,8 @@ function Modal() {
                     <input type="password" placeholder='enter your password' />
                     <input type="submit" value="login" />
                     <div>
-                        <p>forget password ?</p>
-                        <p>create account ?</p>
+                        <a href="./forget_password.html"><p>forget password ?</p></a>
+                        <a href="./create_account.html"><p>create account ?</p></a>
                     </div>
                 </Div>)}
         </wrapper>
@@ -23,12 +23,13 @@ function Modal() {
 }
 
 const Div = styled.div`
+    font-family: ${({ theme }) => theme.fontFamily.games};
     position: absolute;
     transform: translate(-50%,-50%);
     top: 50%;
     left: 50%;
-    width: 550px;
-    height: 500px;
+    width: 500px;
+    height: 450px;
     background-color: rgba(0,0,0,0.5);
     border: 2px solid;
     border-color: ${({ theme }) => theme.colors.logoBlue};
@@ -40,19 +41,25 @@ const Div = styled.div`
     font-size: 18px;
 
     img{
-    max-width: 80px;
+    max-width: 100px;
     }
 
     input{
         font-family: ${({ theme }) => theme.fontFamily.games};
-        width: 70%;
-        height: 70px;
+        width: 60%;
+        height: 55px;
         margin: 20px;
         text-align: center;
-        // font-size: 1.5em;
+        font-weight: bold;
+
+        &:focus{
+        outline:none;
+        border-bottom: 4px solid #FC0D50;
+        }
 
         &::placeholder{
-        font-size: 1.5em;
+        font-size: 1.2em;
+        opacity: 60%;
         }
     }
 
@@ -71,17 +78,24 @@ const Div = styled.div`
         font-family: ${({ theme }) => theme.fontFamily.games};
         background-color:${({ theme }) => theme.colors.logoBlue};
         color: ${({ theme }) => theme.colors.logoRed};
-        font-size: 28px;
+        font-size: 22px;
         font-weight: bold;
         border: none;
         border-bottom: 5px solid #FC0D50;
-        transition: 0.5s ease;
+        width: 150px;
+        border-radius: 10px;
+        transition: 0.5s ease;        
 
         &:hover{
         cursor: pointer;
         background-color:${({ theme }) => theme.colors.logoRed};
         color: ${({ theme }) => theme.colors.logoBlue};
         border-bottom: 5px solid #1092EA;                
+        }
+
+        &:focus{
+        transform: scale(1.1);
+        transition: transform 0.5s ease infinity;
         }
     }
     `

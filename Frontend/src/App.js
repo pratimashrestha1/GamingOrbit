@@ -10,6 +10,7 @@ import Aboutus from './Components/Aboutus';
 import Host from './Components/Host';
 import Error from './Components/Error';
 import { GlobalComponentProvider } from './GlobalComponentContext';
+import CreateAccount from "./Components/CreateAccount";
 
 
 function App() {
@@ -42,7 +43,8 @@ function App() {
             <Route path="/news" element={<News />} />
             <Route path="/topgames" element={<Topgames />} />
             <Route path="/about" element={<Aboutus />} />
-            <Route path="*" element={<Error />} />
+            <Route path="*" element={<Error />} />            
+            <Route path="/create_account" element={<CreateAccount />} />
 
           </Routes>
 
