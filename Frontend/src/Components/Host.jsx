@@ -3,7 +3,10 @@ import Modal from './Modal'
 
 function Host() {
   return (
+    <>
     <Modal/>
+    host
+    </>
   )
 }
 

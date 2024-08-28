@@ -31,12 +31,17 @@ font-family: ${({ theme }) => theme.fontFamily.games};
 background-color: #222;
 img{
   max-width: 200px;
-  // max-height: 100px;
   }
   .navs{
     text-decoration: none;
     color: #fff;
     font-size: 1.5em; 
+
+    &:hover{
+      color: ${({theme})=>theme.colors.logoBlue};
+      border-bottom: 2px solid #FC0D50;
+      transition: 0.3s ease;
+      }
   }
  
   ul{
@@ -48,12 +53,13 @@ img{
     margin: 0px;
     li{
       color: #fff;
-       list-style-type: none;
+      list-style-type: none;
       align-content: center;
     }
   }
 
-  .user{}
+
+
 `;
 
 export default Header;
