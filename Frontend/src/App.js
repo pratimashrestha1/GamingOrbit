@@ -2,15 +2,14 @@ import './App.css';
 import Header from './Components/Header';
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from './Components/Home';
-import News from './Components/News';
-import Topgames from './Components/Topgames';
-import Community from './Components/Community';
-import Aboutus from './Components/Aboutus';
-import Host from './Components/Host';
-import Error from './Components/Error';
+import Home from './Home';
+import News from './News';
+import Topgames from './Topgames';
+import Community from './Community';
+import Aboutus from './Aboutus';
+import Host from './Host';
+import Error from './Error';
 import { GlobalComponentProvider } from './GlobalComponentContext';
-import CreateAccount from "./Components/CreateAccount";
 
 
 function App() {
@@ -44,8 +43,6 @@ function App() {
             <Route path="/topgames" element={<Topgames />} />
             <Route path="/about" element={<Aboutus />} />
             <Route path="*" element={<Error />} />            
-            <Route path="/create_account" element={<CreateAccount />} />
-
           </Routes>
 
         </BrowserRouter>

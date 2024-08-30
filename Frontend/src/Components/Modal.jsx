@@ -6,7 +6,7 @@ function Modal() {
     const { isComponentVisible } = useGlobalComponent();
 
     return (
-        <wrapper>
+        <>
             {isComponentVisible && (
                 <Div>
                     <img src="./images/logo head.png" alt="" />
@@ -18,7 +18,7 @@ function Modal() {
                         <a href="./create_account.html"><p>create account ?</p></a>
                     </div>
                 </Div>)}
-        </wrapper>
+        </>
     )
 }
 
@@ -39,6 +39,7 @@ const Div = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 18px;
+    z-index: 1000;
 
     img{
     max-width: 100px;
