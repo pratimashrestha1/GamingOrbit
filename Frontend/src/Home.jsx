@@ -27,7 +27,7 @@ function Home() {
         <h1>Gaming Orbit</h1>
         <p>Lets <span>{pvalue}</span> together</p>
         <br/><br/>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad dignissimos sapiente similique rerum facilis. Non, blanditiis quidem? Qui commodi odio provident illum, dolores quidem reiciendis nobis. Doloribus sit quo similique?</p>
+        <p>Our aims is to help you increase your circle and make strong community based on common interest and boost your gaming capability.Let's share our gaming knowledge to form robust and unbeatable squad.</p>
         <Carousel data={slides} />
       </div>
     </Div>
