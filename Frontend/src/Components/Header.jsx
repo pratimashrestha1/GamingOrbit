@@ -12,10 +12,10 @@ const Header = () => {
       <div className="nav_menu">
         <ul>
           <li><NavLink onClick={componentVisibleFalse} to="/"><img src="./images/crop thikkako no bg.png" alt="logo" className="logo" /></NavLink></li>
-          <li><NavLink onClick={componentVisibleFalse} className="navs" to="/host">Host</NavLink></li>
-          <li><NavLink onClick={componentVisibleFalse} className="navs" to="/community">Community</NavLink></li>
           <li><NavLink onClick={componentVisibleFalse} className="navs" to="/news">News</NavLink></li>
+          <li><NavLink onClick={componentVisibleFalse} className="navs" to="/community">Community</NavLink></li>
           <li><NavLink onClick={componentVisibleFalse} className="navs" to="/topgames">Top games</NavLink></li>
+          <li><NavLink onClick={componentVisibleFalse} className="navs" to="/host">Host</NavLink></li>
           <li><NavLink onClick={componentVisibleFalse} className="navs" to="/about">About us</NavLink></li>
         </ul>
       </div>

@@ -3,7 +3,9 @@ import Modal from './Components/Modal'
 
 function Aboutus() {
   return (
-   <Modal/>
+    <>
+      <Modal />
+    </> 
   )
 }
 
