@@ -75,19 +75,19 @@ function Home() {
         {/* card line */}
         <div className="cards 1" onMouseOver={handleMouseOver1} onMouseOut={handleMouseOut}>
           <h2>Games News</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium ea quae accusamus sapiente minus praesentium placeat ullam minima, voluptates ipsam doloremque nisi rem cumque, possimus quas, doloribus cum esse atque!</p>
+          <p>To see the latest news and recent updates about games and different events like here.</p>
           </div>
         <div className="cards 2" onMouseOver={handleMouseOver2} onMouseOut={handleMouseOut}>
           <h2>Host Game</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium ea quae accusamus sapiente minus praesentium placeat ullam minima, voluptates ipsam doloremque nisi rem cumque, possimus quas, doloribus cum esse atque!</p>
+          <p>wanna host game or see stream of running game tournaments click here.</p>
           </div>
         <div className="cards 3" onMouseOver={handleMouseOver3} onMouseOut={handleMouseOut}>
           <h2>Communities</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium ea quae accusamus sapiente minus praesentium placeat ullam minima, voluptates ipsam doloremque nisi rem cumque, possimus quas, doloribus cum esse atque!</p>
+          <p>There are many communities, if you wanna join or create one click here.</p>
           </div>
         <div className="cards 4" onMouseOver={handleMouseOver4} onMouseOut={handleMouseOut}>
           <h2>Top Games</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium ea quae accusamus sapiente minus praesentium placeat ullam minima, voluptates ipsam doloremque nisi rem cumque, possimus quas, doloribus cum esse atque!</p>
+          <p>This year top games according to game rank association these games are included. Lets share your opinion and exchange review and recommendation. And report if any unsatisfied things about game is troubling you.</p>
         </div>
       </div>
 
@@ -153,10 +153,10 @@ font-family: ${({theme})=>theme.fontFamily.games};
   color: #fff;
   border-left: 2px solid #fff;
   text-align: center;
+  transition: transform 0.5s ease;
 
   &:hover{
   transform: translate(0,-30px);
-  transition: transform 0.5s ease-in-out;
   }
   }
 
