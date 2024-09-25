@@ -3,6 +3,7 @@ import Modal from './Components/Modal';
 import styled from 'styled-components';
 import { Carousel } from "./Components/Carousel";
 import carouselData from "./data/carouselData.json";
+import Footer from "./Components/Footer"
 
 function Home() {
   const [pvalue, setPvalue] = useState('Connect');
@@ -75,7 +76,7 @@ function Home() {
         {/* card line */}
         <div className="cards 1" onMouseOver={handleMouseOver1} onMouseOut={handleMouseOut}>
           <h2>Games News</h2>
-          <p>To see the latest news and recent updates about games and different events like here.</p>
+          <p>To see the latest news and recent updates about games and different events click here.</p>
           </div>
         <div className="cards 2" onMouseOver={handleMouseOver2} onMouseOut={handleMouseOut}>
           <h2>Host Game</h2>
@@ -91,9 +92,9 @@ function Home() {
         </div>
       </div>
 
-
-
+      <Footer/>
     </Div>
+
   );
 }
 
@@ -166,6 +167,7 @@ font-family: ${({theme})=>theme.fontFamily.games};
   }
     // news section end here
     }
+
 `;
 
 export default Home;
