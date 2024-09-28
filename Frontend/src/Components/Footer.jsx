@@ -67,7 +67,16 @@ width: 200px;
 li{
 list-style-type: none;
 cursor: pointer;
+transition: transform 0.5s ease,font-weight 0.5s ease;
+
+&:hover{
+    transform: translatey(-3px);
+    font-weight: bold;
 }
+}
+
+ul li:nth-child(1):hover{transform: none;
+    font-weight: regular;}
 
 h3{
 cursor: default;
@@ -92,18 +101,20 @@ display: flex;
 .icon{
 flex-wrap: wrap-reverse;
 font-size: 2em;
-margin: 4px;
+margin: 5px;
 color:#FC0D50;
+transition: all 0.5s ease;
 
 &:hover{
 color: #1092EA;
 cursor: pointer;
+transform: scale(1.5);
 }
 }
 
 p{
 text-align: center;
 color: #fff;
-margin: 0;
+margin-bottom: 30px;
 }
 `
