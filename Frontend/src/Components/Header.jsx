@@ -33,6 +33,7 @@ font-family: ${({ theme }) => theme.fontFamily.games};
 background-color: #222;
 display:flex;
 justify-content: space-between;
+box-shadow: 0 10px 15px rgba(80, 15, 20, 1); 
 
 img{
   max-width: 150px;

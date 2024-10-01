@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 import Header from './Components/Header';
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -24,7 +24,8 @@ function App() {
     },
     fontFamily: { all: "Ubuntu,Kanit,sans-serif;",
       games: "Space Grotesk, sans-serif;", 
-      pratimaKoChoice: "Montserrat Bold"
+      pratimaKoChoice: "Montserrat Bold",
+      dot: "DotGothic16, sans-serif"
      },
 
     media: { mobile: "768px", tab: "998px" },
