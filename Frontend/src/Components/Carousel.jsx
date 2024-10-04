@@ -16,7 +16,10 @@ export const Carousel = ({ data, interval = 3000 }) => {
 
   return (
     <div className="carousel">
-      <div className="carousel-inner" style={{ transform: `translateX(-${slide * 100}%)` }}>
+      <div
+        className="carousel-inner"
+        style={{ transform: `translateX(-${slide * 100}%)` }}
+      >
         {data.map((item, idx) => (
           <div className="carousel-item" key={idx}>
             <img src={item.src} alt={item.alt} className="slide" />
@@ -27,7 +30,9 @@ export const Carousel = ({ data, interval = 3000 }) => {
         {data.map((_, idx) => (
           <button
             key={idx}
-            className={slide === idx ? "indicator" : "indicator indicator-inactive"}
+            className={
+              slide === idx ? "indicator" : "indicator indicator-inactive"
+            }
             onClick={() => setSlide(idx)}
           ></button>
         ))}
