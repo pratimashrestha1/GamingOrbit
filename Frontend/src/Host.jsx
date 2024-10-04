@@ -7,7 +7,10 @@ function Host() {
   return (
     <Div>
     <Modal/>
-    <Theme title="Host"/>
+    <Theme title="Host" 
+    image='./images/host.png'
+    description=' Create and host your own gaming tournaments or events. Set the rules, invite participants, and manage competitions with ease, all while broadcasting live gameplay for others to watch.'
+    />
     </Div>
   )
 }

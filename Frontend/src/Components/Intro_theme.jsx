@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 function Intro_theme(props) {
     const [animate, setAnimate] = useState(false);
+    // const [width, setWidth]= useState('50px');
 
     useEffect(() => {
         // Trigger the animation on page load
@@ -18,9 +19,8 @@ function Intro_theme(props) {
             <div className="contents">
                 <h1>{props.title}</h1>
                 <div className="contents-items">
-                    <img src="./images/banner_img.png" alt="main pic" />
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
+                    <img src={props.image} width={props.width} alt="main pic" />                    
+                    <p>{props.description}</p>
                 </div>
             </div>
 
@@ -78,8 +78,7 @@ const Wrapper = styled.div`
             color: #e7f200;
             font-size: 5em;
             width: fit-content;
-            font-family: ${({ theme }) => theme.fontFamily.dot};
-            opacity: 0;
+            font-family: ${({ theme }) => theme.fontFamily.dot};            
             transform: translateX(-100%);
             animation: ${({ animate }) => (animate ? 'flyIn 1s forwards' : 'none')};
         }
@@ -90,13 +89,11 @@ const Wrapper = styled.div`
             opacity: 0;
             transform: translateX(-100%);
             animation: ${({ animate }) => (animate ? 'flyIn 1s forwards' : 'none')};
-            animation-delay: 0.3s;
-
-            img {
-                width: 40%;
-            }
+            animation-delay: 0.3s;    
+            margin: auto 0;
 
             p {
+                margin: 0;
                 text-align: justify;
                 color: #fff;
             }

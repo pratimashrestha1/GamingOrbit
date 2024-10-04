@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from './Components/Modal';
 import styled from 'styled-components';
 import { Carousel } from "./Components/Carousel";
@@ -8,10 +8,10 @@ import Footer from "./Components/Footer"
 function Home() {
   const [pvalue, setPvalue] = useState('Connect');
   const { slides } = carouselData;
-  const [addClass1,setAddClass1]=useState();
-  const [addClass2,setAddClass2]=useState();
-  const [addClass3,setAddClass3]=useState();
-  const [addClass4,setAddClass4]=useState();
+  const [addClass1, setAddClass1] = useState();
+  const [addClass2, setAddClass2] = useState();
+  const [addClass3, setAddClass3] = useState();
+  const [addClass4, setAddClass4] = useState();
 
   useEffect(() => {
     const values = ['Connect', 'Play', 'Stream'];
@@ -25,20 +25,20 @@ function Home() {
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
-  const handleMouseOver1=()=>{
+  const handleMouseOver1 = () => {
     setAddClass1(true);
   }
-  const handleMouseOver2=()=>{
+  const handleMouseOver2 = () => {
     setAddClass2(true);
   }
-  const handleMouseOver3=()=>{
+  const handleMouseOver3 = () => {
     setAddClass3(true);
   }
-  const handleMouseOver4=()=>{
+  const handleMouseOver4 = () => {
     setAddClass4(true);
   }
-  
-  const handleMouseOut=()=>{
+
+  const handleMouseOut = () => {
     setAddClass1(false);
     setAddClass2(false);
     setAddClass3(false);
@@ -57,49 +57,49 @@ function Home() {
         <Carousel data={slides} />
       </div>
 
-      {/* news section start */}
+      {/* cards section start */}
       <div className="news">
-        {/* logo line  */}      
-          <div className="img_container">
-            <img className={addClass1?'rotate':''} src="./images/gamenews.jpg" alt="game news" />
-          </div>
-          <div className="img_container">
-            <img className={addClass2?'rotate':''} src="./images/gamehost.jpg" alt="game host" />
-          </div>
-          <div className="img_container">
-            <img className={addClass3?'rotate':''} src="./images/gamecommuity.jpg" alt="game community" />
-          </div>
-          <div className="img_container">
-            <img className={addClass4?'rotate':''} src="./images/topgames.jpg" alt="top games" />
-          </div>
+        {/* logo line  */}
+        <div className="img_container">
+          <img className={addClass1 ? 'rotate' : ''} src="./images/gamenews.jpg" alt="game news" />
+        </div>
+        <div className="img_container">
+          <img className={addClass2 ? 'rotate' : ''} src="./images/gamehost.jpg" alt="game host" />
+        </div>
+        <div className="img_container">
+          <img className={addClass3 ? 'rotate' : ''} src="./images/gamecommuity.jpg" alt="game community" />
+        </div>
+        <div className="img_container">
+          <img className={addClass4 ? 'rotate' : ''} src="./images/topgames.jpg" alt="top games" />
+        </div>
 
         {/* card line */}
         <div className="cards 1" onMouseOver={handleMouseOver1} onMouseOut={handleMouseOut}>
           <h2>Games News</h2>
           <p>To see the latest news and recent updates about games and different events click here.</p>
-          </div>
+        </div>
         <div className="cards 2" onMouseOver={handleMouseOver2} onMouseOut={handleMouseOut}>
           <h2>Host Game</h2>
           <p>wanna host game or see stream of running game tournaments click here.</p>
-          </div>
+        </div>
         <div className="cards 3" onMouseOver={handleMouseOver3} onMouseOut={handleMouseOut}>
           <h2>Communities</h2>
           <p>There are many communities, if you wanna join or create one click here.</p>
-          </div>
+        </div>
         <div className="cards 4" onMouseOver={handleMouseOver4} onMouseOut={handleMouseOut}>
           <h2>Top Games</h2>
           <p>This year top games according to game rank association these games are included. Lets share your opinion and exchange review and recommendation. And report if any unsatisfied things about game is troubling you.</p>
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </Div>
 
   );
 }
 
 const Div = styled.div`
-font-family: ${({theme})=>theme.fontFamily.games};
+font-family: ${({ theme }) => theme.fontFamily.games};
   .main {
     width: 100vw;
     height: 100vh;
@@ -132,7 +132,7 @@ font-family: ${({theme})=>theme.fontFamily.games};
     }
   }
 
-  // news section section start
+  // cards section section start
   .news{
   height: 700px;
   display: grid;
@@ -165,8 +165,8 @@ font-family: ${({theme})=>theme.fontFamily.games};
   transform: rotate(360deg);
   transition: transform 0.5s ease;
   }
-    // news section end here
-    }
+  }
+  // news section end here
 
 `;
 
