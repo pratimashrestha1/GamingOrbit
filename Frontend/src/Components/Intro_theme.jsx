@@ -21,10 +21,10 @@ function Intro_theme(props) {
                 <div className="contents-items">
                     <img src={props.image} width={props.width} alt="main pic" />                    
                     <p>{props.description}</p>
-                </div>
+                </div>                
             </div>
 
-            <div className="dummy">
+            {/* <div className="dummy">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
             </div>
@@ -43,7 +43,7 @@ function Intro_theme(props) {
             <div className="dummy">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-            </div>
+            </div> */}
         </Wrapper>
     );
 }
