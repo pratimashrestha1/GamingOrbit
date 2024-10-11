@@ -12,9 +12,10 @@ function Community() {
         description='Join a vibrant community of gamers where you can connect, chat, and collaborate with others who share your passion for gaming. Build your profile, join forums, and participate in discussions about your favorite games.'
       />
 
+      {/* list of some popular communities */}
       <div className="communities">
         <h1>Wanna join community ?</h1>
-        <p>Here some popular brands</p><br/>
+        <p>Here some popular communites</p><br/>
         <div className="community-list">
           <div className="community-1">
             <img src="https://play-lh.googleusercontent.com/XCdNhduGkQeEET0kmAvCo9kCFRZhdmVtZ4doAO9kGzfmxV85gF_5j4phzedxc1lhvYc" alt=""/>
@@ -52,7 +53,30 @@ function Community() {
               <button>Join</button>
             </div>
           </div>
+          <div className="community-1">
+            <img src="https://t4.ftcdn.net/jpg/03/20/70/67/360_F_320706748_9EHt2oP8NgekFXsM3INJtN7HhdRHOTJN.jpg" alt=""/>
+            <div className="details">
+              <h2>Devil Wings</h2>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui culpa sed sequi corporis voluptas saepe id accusantium ipsum et vel doloremque esse inventore error adipisci eos, alias consequatur optio debitis!</p>
+              <button>Explore</button>
+              <button>Join</button>
+            </div>
+          </div>
+          <div className="community-1">
+            <img src="https://marketplace.canva.com/EAFQ-IQMSPw/1/0/1600w/canva-dog-gaming-logo-rTy2ycunlTo.jpg" alt=""/>
+            <div className="details">
+              <h2>Fauget Gaming Team</h2>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui culpa sed sequi corporis voluptas saepe id accusantium ipsum et vel doloremque esse inventore error adipisci eos, alias consequatur optio debitis!</p>
+              <button>Explore</button>
+              <button>Join</button>
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* create your own community */}
+      <div className="create-own-community">
+        <div className="create-box"></div>
       </div>
     </Div>
   )
@@ -68,7 +92,7 @@ h1{
 .communities{
   background-color: white;
   text-align: left;
-  height: 500px;
+  height: fit-content;
   p{text-align: center;
     font-style: italic;
     margin: 0;
@@ -102,7 +126,7 @@ h1{
     }
       img{
         width: 40%;
-        transition: all 0.5s ease-in;
+        transition: all 0.4s ease-in;
       }
 
     &:hover{       
@@ -133,6 +157,23 @@ h1{
   }
 }
 
+
+// create your own community
+.create-own-community{
+  margin-top: 50px;
+  width: 100vw;
+  height: 600px;
+  background-image: linear-gradient(to bottom right,#020f1f,#4d0702);
+  display: grid;
+
+  .create-box{
+    width: 50%;
+    height: 500px;
+    background-color: #fff;
+    margin: auto;
+
+  }
+}
 
 `
 
