@@ -2,6 +2,7 @@ import React from 'react'
 import Modal from './Components/Modal'
 import styled from 'styled-components'
 import Theme from './Components/Intro_theme'
+import Footer from './Components/Footer'
 
 function Community() {
   return (
@@ -15,10 +16,10 @@ function Community() {
       {/* list of some popular communities */}
       <div className="communities">
         <h1>Wanna join community ?</h1>
-        <p>Here some popular communites</p><br/>
+        <p>Here some popular communites</p><br />
         <div className="community-list">
           <div className="community-1">
-            <img src="https://play-lh.googleusercontent.com/XCdNhduGkQeEET0kmAvCo9kCFRZhdmVtZ4doAO9kGzfmxV85gF_5j4phzedxc1lhvYc" alt=""/>
+            <img src="https://img.freepik.com/premium-vector/elite-squad-editable-text-effect-template_489997-2420.jpg" alt="" />
             <div className="details">
               <h2>Elite Squad</h2>
               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui culpa sed sequi corporis voluptas saepe id accusantium ipsum et vel doloremque esse inventore error adipisci eos, alias consequatur optio debitis!</p>
@@ -36,7 +37,7 @@ function Community() {
             </div>
           </div>
           <div className="community-1">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ_3-IBq9D0_UzhFSC-58VpJMvwYCCt5D1G-geiRXM0cEzIyAEbNxMcEhszw7Se8vqrdM&usqp=CAU" alt=""/>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ_3-IBq9D0_UzhFSC-58VpJMvwYCCt5D1G-geiRXM0cEzIyAEbNxMcEhszw7Se8vqrdM&usqp=CAU" alt="" />
             <div className="details">
               <h2>Team Dragon</h2>
               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui culpa sed sequi corporis voluptas saepe id accusantium ipsum et vel doloremque esse inventore error adipisci eos, alias consequatur optio debitis!</p>
@@ -45,7 +46,7 @@ function Community() {
             </div>
           </div>
           <div className="community-1">
-            <img src="https://img0-placeit-net.s3-accelerate.amazonaws.com/uploads/stage/stage_image/74408/optimized_product_thumb_stage.jpg" alt=""/>
+            <img src="https://img0-placeit-net.s3-accelerate.amazonaws.com/uploads/stage/stage_image/74408/optimized_product_thumb_stage.jpg" alt="" />
             <div className="details">
               <h2>Simulator Gaming</h2>
               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui culpa sed sequi corporis voluptas saepe id accusantium ipsum et vel doloremque esse inventore error adipisci eos, alias consequatur optio debitis!</p>
@@ -54,7 +55,7 @@ function Community() {
             </div>
           </div>
           <div className="community-1">
-            <img src="https://t4.ftcdn.net/jpg/03/20/70/67/360_F_320706748_9EHt2oP8NgekFXsM3INJtN7HhdRHOTJN.jpg" alt=""/>
+            <img src="https://t4.ftcdn.net/jpg/03/20/70/67/360_F_320706748_9EHt2oP8NgekFXsM3INJtN7HhdRHOTJN.jpg" alt="" />
             <div className="details">
               <h2>Devil Wings</h2>
               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui culpa sed sequi corporis voluptas saepe id accusantium ipsum et vel doloremque esse inventore error adipisci eos, alias consequatur optio debitis!</p>
@@ -63,7 +64,7 @@ function Community() {
             </div>
           </div>
           <div className="community-1">
-            <img src="https://marketplace.canva.com/EAFQ-IQMSPw/1/0/1600w/canva-dog-gaming-logo-rTy2ycunlTo.jpg" alt=""/>
+            <img src="https://marketplace.canva.com/EAFQ-IQMSPw/1/0/1600w/canva-dog-gaming-logo-rTy2ycunlTo.jpg" alt="" />
             <div className="details">
               <h2>Fauget Gaming Team</h2>
               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui culpa sed sequi corporis voluptas saepe id accusantium ipsum et vel doloremque esse inventore error adipisci eos, alias consequatur optio debitis!</p>
@@ -75,9 +76,29 @@ function Community() {
       </div>
 
       {/* create your own community */}
-      <div className="create-own-community">
-        <div className="create-box"></div>
+      <div className="community-creation">
+        <div class="create-form">
+          <form action="/upload" method="POST" enctype="multipart/form-data">
+            <h1>Make your own community !</h1>
+            <input type="text" placeholder='Name of your community' />
+            <input type="text" placeholder='description' />
+            <input type="text" placeholder='location' />
+            <input type="text" placeholder='game precedence eg:freefire, fortnite, coc, metal gun' />
+            <label for="privacy">Privacy setting:</label>
+            <select name="privacy">
+              <option value="anyone">Anyone can join</option>
+              <option value="invite">Invite only</option>
+            </select><br /><br />
+            <label for="file-upload" class="custom-file-upload">
+              Attach your profile
+            </label><br /><br />
+            <input id="file-upload" type="file" name="image" accept="image/*" />
+            <button type="submit">Submit</button>          </form>
+        </div>
+        <img src="./images/purpleman.png" alt="" />
       </div>
+
+      <Footer />
     </Div>
   )
 }
@@ -158,23 +179,93 @@ h1{
 }
 
 
-// create your own community
-.create-own-community{
-  margin-top: 50px;
+// create your own community*****************************
+.community-creation{
   width: 100vw;
-  height: 600px;
+  height: 500px;
   background-image: linear-gradient(to bottom right,#020f1f,#4d0702);
-  display: grid;
+  background-size: cover;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
 
-  .create-box{
+  .create-form{
+    color: #fff;
     width: 50%;
-    height: 500px;
-    background-color: #fff;
-    margin: auto;
+    height: 100%;
+    display: grid;
+    
+    form{
+    margin:0 auto;
+
+    button{
+      margin-left: 120px;
+    }
+    }
+
+    h1{
+      // text-align: center;
+      margin: 20px 0 20px 0; 
+    }
+    
+    input{
+      display: block;
+      width: 80%;
+      margin: 20px 0;     
+      background: transparent;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      color: #fff;
+      height: 2em;
+      text-align: center;
+      &::placeholder{
+        text-align: center;
+      }
+    }
+    
+    select{
+      background: transparent;
+      color: #fff;
+      border-radius: 4px;
+      width: 200px;
+      margin-left: 20px;
+    }
+    
+    button{
+      background: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      padding: 5px 10px;
+    }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    display: inline-block;
+    padding: 5px 12px;
+    cursor: pointer;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 4px;
+    margin-left: 80px;
+  }
+
+  .custom-file-upload:hover {
+    background-color: #0056b3;
+  }
 
   }
-}
 
+  img{
+    height: 400px;
+    margin: auto;
+    filter: drop-shadow(0px 30px 20px rgba(255,255,255,0.5));
+  }
+}
 `
 
 export default Community;
