@@ -22,32 +22,33 @@ function App() {
       logoRed: "#FC0D50",
       logoBlue: "#1092EA"
     },
-    fontFamily: { all: "Ubuntu,Kanit,sans-serif;",
-      games: "Space Grotesk, sans-serif;", 
+    fontFamily: {
+      all: "Ubuntu,Kanit,sans-serif;",
+      games: "Space Grotesk, sans-serif;",
       pratimaKoChoice: "Montserrat Bold",
-      dot: "DotGothic16, sans-serif"
-     },
-
+      dot: "DotGothic16, sans-serif",
+      rank: "Londrina Sketch, sans-serif"
+    },
     media: { mobile: "768px", tab: "998px" },
-  };
+  }
   return (
     <ThemeProvider theme={theme}>
       <GlobalComponentProvider>
-      <div>
-      <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/host" element={<Host />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/topgames" element={<Topgames />} />
-            <Route path="/about" element={<Aboutus />} />
-            <Route path="*" element={<Error />} />            
-          </Routes>
+        <div>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/host" element={<Host />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/topgames" element={<Topgames />} />
+              <Route path="/about" element={<Aboutus />} />
+              <Route path="*" element={<Error />} />
+            </Routes>
 
-        </BrowserRouter>
-      </div>
+          </BrowserRouter>
+        </div>
       </GlobalComponentProvider>
     </ThemeProvider>
   );
