@@ -4,10 +4,11 @@ import Theme from './Components/Intro_theme'
 import styled from 'styled-components'
 import LikeCounter from './Components/Like_counter'
 import { FaTrophy } from "react-icons/fa6";
+import Footer from './Components/Footer'
 
 function Topgames() {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch data from JSONPlaceholder API
@@ -15,14 +16,15 @@ function Topgames() {
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);  // Set the posts in state
-        setLoading(false);  // Set loading to false
+        // setLoading(false);  // Set loading to false
       })
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
-  if (loading) {
-    return <p>Loading posts...</p>;
-  }
+  // Early return for loading state
+  // if (loading) {
+  //   return <p>Loading posts...</p>;
+  // }
 
   return (
     <Div>
@@ -55,11 +57,13 @@ function Topgames() {
               </li>
             ))}
           </ul>
+          <textarea placeholder="write a review"></textarea>
+          <input type="submit" value="submit" />
         </div>
       </div>
 
       {/* leaderboard */}
-      <div className="game-list">
+      <div className="game-list" >
         <div className="game-item-1">
           <FaTrophy className='trophy-icon' />
           <p>leaderboard</p>
@@ -135,11 +139,14 @@ function Topgames() {
           <div className="right"><p>10</p></div>
         </div>
       </div>
+      
+      <Footer />
     </Div>
   )
 }
 
 export default Topgames
+
 
 const Div = styled.div`
 font-family: ${({ theme }) => theme.fontFamily.games};
@@ -180,6 +187,27 @@ font-family: ${({ theme }) => theme.fontFamily.games};
       ul li h4{
         margin-bottom: -1em;
       }
+    
+    textarea{
+      width: 20vw;
+      height: 10vh;
+      margin-left: 3em;
+    }
+    
+    input[type='submit']{
+      background: transparent;
+      border: 1px solid black;
+      border-radius: 4px;
+      padding: 5px;
+      outline: none;
+      margin: 1em;
+      transition: all 0.5s ease;
+
+      &:hover{
+        translate: 0 -5px;
+        box-shadow: 0 5px 2px #000;
+      }
+    }
   }
 }
 
@@ -188,8 +216,9 @@ font-family: ${({ theme }) => theme.fontFamily.games};
 .game-list::before{
   content:'leaderboard';
   text-align: center;
-  font-size: 5em;
+  font-size: 6em;
   font-weight: bold;
+  color: #fff;
   position: absolute;
   rotate: -30deg;
   top: 300px;
@@ -213,29 +242,35 @@ position: relative;
     border-radius: 0 20px 0 20px;
     background: rgb(50,64,73);
     color: #fff;
-    font-size: 0.8em;
+    font-size: 1em;
     display: flex;
     justify-content: center;
     align-items: center;
     gap:  1em;
+
     .trophy-icon{
-      font-size: 6em;
+      font-size: 3em;
     }
   }
   
   .game-item{   
     background: rgba(0, 0, 0, 0.28);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6.7px);
     border: 1px solid rgba(255, 255, 255, 0.37);
     margin: auto;
     width: 65%;
-    height: 80px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     transform: skew(-15deg, 0);
     overflow: hidden;
     border-radius: 0 20px 0 20px;
+    transition: all 0.5s ease;
+
+    &:hover{
+      scale: 1.1 1.4;
+      translate: 0px -10px;   
+    }
     
     .left{
       img{
@@ -254,13 +289,13 @@ position: relative;
 
     h2{
       margin: 0;
-      font-size: 2em;
+      font-size: 1.5em;
       color: #fff;
       }
       p{
         margin: 0;
         text-align: center;
-        font-size: 5em;
+        font-size: 3em;
         font-family: ${({ theme }) => theme.fontFamily.rank};   
         color: #fff;     
       }

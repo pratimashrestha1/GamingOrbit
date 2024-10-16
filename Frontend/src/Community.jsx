@@ -93,7 +93,8 @@ function Community() {
               Attach your profile
             </label><br /><br />
             <input id="file-upload" type="file" name="image" accept="image/*" />
-            <button type="submit">Submit</button>          </form>
+            <button type="submit">Submit</button>
+          </form>
         </div>
         <img src="./images/purpleman.png" alt="" />
       </div>
@@ -200,6 +201,11 @@ h1{
 
     button{
       margin-left: 120px;
+
+      &:hover{
+        box-shadow: 0 5px 2px #fff;
+        translate: 0 -5px;
+      }
     }
     }
 
