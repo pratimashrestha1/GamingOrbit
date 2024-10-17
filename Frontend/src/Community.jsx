@@ -201,6 +201,7 @@ h1{
 
     button{
       margin-left: 120px;
+      transition: all 0.5s ease;
 
       &:hover{
         box-shadow: 0 5px 2px #fff;
