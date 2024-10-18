@@ -2,6 +2,7 @@ import React from 'react'
 import Modal from './Components/Modal'
 import styled from 'styled-components'
 import Theme from './Components/Intro_theme'
+import Footer from './Components/Footer'
 
 function Host() {
   return (
@@ -14,7 +15,7 @@ function Host() {
 
       <div className="options">
         <div className="create-tournament">
-          <img src="./images/tournament.gif" alt="" />
+          <img src="./images/tournament1.gif" alt="" />
           <h2>create tournament</h2>
           <p>To create tournament and generate bracket</p>
         </div>
@@ -26,7 +27,7 @@ function Host() {
         </div>
 
         <div className="live stream">
-          <img src="./images/streaming.gif" alt="" />
+          <img src="./images/streaming1.gif" alt="" />
           <h2>Make live stream</h2>
           <p>stream your live gameplay, share and connect your tactics.</p>
         </div>
@@ -38,13 +39,15 @@ function Host() {
         </div>
       </div>
 
+      <Footer/>
     </Div>
   )
 }
 
 const Div = styled.div`
+font-family: ${({theme})=>theme.fontFamily.host};
 .options{
-  background: #2874ed;
+  backdrop-filter: blur(10px);
   justify-content: space-around;
   display: flex;
   
@@ -53,7 +56,14 @@ const Div = styled.div`
     border: 2px solid rgba(200,200,200,0.3);
     max-width: 20%;
     border-radius: 4px;
-    background: white;
+    background: #fff;
+    transition: all 0.3s ease;
+
+    &:hover{
+      translate: 0 -5px;
+      box-shadow: 0 8px 2px #000;
+    }
+
     img{
       width: 200px;
       display: block;

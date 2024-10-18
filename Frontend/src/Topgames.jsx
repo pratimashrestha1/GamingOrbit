@@ -228,7 +228,8 @@ font-family: ${({ theme }) => theme.fontFamily.games};
 position: relative;
   margin-top: 50px;
   display: grid;
-  background-image: url('./images/Bright Blue Purple Gradient Color and Style Video Background.jpg');
+  // background-image: url('./images/Bright Blue Purple Gradient Color and Style Video Background.jpg');
+  background: ${({theme})=>theme.colors.gradient};
   // background-size: cover;
   padding: 50px 0;
 
@@ -240,7 +241,7 @@ position: relative;
     transform: skew(-15deg, 0);
     overflow: hidden;
     border-radius: 0 20px 0 20px;
-    background: rgb(50,64,73);
+    background: rgb(150,164,173);
     color: #fff;
     font-size: 1em;
     display: flex;

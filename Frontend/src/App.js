@@ -27,7 +27,8 @@ function App() {
       games: "Space Grotesk, sans-serif;",
       pratimaKoChoice: "Montserrat Bold",
       dot: "DotGothic16, sans-serif",
-      rank: "Londrina Sketch, sans-serif"
+      rank: "Londrina Sketch, sans-serif",
+      host: "Quicksand, sans-serif"
     },
     media: { mobile: "768px", tab: "998px" },
   }
