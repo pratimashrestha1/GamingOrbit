@@ -16,7 +16,7 @@ function App() {
   const theme = {
     colors: {
       white: "#ddd",
-      footer: "#222",
+      footer: "#490f10",
       button: "rgb(43, 139, 213)",
       gradient: "linear-gradient(to right, #000033 , #330000)",
       logoRed: "#FC0D50",

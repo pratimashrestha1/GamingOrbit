@@ -2,6 +2,7 @@ import React from 'react'
 import Modal from './Components/Modal'
 import styled from 'styled-components'
 import Theme from './Components/Intro_theme'
+import Footer from './Components/Footer'
 
 function Aboutus() {
   return (
@@ -36,6 +37,7 @@ function Aboutus() {
           </div>
         </div>
       </div>
+      <Footer/>
     </Div>
   )
 }
@@ -45,7 +47,7 @@ export default Aboutus
 const Div = styled.div`
 font-family: ${({ theme }) => theme.fontFamily.games};
 .profile{
-  background: linear-gradient(#bcd6d4 70%,rgb(158,147,119) 30%);
+  background: linear-gradient(#bcd6d4 70%,#490f10 30%);
   padding-bottom: 50px;
 
 .top{
@@ -80,7 +82,7 @@ font-family: ${({ theme }) => theme.fontFamily.games};
       background: white;
 
       p:first-of-type{
-        background: #d10d44;
+        background: ${({theme})=>theme.colors.gradient};
         padding: 5px;
         border-radius: 20px;   
         margin-top: -15px;
