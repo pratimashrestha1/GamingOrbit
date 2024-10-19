@@ -10,6 +10,7 @@ import Aboutus from './Aboutus';
 import Host from './Host';
 import Error from './Error';
 import { GlobalComponentProvider } from './GlobalComponentContext';
+import GoToTop from './Components/GoToTop';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
             </Routes>
 
           </BrowserRouter>
+          <GoToTop/>
         </div>
       </GlobalComponentProvider>
     </ThemeProvider>
