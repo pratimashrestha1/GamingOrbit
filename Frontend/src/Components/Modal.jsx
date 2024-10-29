@@ -1,28 +1,81 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { useGlobalComponent } from '../GlobalComponentContext';
+import axios from 'axios';
 
 function Modal() {
     const { isComponentVisible } = useGlobalComponent();
+    const [formData, setFormData] = useState({
+        username: '',
+        password: ''
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // Axios POST request to new API endpoint
+        axios.post('http://localhost:4000/postData/sent', formData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            if (response.status === 201) {
+                alert('Form submitted successfully');
+            } else {
+                alert('Error submitting form');
+            }
+        })
+        .catch((error) => {
+            alert('Error submitting form');
+            console.error("Error:", error);
+        });
+    };
 
     return (
         <>
             {isComponentVisible && (
                 <Div>
-                    <img src="./images/logo head.png" alt="" />
-                    <input type="text" placeholder='enter your username' />
-                    <input type="password" placeholder='enter your password' />
-                    <input type="submit" value="login" />
-                    <div>
-                        <a href="./forget_password.html"><p>forget password ?</p></a>
-                        <a href="./create_account.html"><p>create account ?</p></a>
-                    </div>
-                </Div>)}
+                    <form onSubmit={handleSubmit}>
+                        <img src="./images/logo head.png" alt="Logo" />
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="Enter your username"
+                            value={formData.username}
+                            onChange={handleChange}
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                        <input type="submit" value="Login" />
+                        <div>
+                            <a href="./create_account.html"><p>Create Account</p></a>
+                            <a href="./forget_password.html"><p>Forgot password?</p></a>
+                        </div>
+                    </form>
+                </Div>
+            )}
         </>
-    )
+    );
 }
 
+export default Modal;
+
+
 const Div = styled.div`
+form{
     font-family: ${({ theme }) => theme.fontFamily.games};
     position: absolute;
     transform: translate(-50%,-50%);
@@ -99,5 +152,5 @@ const Div = styled.div`
         transition: transform 0.5s ease infinity;
         }
     }
+}
     `
-export default Modal
