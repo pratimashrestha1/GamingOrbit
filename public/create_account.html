@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* Background and general styles */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #4b0d0d, #8a1c1c);
+      font-family: Arial, sans-serif;
+      color: #f4f4f4;
+    }
+
+    /* Form container */
+    form {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Label styles */
+    label {
+      font-size: 1.1em;
+      display: block;
+      color: #ffcccc;
+      text-align: left;
+      margin-bottom: 8px;
+    }
+
+    /* Input styles */
+    input[type="email"],
+    input[type="text"],
+    input[type="password"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 20px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      background-color: #f8f8f8;
+      color: #4b0d0d;
+      box-sizing: border-box;
+    }
+
+    /* Button styles */
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      background: linear-gradient(135deg, #8a1c1c, #ff3333);
+      color: #f4f4f4;
+      font-size: 1em;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #ff3333, #8a1c1c);
+    }
+  </style>
+</head>
+
+<body>
+  <form>
+    <label>Email:
+      <input type="email" name="email" id="email" required>
+    </label>
+    <button onclick="requestOtp()" type="button">Request OTP</button>
+    <label>OTP:
+      <input id="otp" name="otp" required>
+    </label>
+    <button type="button" onclick="verifyOtp()">Verify OTP</button>
+  </form>
+
+  <script>
+    async function requestOtp() {
+      const email = document.getElementById('email').value;
+
+      try {
+        const response = await fetch('http://localhost:4000/postData/sentOtp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email }) //sent otp in json format 
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message || 'OTP sent successfully');
+        } else {
+          alert(result.error || 'Error sending OTP');
+        }
+      }
+      catch (error) {
+        console.error('Error: ', error);
+        alert('could not connect to the server.');
+      }
+    }
+
+    async function verifyOtp() {
+      const email = document.getElementById('email').value;
+      const otp = document.getElementById('otp').value;
+
+      try {
+        const response = await fetch('http://localhost:4000/postData/verifyOtp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, otp })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          // alert(result.message || 'OTP verified successfully');
+          // Redirect to form.html with email as a query parameter
+          window.location.href = `http://localhost:4000/form.html?email=${encodeURIComponent(email)}`;
+        } else {
+          alert(result.error || 'Invalid OTP');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Could not connect to the server.');
+      }
+    }
+  </script>
+
+</body>
+
+</html>
