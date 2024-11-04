@@ -100,9 +100,10 @@ form{
         right: 1em;
         border: 1px solid white;
         border-radius: 50%;
-        padding: 3px;
-        box-shadow: 2px 2px 5px white;
+        padding: 0 3px;
+        box-shadow: 0 0 10px 1px white;
         cursor: pointer;
+        font-weight: bold;
     }
 
     img{

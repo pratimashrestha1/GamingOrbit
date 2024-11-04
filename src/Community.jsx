@@ -78,12 +78,12 @@ function Community() {
       {/* create your own community */}
       <div className="community-creation">
         <div class="create-form">
-          <form action="/upload" method="POST" enctype="multipart/form-data">
+          <form action="http://localhost:4000/postData/communityCreate" method="POST">
             <h1>Make your own community !</h1>
-            <input type="text" placeholder='Name of your community' />
-            <input type="text" placeholder='description' />
-            <input type="text" placeholder='location' />
-            <input type="text" placeholder='game precedence eg:freefire, fortnite, coc, metal gun' />
+            <input type="text" placeholder='Name of your community' name="cn" />
+            <input type="text" placeholder='description' name="description" />
+            <input type="text" placeholder='location' name="location" />
+            <input type="text" placeholder='game precedence eg:freefire, fortnite, coc, metal gun' name="gameTypes" />
             <label for="privacy">Privacy setting:</label>
             <select name="privacy">
               <option value="anyone">Anyone can join</option>
