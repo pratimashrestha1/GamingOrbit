@@ -1,26 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useGlobalComponent } from '../GlobalComponentContext';
 
 function Modal() {
     const { isComponentVisible } = useGlobalComponent();
-    
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const { toggleComponentVisibility} = useGlobalComponent();
+
+
+    const handleLogin = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:4000/postData/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Store the username in localStorage
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('profile', data.photo);
+                alert('login successful');
+            }
+            else{
+                alert('invalid username and password');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     return (
         <>
             {isComponentVisible && (
                 <Div>
-                    <form>
+                    <form onSubmit={handleLogin}>            
+                        <p className='close' onClick={toggleComponentVisibility}>X</p>
                         <img src="./images/logo head.png" alt="Logo" />
                         <input
                             type="text"
                             name="username"
                             placeholder="Enter your username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <input
                             type="password"
                             name="password"
                             placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <input type="submit" value="Login" />
                         <div>
@@ -56,6 +92,18 @@ form{
     align-items: center;
     font-size: 18px;
     z-index: 1000;
+
+    .close{
+        color: white;
+        position: absolute;
+        top: 5px;
+        right: 1em;
+        border: 1px solid white;
+        border-radius: 50%;
+        padding: 3px;
+        box-shadow: 2px 2px 5px white;
+        cursor: pointer;
+    }
 
     img{
     max-width: 100px;
@@ -116,4 +164,4 @@ form{
         }
     }
 }
-    `
+`

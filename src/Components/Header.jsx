@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { FaUserCircle } from "react-icons/fa";
 import { useGlobalComponent } from '../GlobalComponentContext';
 
 const Header = () => {
   const { toggleComponentVisibility, componentVisibleFalse } = useGlobalComponent();
+  const username = localStorage.getItem('username');
+  const profile = localStorage.getItem('profile');
 
   return (
     <MainHeader>
@@ -20,7 +21,14 @@ const Header = () => {
         </ul>
       </div>
       <div className="nav_logo">
-        <FaUserCircle className="user_logo" onClick={toggleComponentVisibility} size={30} />
+        <p>{username}</p>
+        <img
+          src={`http://localhost:4000/${profile}`}
+          className="user_logo"
+          alt="profile"
+          onClick={toggleComponentVisibility}
+        />
+
       </div>
     </MainHeader>
     //Above is the header of logo.
@@ -64,13 +72,20 @@ ul{
 }
 }
 
-.nav_logo{
+.nav_logo{  
   display: flex;
   align-items: center;
-.user_logo{
+  gap: 10px;
+
+  p{
+  color: white;
+  }
+  .user_logo{
   color: #fff;
-  padding-right: 15px;
-}
+  width: 50px;
+  padding: 15px;
+  border-radius: 50%;
+    }
 }
 `;
 
