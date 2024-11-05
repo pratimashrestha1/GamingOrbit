@@ -25,7 +25,7 @@ function Community() {
 
             <input type="text" placeholder="Name of your community" name="cn" />
 
-            <input type="text" placeholder="Description" name="description" />
+            <textarea placeholder="Description" name="description" />
 
             <input type="text" placeholder="Location" name="location" />
 
@@ -58,6 +58,7 @@ const Div = styled.div`
 
 // create your own community*****************************
 .community-creation{
+  font-family: ${({theme})=>theme.fontFamily.games};
   width: 100vw;
   height: 500px;
   background-image: linear-gradient(to bottom right,#020f1f,#4d0702);
@@ -91,6 +92,26 @@ const Div = styled.div`
       margin: 20px 0 20px 0; 
     }
     
+    textarea{
+      display: block;
+      width: 80%;
+      margin: 20px 0;     
+      background: transparent;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      color: #fff;
+      height: 4em;
+      text-align: center;
+      &::placeholder{
+        text-align: center;
+        font-family: ${({theme})=>theme.fontFamily.games};
+      }
+        &:focus{
+        background: rgba(77,21,45,0.7);
+        outline: none;
+      }
+    }
+    
     input{
       display: block;
       width: 80%;
@@ -103,6 +124,12 @@ const Div = styled.div`
       text-align: center;
       &::placeholder{
         text-align: center;
+        font-family: ${({theme})=>theme.fontFamily.games};
+      }
+      
+      &:focus{
+        background: rgba(77,21,45,0.7);
+        outline: none;
       }
     }
     

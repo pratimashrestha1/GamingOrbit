@@ -3,6 +3,7 @@ import Modal from './Components/Modal'
 import styled from 'styled-components'
 import Theme from './Components/Intro_theme'
 import Footer from './Components/Footer'
+import ContactUs from './Components/ContactUs'
 
 function Aboutus() {
   return (
@@ -22,21 +23,24 @@ function Aboutus() {
         <div className="bottom">
           <div className="img1">
             <img src="./images/roman.png" alt="" />
-            <p>Roman <br/>Gautam</p>
+            <p>Roman Gautam<br/><span>romangautam71399@gmail.com</span></p>
             <p className='position'>Frontend developer</p>
           </div>
           <div className="img2">
             <img src="./images/pratima.png" alt="" />
-            <p>Pratima<br/>Shrestha</p>
+            <p>Pratima Shrestha<br/><span>crexthapratima111@gmail.com</span></p>
             <p className='position'>Backend developer</p>
           </div>
           <div className="img3">
             <img src="./images/pratyush.png" alt="" />
-            <p>Pratyush <br/>Pokharel</p>
+            <p>Pratyush Pokharel<br/><span>pokharelpratyush620@gmail.com</span></p>
             <p className='position'>UI/UX designer</p>
           </div>
         </div>
       </div>
+
+      <ContactUs/>
+
       <Footer/>
     </Div>
   )
@@ -98,6 +102,8 @@ font-family: ${({ theme }) => theme.fontFamily.games};
       p{
         text-align: center;
         margin: 0;
+
+        span{font-size: 14px;}
       }
     }
 
