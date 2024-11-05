@@ -1,0 +1,148 @@
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+function CommunityList() {
+    const [communities, setCommunities] = useState([]);
+
+    useEffect(() => {
+        // Fetch data from API
+        const fetchCommunities = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/postData/topCommunities');
+                const data = await response.json();
+                setCommunities(data);
+            } catch (error) {
+                console.error("Error fetching communities:", error);
+            }
+        };
+
+        fetchCommunities();
+    }, []);
+
+    return (
+        <Div className="community-list">
+            <h1>Wanna join a community?</h1>
+            <p>Here are some popular communities</p>
+            <div className="community-grid">
+                {communities.map((community) => (
+                    <div className="community-1" key={community._id}>
+                        <img src={`http://localhost:4000/${community.photo}`} alt={community.cn} />
+                        <div className="details">
+                            <h2>{community.cn}</h2>
+                            <p>{community.description}</p>
+                            <div className="button-container">
+                                <button>Explore</button>
+                                <button>Join</button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </Div>
+    );
+}
+
+export default CommunityList;
+
+const Div = styled.div`
+    background: white;
+    padding: 0 50px;
+
+  h1 {
+    text-align: center; /* Center the heading */
+    margin: 1em 0;
+  }
+
+  p {
+    text-align: center; /* Center the subheading */
+    margin-bottom: 2em;
+  }
+
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Adjust as needed */
+    gap: 2em;
+  }
+
+  .community-1 {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #2b2d42;
+    height: auto;
+
+    img {
+      width: 40%;
+      border-radius: 10px 0 0 10px;
+      transition: all 0.4s ease-in;
+    }
+
+    .details {
+      flex-grow: 1; /* Allow details to grow and fill space */
+      display: flex;
+      flex-direction: column; /* Stack children vertically */
+      justify-content: space-between; /* Space children evenly */
+      padding: 1em; /* Add padding for spacing */
+      color: #fff;
+      background-color: #2b2d42;
+      transition: all 0.5s ease-in;
+
+      h2 {
+        margin: 0;
+      }
+
+      p {
+        text-align: left;
+        margin: 0;
+
+        &::first-letter {
+          font-size: 2em;
+          color: #ff5c5c;
+        }
+      }
+
+      .button-container {
+        margin-top: auto; /* Push buttons to the bottom */
+        display: flex;
+        gap: 10px; /* Space between buttons */
+      }
+    }
+
+    &:hover .details {
+      box-shadow: inset 600px 0 50px #8d99ae;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+      box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    button {
+      text-decoration: none;
+      background-color: #4caf50; /* Green background */
+      border: none;
+      color: #fff; /* White text */
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+
+      &:hover {
+        background-color: #45a049; /* Darker green on hover */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      &:first-of-type {
+        background-color: #2196F3; /* Blue background for the first button */
+        color: #fff;
+      }
+
+      &:first-of-type:hover {
+        background-color: #1976D2; /* Darker blue on hover */
+      }
+    }
+  }
+`;
