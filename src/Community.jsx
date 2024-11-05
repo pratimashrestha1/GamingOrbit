@@ -5,6 +5,7 @@ import Theme from './Components/Intro_theme'
 import Footer from './Components/Footer'
 
 function Community() {
+
   return (
     <Div>
       <Modal />
@@ -78,23 +79,31 @@ function Community() {
       {/* create your own community */}
       <div className="community-creation">
         <div class="create-form">
-          <form action="http://localhost:4000/postData/communityCreate" method="POST">
-            <h1>Make your own community !</h1>
-            <input type="text" placeholder='Name of your community' name="cn" />
-            <input type="text" placeholder='description' name="description" />
-            <input type="text" placeholder='location' name="location" />
-            <input type="text" placeholder='game precedence eg:freefire, fortnite, coc, metal gun' name="gameTypes" />
-            <label for="privacy">Privacy setting:</label>
+          <form action="http://localhost:4000/postData/communityCreate" method="POST" encType="multipart/form-data">
+            <h1>Make your own community!</h1>
+
+            <input type="text" placeholder="Name of your community" name="cn" />
+
+            <input type="text" placeholder="Description" name="description" />
+
+            <input type="text" placeholder="Location" name="location" />
+
+            <input type="text" placeholder="Game precedence (e.g., Freefire, Fortnite, CoC)" name="gameList" />
+
+            <label htmlFor="privacy">Privacy setting:</label>
             <select name="privacy">
               <option value="anyone">Anyone can join</option>
               <option value="invite">Invite only</option>
-            </select><br /><br />
-            <label for="file-upload" class="custom-file-upload">
-              Attach your profile
-            </label><br /><br />
-            <input id="file-upload" type="file" name="image" accept="image/*" />
+            </select>
+
+            <br /><br />
+
+            <label for="file-upload" className="custom-file-upload">Attach your profile</label><br /><br />
+            <input id="file-upload" type="file" name="photo" accept="image/*" />
+
             <button type="submit">Submit</button>
           </form>
+
         </div>
         <img src="./images/purpleman.png" alt="" />
       </div>
@@ -246,7 +255,7 @@ h1{
       padding: 5px 10px;
     }
 
-  input[type="file"] {
+    input[type="file"] {
     display: none;
   }
 
