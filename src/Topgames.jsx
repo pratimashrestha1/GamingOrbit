@@ -213,17 +213,18 @@ font-family: ${({ theme }) => theme.fontFamily.games};
 
 
 // leaderboard**************************************************
-.game-list::before{
-  content:'leaderboard';
+.game-list::before {
+  content: 'leaderboard';
   text-align: center;
   font-size: 6em;
   font-weight: bold;
   color: #fff;
   position: absolute;
-  rotate: -30deg;
-  top: 300px;
-  left: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
 }
+
 .game-list{
 position: relative;
   margin-top: 50px;

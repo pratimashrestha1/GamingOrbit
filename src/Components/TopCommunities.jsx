@@ -1,45 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 function CommunityList() {
-    const [communities, setCommunities] = useState([]);
+  const [communities, setCommunities] = useState([]);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        // Fetch data from API
-        const fetchCommunities = async () => {
-            try {
-                const response = await fetch('http://localhost:4000/postData/topCommunities');
-                const data = await response.json();
-                setCommunities(data);
-            } catch (error) {
-                console.error("Error fetching communities:", error);
-            }
-        };
+  useEffect(() => {
+    // Fetch data from API
+    const fetchCommunities = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/postData/topCommunities');
+        const data = await response.json();
+        setCommunities(data);
+      } catch (error) {
+        console.error("Error fetching communities:", error);
+      }
+    };
 
-        fetchCommunities();
-    }, []);
+    fetchCommunities();
+  }, []);
 
-    return (
-        <Div className="community-list">
-            <h1>Wanna join a community?</h1>
-            <p>Here are some popular communities</p>
-            <div className="community-grid">
-                {communities.map((community) => (
-                    <div className="community-1" key={community._id}>
-                        <img src={`http://localhost:4000/${community.photo}`} alt={community.cn} />
-                        <div className="details">
-                            <h2>{community.cn}</h2>
-                            <p>{community.description}</p>
-                            <div className="button-container">
-                                <button>Explore</button>
-                                <button>Join</button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+  const handleClick = (communityId) => {
+    navigate(`/community/${communityId}`);
+  };
+
+  return (
+    <Div className="community-list">
+      <h1>Wanna join a community?</h1>
+      <p>Here are some popular communities</p>
+      <div className="community-grid">
+        {communities.map((community) => (
+          <div className="community-1" key={community._id}>
+            <img src={`http://localhost:4000/${community.photo}`} alt={community.cn} />
+            <div className="details">
+              <h2>{community.cn}</h2>
+              <p>{community.description}</p>
+              <div className="button-container">
+                <button onClick={() => handleClick(community._id)}>Explore</button>
+                <button>Join</button>
+              </div>
             </div>
-        </Div>
-    );
+          </div>
+        ))}
+      </div>
+    </Div>
+  );
 }
 
 export default CommunityList;
@@ -121,9 +127,9 @@ const Div = styled.div`
 
     button {
       text-decoration: none;
-      background-color: #4caf50; /* Green background */
+      background-color: white;
       border: none;
-      color: #fff; /* White text */
+      color: #000;
       padding: 10px 20px;
       font-weight: bold;
       border-radius: 5px;
@@ -136,8 +142,8 @@ const Div = styled.div`
       }
 
       &:first-of-type {
-        background-color: #2196F3; /* Blue background for the first button */
-        color: #fff;
+        background-color: white; /* Blue background for the first button */
+        color: #000;
       }
 
       &:first-of-type:hover {

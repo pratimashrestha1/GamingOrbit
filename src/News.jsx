@@ -2,7 +2,6 @@ import React from 'react'
 import Modal from './Components/Modal'
 import Theme from './Components/Intro_theme'
 import styled from 'styled-components'
-import ContactUs from './Components/ContactUs'
 
 function News() {
   return (
@@ -13,8 +12,7 @@ function News() {
         width='300px'
         description=' Stay up-to-date with the latest gaming industry news, including updates on game releases, patches, esports events, and community-driven content.'
       />
-
-    <ContactUs/>
+      
     </Div >
   )
 }

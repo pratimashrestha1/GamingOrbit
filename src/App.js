@@ -11,6 +11,7 @@ import Host from './Host';
 import Error from './Error';
 import { GlobalComponentProvider } from './GlobalComponentContext';
 import GoToTop from './Components/GoToTop';
+import CommunityDetails from './Components/CommunityDetails';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
               <Route path="/topgames" element={<Topgames />} />
               <Route path="/about" element={<Aboutus />} />
               <Route path="*" element={<Error />} />
+              <Route path="/community/:communityId" element={<CommunityDetails />} />
             </Routes>
 
           </BrowserRouter>

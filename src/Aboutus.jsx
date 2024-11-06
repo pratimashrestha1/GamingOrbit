@@ -51,7 +51,7 @@ export default Aboutus
 const Div = styled.div`
 font-family: ${({ theme }) => theme.fontFamily.games};
 .profile{
-  background: linear-gradient(#bcd6d4 70%,#490f10 30%);
+  background: linear-gradient(#fff 70%,#490f10 30%);
   padding-bottom: 50px;
 
 .top{
@@ -80,10 +80,10 @@ font-family: ${({ theme }) => theme.fontFamily.games};
     justify-content: space-around;
     
     &>div{
-      border: 5px solid white;
+      border: 5px solid #4d0717;
       overflow: hidden;
       border-radius: 30px;
-      background: white;
+      background: #bbb;
 
       p:first-of-type{
         background: ${({theme})=>theme.colors.gradient};
