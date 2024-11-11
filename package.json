@@ -27,6 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://newsapi.org",
+
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -51,3 +53,4 @@
   "author": "",
   "license": "ISC"
 }
+

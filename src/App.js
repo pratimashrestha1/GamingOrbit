@@ -12,6 +12,7 @@ import Error from './Error';
 import { GlobalComponentProvider } from './GlobalComponentContext';
 import GoToTop from './Components/GoToTop';
 import CommunityDetails from './Components/CommunityDetails';
+// import News from './Components/News/News';  //i change for news.
 
 
 function App() {
