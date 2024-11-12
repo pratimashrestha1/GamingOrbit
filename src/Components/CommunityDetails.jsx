@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 function CommunityDetails() {
     const { communityId } = useParams();
@@ -16,7 +17,6 @@ function CommunityDetails() {
             }
         };
 
-        // Only fetch if `community` is not already set (or when communityId changes)
         if (!community && communityId) {
             fetchCommunityDetails();
         }
@@ -25,17 +25,54 @@ function CommunityDetails() {
 
     if (!community) return <p>Loading...</p>;
 
-    console.log(community);
-
     return (
-        <div>
-            <h1>{community.data.cn}</h1>
-            <img src={`http://localhost:4000/${community.data.photo}`} alt={community.data.cn} />
-            <p>{community.data.description}</p>
-            <p>Location: {community.data.location}</p>
-            {/* Add more fields as needed */}
-        </div>
+        <Div>
+            <div className="main">
+                <img src={`http://localhost:4000/${community.data.photo}`} alt={community.data.cn} />
+                <div className="right">
+                    <h1>{community.data.cn}</h1>
+                    <p>{community.data.description}</p>
+                    <p>Location: {community.data.location}</p>
+                    <p>Game Precedence: {community.data.gameList}</p>
+                    <p>Privacy: {community.data.privacy}</p>
+                </div>
+            </div>
+        </Div>
+
     );
 }
 
 export default CommunityDetails;
+
+const Div = styled.div`
+    .main {
+        margin-top: 50px;
+        width: 100vw;
+        height: 70vh;
+        display: flex;
+        position: relative;
+        
+        img {    
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+   .main::before {
+        content: "";
+        background: linear-gradient(to right, transparent, #330000);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .right {
+        position: relative;
+        z-index: 2;
+        padding: 20px;
+        color: white;
+    }
+`

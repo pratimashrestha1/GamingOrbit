@@ -7,16 +7,16 @@ const ContactUs = () => {
       <Card>
         <Title>Get in Touch</Title>
         <Subtitle>We're here to help! Reach out to us anytime.</Subtitle>
-        <Form>
+        <Form action="http://localhost:4000/postData/contact" method="post">
           <Label>Name</Label>
-          <Input type="text" placeholder="Your Name" />
+          <Input type="text" placeholder="Your Name" name="name"/>
           <Label>Email</Label>
-          <Input type="email" placeholder="Your Email" />
+          <Input type="email" placeholder="Your Email" name="email" />
           <Label>Contact No</Label>
-          <Input type="text" placeholder="Your Contact Number" />
+          <Input type="text" placeholder="Your Contact Number" name="contact_no"/>
           <Label>Message</Label>
-          <Textarea placeholder="Your Message"></Textarea>
-          <Button>Send Message</Button>
+          <Textarea placeholder="Your Message" name="message"></Textarea>
+          <Button type='submit'>Send Message</Button>
         </Form>
       </Card>
     </Container>
