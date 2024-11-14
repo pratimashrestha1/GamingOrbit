@@ -43,7 +43,7 @@ function Modal() {
                 <Div>
                     <form onSubmit={handleLogin}>            
                         <p className='close' onClick={toggleComponentVisibility}>X</p>
-                        <img src="./images/logo head.png" alt="Logo" />
+                        <img src="./images/logo_head.png" alt="Logo" />
                         <input
                             type="text"
                             name="username"

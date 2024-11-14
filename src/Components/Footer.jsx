@@ -35,12 +35,12 @@ function Footer() {
                 <ul>
                     <li><img src="./images/crop_thikkako_no_bg.png" alt="logo" /></li>
                     <div className="icons">
-                        <FaSquareFacebook className='icon' />
-                        <FaSquareInstagram className='icon' />
-                        <FaSquareGithub className='icon' />
-                        <IoLogoLinkedin className='icon' />
-                        <FaSquareWhatsapp className='icon' />
-                        <BiLogoGmail className='icon' />
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaSquareFacebook className='icon' /></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaSquareInstagram className='icon' /></a>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer"><FaSquareGithub className='icon' /></a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><IoLogoLinkedin className='icon' /></a>
+                        <a href="https://wa.me/9817313776" target="_blank" rel="noopener noreferrer"><FaSquareWhatsapp className='icon' /></a>
+                        <a href="mailto:romangautam71399@gmail.com" target="_blank" rel="noopener noreferrer"><BiLogoGmail className="icon" /></a>
                     </div>
                 </ul>
             </div>
