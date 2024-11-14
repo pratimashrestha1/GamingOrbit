@@ -42,7 +42,7 @@ function Topgames() {
           <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/44/PlayerUnknown%27s_Battlegrounds_Mobile.webp/180px-PlayerUnknown%27s_Battlegrounds_Mobile.webp.png" alt="" />
           <div className="rating">
             <div className="filling"></div>
-            <img src="./images/White Ratings Father's Day Card.png" alt="" />
+            <img src="./images/stars.png" alt="" />
           </div>
           <h3>Player Unknown BattleGround: PUBG<br />Genre: Multiplayer shooter</h3>
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium nisi quasi deserunt cum repellat, distinctio adipisci perspiciatis ab hic consequatur? Dolores beatae nulla, iure fugit dolore omnis repudiandae doloribus soluta.</p>

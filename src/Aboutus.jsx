@@ -10,7 +10,7 @@ function Aboutus() {
     <Div>
       <Modal />
       <Theme title="About us"
-        image='./images/crop thikkako no bg.png'
+        image='./images/crop_thikkako_no_bg.png'
         width='400px'
         description=' Learn more about our mission to connect gamers from around the world, offering a platform to play, compete, and grow together in the world of gaming. We are dedicated to fostering a fun and inclusive environment for all types of gamers.'
       />

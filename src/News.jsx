@@ -35,6 +35,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Modal from './Components/Modal';
 import Theme from './Components/Intro_theme';
+import Footer from './Components/Footer'
 
 function News() {
   const [articles, setArticles] = useState([]);
@@ -113,6 +114,8 @@ function News() {
           )}
         </div>
       </div>
+
+      <Footer/>
     </Div>
   );
 }
@@ -166,10 +169,11 @@ const CardWrapper = styled.div`
 
 const Div = styled.div`
   .news-container {
-    padding: 20px;
-    max-width: 1000px;
+    padding: 20px 200px;
+    width: 100vw;
     margin: 0 auto;
     box-sizing: border-box;
+    background: #ddd;
   }
 
   .news-container h1 {

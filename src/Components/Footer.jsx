@@ -33,7 +33,7 @@ function Footer() {
                     <li>Media Kit</li>
                 </ul>
                 <ul>
-                    <li><img src="./images/crop thikkako no bg.png" alt="logo" /></li>
+                    <li><img src="./images/crop_thikkako_no_bg.png" alt="logo" /></li>
                     <div className="icons">
                         <FaSquareFacebook className='icon' />
                         <FaSquareInstagram className='icon' />
@@ -53,7 +53,7 @@ export default Footer
 
 const Div = style.div`
 overflow: hidden;
-background-image: url('images/heikei app.svg');
+background-image: url('images/heikei_app.svg');
 
 div{
     height: 500px;
