@@ -14,6 +14,7 @@ import { GlobalComponentProvider } from './GlobalComponentContext';
 import GoToTop from './Components/GoToTop';
 import CommunityDetails from './Components/CommunityDetails';
 // import News from './Components/News/News';  //i change for news.
+import Streaming from './Streaming'
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
               <Route path="/about" element={<Aboutus />} />
               <Route path="*" element={<Error />} />
               <Route path="/community/:communityId" element={<CommunityDetails />} />
+              <Route path="/host/streaming" element={<Streaming/>} />
             </Routes>
 
           </BrowserRouter>

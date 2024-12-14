@@ -5,6 +5,9 @@ import Theme from './Components/Intro_theme'
 import Footer from './Components/Footer'
 
 function Host() {
+  const handleClick=()=>{
+    window.location.href = 'http://localhost:4000/index.html';
+  }
   return (
     <Div>
       <Modal />
@@ -26,7 +29,7 @@ function Host() {
           <p>click here to join tournament. Choose and register the available tournament</p>
         </div>
 
-        <div className="live stream">
+        <div className="live stream" onClick={handleClick}>
           <img src="./images/streaming1.gif" alt="" />
           <h2>Make live stream</h2>
           <p>stream your live gameplay, share and connect your tactics.</p>
@@ -62,6 +65,7 @@ font-family: ${({theme})=>theme.fontFamily.host};
     &:hover{
       translate: 0 -5px;
       box-shadow: 0 8px 2px #000;
+      cursor: pointer;
     }
 
     img{
