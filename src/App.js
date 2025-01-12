@@ -14,7 +14,8 @@ import { GlobalComponentProvider } from './GlobalComponentContext';
 import GoToTop from './Components/GoToTop';
 import CommunityDetails from './Components/CommunityDetails';
 // import News from './Components/News/News';  //i change for news.
-import Streaming from './Streaming'
+import Live from './Components/Live'
+import Watch from './Components/Watch'
 
 
 function App() {
@@ -52,7 +53,8 @@ function App() {
               <Route path="/about" element={<Aboutus />} />
               <Route path="*" element={<Error />} />
               <Route path="/community/:communityId" element={<CommunityDetails />} />
-              <Route path="/host/streaming" element={<Streaming/>} />
+              <Route path="/live" element={<Live/>} />
+              <Route path="/watch" element={<Watch/>} />
             </Routes>
 
           </BrowserRouter>

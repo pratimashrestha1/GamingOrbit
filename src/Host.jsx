@@ -3,10 +3,17 @@ import Modal from './Components/Modal'
 import styled from 'styled-components'
 import Theme from './Components/Intro_theme'
 import Footer from './Components/Footer'
+import { useNavigate } from 'react-router-dom'
 
 function Host() {
-  const handleClick=()=>{
-    window.location.href = 'http://localhost:4000/index.html';
+  const navigate = useNavigate();
+
+  const handleClickLive = () => {
+    navigate('/live');
+  }
+
+  const handleClickWatch = () => {
+    navigate('/watch');
   }
   return (
     <Div>
@@ -29,26 +36,26 @@ function Host() {
           <p>click here to join tournament. Choose and register the available tournament</p>
         </div>
 
-        <div className="live stream" onClick={handleClick}>
+        <div className="live stream" onClick={handleClickLive}>
           <img src="./images/streaming1.gif" alt="" />
           <h2>Make live stream</h2>
           <p>stream your live gameplay, share and connect your tactics.</p>
         </div>
 
-        <div className="live watch">
+        <div className="live watch" onClick={handleClickWatch}>
           <img src="./images/live.gif" alt="" />
           <h2>Watch live stream</h2>
           <p>Click here to watch available live stream at the moment. Wait a while if no live is available, it may take sometime to manage.</p>
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </Div>
   )
 }
 
 const Div = styled.div`
-font-family: ${({theme})=>theme.fontFamily.host};
+font-family: ${({ theme }) => theme.fontFamily.host};
 .options{
   backdrop-filter: blur(10px);
   justify-content: space-around;
