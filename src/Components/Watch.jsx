@@ -1,23 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const WatchLiveStream = () => {
-    useEffect(() => {
-        // Set the stream URL
-        const streamUrl = "https://www.youtube.com/embed/F_2VplWvwPw";
-        const iframe = document.getElementById("live-stream");
-        iframe.src = streamUrl;
-    }, []); // Runs only once when the component mounts
-
     return (
         <div style={styles.body}>
             <h1 style={styles.h1}>Watch Live Stream</h1>
             <div id="live-stream-container">
                 <iframe
                     title="watching_live"
-                    id="live-stream"
                     style={styles.iframe}
                     width="560"
                     height="315"
+                    // src="https://www.youtube.com/channel/UCe5M4lR7MkSb56qdDc8WvEw"
+                    src="https://www.youtube.com/embed/live_stream?channel=UCe5M4lR7MkSb56qdDc8WvEw"
                     allow="autoplay; fullscreen"
                     allowFullScreen
                 ></iframe>
