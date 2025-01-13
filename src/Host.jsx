@@ -8,6 +8,14 @@ import { useNavigate } from 'react-router-dom'
 function Host() {
   const navigate = useNavigate();
 
+  const handleClickCreate=()=>{
+    navigate('/create-tournament');
+  }
+
+  const handleClickJoin=()=>{
+    navigate('/joinTour');
+  }
+
   const handleClickLive = () => {
     navigate('/live');
   }
@@ -24,13 +32,13 @@ function Host() {
       />
 
       <div className="options">
-        <div className="create-tournament">
+        <div className="create-tournament" onClick={handleClickCreate}>
           <img src="./images/tournament1.gif" alt="" />
           <h2>create tournament</h2>
           <p>To create tournament and generate bracket</p>
         </div>
 
-        <div className="join-tournament">
+        <div className="join-tournament" onClick={handleClickJoin}>
           <img src="./images/join.gif" alt="" />
           <h2>Join tournament</h2>
           <p>click here to join tournament. Choose and register the available tournament</p>

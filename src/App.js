@@ -16,6 +16,12 @@ import CommunityDetails from './Components/CommunityDetails';
 // import News from './Components/News/News';  //i change for news.
 import Live from './Components/Live'
 import Watch from './Components/Watch'
+import CreateTournament from './Components/tournament/CreateTournament';
+import BracketPage from './Components/tournament/BracketPage';
+import LastTournament from './Components/tournament/LastTournament';
+import Edit from "./Components/tournament/Edit";
+import JoinTournament from "./Components/tournament/JoinTournament";
+import ViewTournament from "./Components/tournament/ViewTournament";
 
 
 function App() {
@@ -55,6 +61,12 @@ function App() {
               <Route path="/community/:communityId" element={<CommunityDetails />} />
               <Route path="/live" element={<Live/>} />
               <Route path="/watch" element={<Watch/>} />
+              <Route path="/create-tournament" element={<CreateTournament/>} />
+              <Route path="/brackets" element={<BracketPage/>} />
+              <Route path="/lastTour" element={<LastTournament/>} />
+              <Route path="/view/:tournamentId" element={<Edit/>} />
+              <Route path="/joinTour" element={<JoinTournament/>} />
+              <Route path="/viewTour" element={<ViewTournament/>} />
             </Routes>
 
           </BrowserRouter>
