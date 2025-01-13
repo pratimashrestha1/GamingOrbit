@@ -11,7 +11,7 @@ const BracketCreation = () => {
     },
   ]);
 
-  const [bracketImage, setBracketImage] = useState('/images/tiesheet1.png'); // Default image for brackets
+  const [bracketImage, setBracketImage] = useState('/images/tiesheets.png'); // Default image for brackets
   const navigate = useNavigate();
 
   // Add a new bracket with default values
@@ -48,7 +48,7 @@ const BracketCreation = () => {
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         padding: '20px',
-        backgroundImage: 'url(/images/bluemoroon3.png)',
+        backgroundImage: 'url(/images/bluemoroon3.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         minHeight: '100vh',

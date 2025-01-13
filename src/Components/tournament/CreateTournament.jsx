@@ -6,24 +6,23 @@ import styled from "styled-components";
 const CreateTournament = () => {
   const navigate = useNavigate();
 
-  // Helper to get the current date-time in 'YYYY-MM-DDTHH:mm' format
   const getCurrentDateTime = () => {
     const now = new Date();
-    return now.toISOString().slice(0, 16); // Format for datetime-local input
+    return now.toISOString().slice(0, 16);
   };
 
   const [formData, setFormData] = useState({
     tournamentName: "",
     tournamentUrl: "",
-    startDate: getCurrentDateTime(), // Default to current date and time
-    game: "",
-    region: "",
+    startDate: getCurrentDateTime(),
+    game: "FREEFIRE",
+    region: "Nepal",
     status: "Public",
   });
 
-  const [countries, setCountries] = useState([]); // State to hold country names
-  const [nameError, setNameError] = useState(""); // State for name error
-  const [urlError, setUrlError] = useState(""); // State for URL error
+  const [countries, setCountries] = useState([]);
+  const [nameError, setNameError] = useState("");
+  const [urlError, setUrlError] = useState("");
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -31,8 +30,6 @@ const CreateTournament = () => {
         const response = await fetch("https://restcountries.com/v3.1/all");
         const data = await response.json();
         const countryNames = data.map((country) => country.name.common);
-
-        // Ensure "Nepal" is the first in the list
         const sortedCountries = [
           "Nepal",
           ...countryNames.filter((name) => name !== "Nepal").sort(),
@@ -105,8 +102,9 @@ const CreateTournament = () => {
   };
 
   return (
-    <Div>
-      <form onSubmit={handleSubmit}>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <h2>Create Tournament</h2>
         <label>
           Tournament Name:
           <input
@@ -114,6 +112,7 @@ const CreateTournament = () => {
             name="tournamentName"
             value={formData.tournamentName}
             onChange={handleChange}
+            placeholder="Enter tournament name"
             required
           />
         </label>
@@ -125,8 +124,6 @@ const CreateTournament = () => {
             type="text"
             name="tournamentUrl"
             value={formData.tournamentUrl}
-            onChange={handleChange}
-            required
             readOnly
           />
         </label>
@@ -142,10 +139,10 @@ const CreateTournament = () => {
             required
           />
         </label>
+
         <label>
           Game:
           <select name="game" value={formData.game} onChange={handleChange} required>
-            <option value="" disabled>Select Game</option>
             <option value="PUBG">PUBG</option>
             <option value="FREEFIRE">Freefire</option>
             <option value="FORTNITE">Fortnite</option>
@@ -158,10 +155,10 @@ const CreateTournament = () => {
             <option value="COC">COC</option>
           </select>
         </label>
+
         <label>
           Region:
           <select name="region" value={formData.region} onChange={handleChange} required>
-            <option value="" disabled>Select Region</option>
             {countries.map((country) => (
               <option key={country} value={country}>
                 {country}
@@ -169,6 +166,7 @@ const CreateTournament = () => {
             ))}
           </select>
         </label>
+
         <label>
           Status:
           <select name="status" value={formData.status} onChange={handleChange}>
@@ -176,77 +174,22 @@ const CreateTournament = () => {
             <option value="Private">Private</option>
           </select>
         </label>
+
         <button type="submit" disabled={!!nameError || !!urlError}>
           Create Tournament
         </button>
-      </form>
-    </Div>
+      </Form>
+    </Container>
   );
 };
 
 export default CreateTournament;
-
-const Div = styled.div`
+const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #001f3d; /* Dark blue background */
-
-  form {
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: white;
-  }
-
-  label {
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-  }
-
-  input, select {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid white; /* White border for input and select fields */
-    border-radius: 4px;
-    margin-top: 5px;
-    background-color: transparent;
-    color: white;
-  }
-
-  button {
-    padding: 12px;
-    background-color: #800000; /* Maroon color for the button */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  button:hover {
-    background-color: #6a0000; /* Darker maroon on hover */
-  }
-
-  button:disabled {
-    background-color: moroon;
-    cursor: not-allowed;
-  }
+  background: url('images/bluemoroon3.jpg') no-repeat center center/cover;
 `;
 
 const ErrorMessage = styled.p`
@@ -257,3 +200,59 @@ const ErrorMessage = styled.p`
 `;
 
 
+const Form = styled.form`
+  padding: 40px;
+  border-radius: 10px;
+  background-color: rgba(2, 20, 45, 0.9); /* Semi-transparent for better contrast */
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 500px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h2 {
+    text-align: center;
+    color: #ff9c00;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 5px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #01253a;
+  }
+
+  button {
+    padding: 14px;
+    border-radius: 8px;
+    border: none;
+    background-color: #007bff; /* Blue color for the button */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  button:disabled {
+    background-color: #4a4a4a;
+    cursor: not-allowed;
+  }
+`;

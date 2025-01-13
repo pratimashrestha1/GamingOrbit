@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {  useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
-function Edit() {
-    const navigate= useNavigate();
-    const { tournamentId } = useParams();  // Get the tournamentId from the URL
+const Edit = () => {
+    const navigate = useNavigate();
+    const { tournamentId } = useParams(); // Get the tournamentId from the URL
 
     const [tournament, setTournament] = useState({
         tournamentName: '',
@@ -17,6 +17,7 @@ function Edit() {
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [countries, setCountries] = useState([]); // To store the list of countries
 
     useEffect(() => {
         if (!tournamentId) {
@@ -25,17 +26,34 @@ function Edit() {
             return;
         }
 
-        // Fetch the tournament details when the component mounts
         axios
-            .get(`http://localhost:4000/tour/view/${tournamentId}`)  // Correct API call
+            .get(`http://localhost:4000/tour/view/${tournamentId}`) // Correct API call
             .then((response) => {
-                setTournament(response.data.tournament); // Assuming the data is under 'tournament' key
+                setTournament(response.data.tournament); // Assuming data is under 'tournament' key
                 setLoading(false);
             })
-            .catch((error) => {
+            .catch(() => {
                 setError('Error fetching tournament details');
                 setLoading(false);
             });
+
+        // Fetch countries for the region dropdown
+        const fetchCountries = async () => {
+            try {
+                const response = await fetch('https://restcountries.com/v3.1/all');
+                const data = await response.json();
+                const countryNames = data.map((country) => country.name.common);
+                const sortedCountries = [
+                    "Nepal",
+                    ...countryNames.filter((name) => name !== "Nepal").sort(),
+                ];
+                setCountries(sortedCountries);
+            } catch (error) {
+                console.error('Error fetching countries:', error);
+            }
+        };
+
+        fetchCountries();
     }, [tournamentId]);
 
     const handleChange = (e) => {
@@ -50,172 +68,159 @@ function Edit() {
         e.preventDefault();
         axios
             .put(`http://localhost:4000/tour/update/${tournamentId}`, tournament)
-            .then((response) => {
+            .then(() => {
                 navigate('/lastTour');
             })
-            .catch((error) => {
+            .catch(() => {
                 setError('Error updating tournament');
             });
     };
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+    if (loading) return <div className="loading">Loading...</div>;
+    if (error) return <div className="error">{error}</div>;
 
     return (
-        <Div>
-            <div className="form-container">
-                <h1>Edit Tournament</h1>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Tournament Name:</label>
-                        <input
-                            type="text"
-                            name="tournamentName"
-                            value={tournament.tournamentName}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Tournament URL:</label>
-                        <input
-                            type="text"
-                            name="tournamentUrl"
-                            value={tournament.tournamentUrl}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Start Date:</label>
-                        <input
-                            type="date"
-                            name="startDate"
-                            value={new Date(tournament.startDate).toISOString().split('T')[0]} // Formatting the date
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Game:</label>
-                        <select
-                            name="game"
-                            value={tournament.game}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="PUBG">PUBG</option>
-                            <option value="FREEFIRE">FREEFIRE</option>
-                            <option value="FORTNITE">FORTNITE</option>
-                            <option value="COD">COD</option>
-                            <option value="CLASH ROYALE">CLASH ROYALE</option>
-                            <option value="COUNTER-STRIKE 2">COUNTER-STRIKE 2</option>
-                            <option value="CYBERPUNK 2077">CYBERPUNK 2077</option>
-                            <option value="GTA SAN ANDRES">GTA SAN ANDRES</option>
-                            <option value="POKEMON GO">POKEMON GO</option>
-                            <option value="COC">COC</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Region:</label>
-                        <input
-                            type="text"
-                            name="region"
-                            value={tournament.region}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Status:</label>
-                        <select
-                            name="status"
-                            value={tournament.status}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="Public">Public</option>
-                            <option value="Private">Private</option>
-                        </select>
-                    </div>
-                    <button type="submit">Update Tournament</button>
-                </form>
-            </div>
-        </Div>
+        <Container>
+            <Form onSubmit={handleSubmit}>
+                <h2>Edit Tournament</h2>
+                <label>
+                    Tournament Name:
+                    <input
+                        type="text"
+                        name="tournamentName"
+                        value={tournament.tournamentName}
+                        onChange={handleChange}
+                        placeholder="Enter tournament name"
+                        required
+                    />
+                </label>
+
+                <label>
+                    Tournament URL:
+                    <input
+                        type="text"
+                        name="tournamentUrl"
+                        value={tournament.tournamentUrl}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+
+                <label>
+                    Start Date:
+                    <input
+                        type="datetime-local"
+                        name="startDate"
+                        value={new Date(tournament.startDate).toISOString().slice(0, 16)}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+
+                <label>
+                    Game:
+                    <select name="game" value={tournament.game} onChange={handleChange} required>
+                        <option value="PUBG">PUBG</option>
+                        <option value="FREEFIRE">Freefire</option>
+                        <option value="FORTNITE">Fortnite</option>
+                        <option value="COD">COD</option>
+                        <option value="CLASH ROYALE">Clash Royale</option>
+                        <option value="COUNTER-STRIKE 2">Counter-Strike 2</option>
+                        <option value="CYBERPUNK 2077">Cyberpunk 2077</option>
+                        <option value="GTA SAN ANDRES">GTA San Andres</option>
+                        <option value="POKEMON GO">Pokemon Go</option>
+                        <option value="COC">COC</option>
+                    </select>
+                </label>
+
+                <label>
+                    Region:
+                    <select name="region" value={tournament.region} onChange={handleChange} required>
+                        {countries.map((country) => (
+                            <option key={country} value={country}>
+                                {country}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
+                <label>
+                    Status:
+                    <select name="status" value={tournament.status} onChange={handleChange}>
+                        <option value="Public">Public</option>
+                        <option value="Private">Private</option>
+                    </select>
+                </label>
+
+                <button type="submit">Update Tournament</button>
+            </Form>
+        </Container>
     );
-}
+};
 
 export default Edit;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('images/bluemoroon3.jpg') no-repeat center center/cover;
+`;
 
-const Div = styled.div`
-/* EditForm.css */
-.form-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  font-family: 'Arial', sans-serif;
-  color: #333;
-}
-
-form {
-  display: grid;
-  grid-template-columns: 1fr;
+const Form = styled.form`
+  padding: 40px;
+  border-radius: 10px;
+  background-color: rgba(2, 20, 45, 0.9);
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 500px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-}
 
-label {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
+  h2 {
+    text-align: center;
+    color: #ff9c00;
+    margin-bottom: 20px;
+  }
 
-input, select {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  width: 100%;
-  box-sizing: border-box;
-}
+  label {
+    font-size: 16px;
+    font-weight: bold;
+  }
 
-input[type="date"] {
-  padding: 10px;
-}
+  input,
+  select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 5px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #01253a;
+  }
 
-button {
-  padding: 12px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%;
-}
+  button {
+    padding: 14px;
+    border-radius: 8px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
 
-button:hover {
-  background-color: #45a049;
-}
+  button:hover {
+    background-color: #0056b3;
+  }
 
-.error {
-  color: red;
-  text-align: center;
-  font-size: 16px;
-}
-
-.loading {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-}
-`
+  button:disabled {
+    background-color: #4a4a4a;
+    cursor: not-allowed;
+  }
+`;

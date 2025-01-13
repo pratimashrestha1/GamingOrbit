@@ -10,33 +10,31 @@ const LastTournament = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch tournament data when the component mounts
     axios
       .get('http://localhost:4000/tour/tour-data')
       .then((response) => {
         const data = response.data;
-        console.log(data);  // Debugging line
-        setTournaments(Array.isArray(data) ? data : [data]);  // Ensure tournaments is an array
+        setTournaments(Array.isArray(data) ? data : [data]);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setError('Error fetching tournament data');
         setLoading(false);
       });
   }, []);
 
   if (loading) {
-    return <div className="loading">Loading tournaments...</div>;
+    return <Wrapper><div className="loading">Loading tournaments...</div></Wrapper>;
   }
 
   if (error) {
-    return <div className="error">{error}</div>;
+    return <Wrapper><div className="error">{error}</div></Wrapper>;
   }
 
   return (
     <Wrapper>
       <div className="container">
-        <h1 className="title">Tournaments List</h1>
+        <h1 className="title">Tournaments</h1>
         <ul className="tournament-list">
           {tournaments.map((tournament) => (
             <li className="tournament-item" key={tournament._id}>
@@ -64,124 +62,122 @@ const LastTournament = () => {
           ))}
         </ul>
       </div>
-    </Wrapper >
+    </Wrapper>
   );
 };
 
 export default LastTournament;
 
 const Wrapper = styled.div`
-/* LastTournament.css */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #1e293b, #334155);
+    color: #f1f5f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 
-/* General Container Styling */
-.container {
-  padding: 20px;
-  background-color: #f8f9fa;
-}
+  .title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #0ea5e9;
+  }
 
-/* Title Styling */
-.title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 20px 0;
+  }
 
-/* Loading and Error Styling */
-.loading,
-.error {
-  text-align: center;
-  font-size: 1.5rem;
-}
+  .loading {
+    color: #0ea5e9;
+  }
 
-.loading {
-  color: #007bff;
-}
+  .error {
+    color: #ef4444;
+  }
 
-.error {
-  color: #dc3545;
-}
+  .tournament-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
 
-/* Tournament List Styling */
-.tournament-list {
-  list-style-type: none;
-  padding: 0;
-}
+  .tournament-item {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
 
-/* Tournament Item Styling */
-.tournament-item {
-  background-color: #ffffff;
-  margin-bottom: 15px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+  .tournament-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+  }
 
-/* Tournament Header Styling */
-.tournament-header {
-  margin-bottom: 10px;
-}
+  .tournament-header h2 {
+    font-size: 1.5rem;
+    color: #0ea5e9;
+  }
 
-.tournament-header h2 {
-  font-size: 1.5rem;
-  color: #343a40;
-}
+  .tournament-link {
+    color: #38bdf8;
+    text-decoration: none;
+  }
 
-.tournament-header p {
-  font-size: 1rem;
-  color: #6c757d;
-}
+  .tournament-link:hover {
+    text-decoration: underline;
+  }
 
-/* Tournament Link Styling */
-.tournament-link {
-  color: #007bff;
-  text-decoration: none;
-}
+  .button-container {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
-.tournament-link:hover {
-  text-decoration: underline;
-}
+  .edit-button {
+    background: #22c55e;
+    color: #f1f5f9;
+  }
 
-/* Button Container Styling */
-.button-container {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+  .delete-button {
+    background: #ef4444;
+    color: #f1f5f9;
+  }
 
-/* Button Styling */
-.edit-button,
-.delete-button,
-.action-button {
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  border: none;
-}
+  .action-button {
+    background: #0ea5e9;
+    color: #f1f5f9;
+  }
 
-.edit-button {
-  background-color: #28a745;
-}
+  .edit-button,
+  .delete-button,
+  .action-button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+    transition: background 0.3s ease;
+  }
 
-.edit-button:hover {
-  background-color: #218838;
-}
+  .edit-button:hover {
+    background: #16a34a;
+  }
 
-.delete-button {
-  background-color: #dc3545;
-}
+  .delete-button:hover {
+    background: #dc2626;
+  }
 
-.delete-button:hover {
-  background-color: #c82333;
-}
-
-.action-button {
-  background-color: #007bff;
-}
-
-.action-button:hover {
-  background-color: #0056b3;
-}
-
-`
+  .action-button:hover {
+    background: #0284c7;
+  }
+`;
