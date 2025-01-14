@@ -68,7 +68,7 @@ const styles = {
   title: {
     fontFamily: "'Orbitron', sans-serif",
     fontSize: '2.5rem',
-    color: '#ff6347',
+    color: 'white',
     textAlign: 'center',
     marginBottom: '30px',
   },
@@ -111,7 +111,7 @@ const styles = {
     marginBottom: '20px',
   },
   joinButton: {
-    backgroundColor: '#ff6347',
+    backgroundColor: '#800000',
     color: 'white',
     padding: '10px 20px',
     fontSize: '1rem',

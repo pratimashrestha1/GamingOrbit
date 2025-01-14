@@ -27,8 +27,9 @@ function Modal() {
                 // Store the username in localStorage
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('profile', data.photo);
-                alert('login successful');
-            }
+                localStorage.setItem('userId', data.userId);
+                alert("login successful");
+            } 
             else{
                 alert('invalid username and password');
             }
