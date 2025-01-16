@@ -1,69 +1,52 @@
-// import React from 'react'
-// import Modal from './Components/Modal'
-// import Theme from './Components/Intro_theme'
-// import styled from 'styled-components'
-
-// function News() {
-//   return (
-//     <Div>
-//       <Modal />
-//       <Theme title="News"
-//         image='./images/news.png'
-//         width='300px'
-//         description=' Stay up-to-date with the latest gaming industry news, including updates on game releases, patches, esports events, and community-driven content.'
-//       />
-      
-//     </Div >
-//   )
-// }
-
-// export default News
-
-// const Div = styled.div`
-// .check{
-//   background: green;
-//   color: red;
-//   height: 400px;
-//   width: 100vw;
-// }
-// `
-
-
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
-import Modal from './Components/Modal';
-import Theme from './Components/Intro_theme';
-import Footer from './Components/Footer'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import styled from "styled-components";
+import Modal from "./Components/Modal";
+import Theme from "./Components/Intro_theme";
+import Footer from "./Components/Footer";
 
 function News() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [query, setQuery] = useState(""); // State for search query
+  const [query, setQuery] = useState("");
 
-  // Fetch news articles on component mount
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const apiKey = process.env.REACT_APP_NEWS_API_KEY;  // Access API key from environment variables
-        const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`);
-        console.log('API Response:', response.data);
-        setArticles(response.data.articles);
+        const apiKey = process.env.REACT_APP_NEWS_API_KEY;
+        const response = await axios.get(
+          `https://newsapi.org/v2/everything?q=esports&language=en&sortBy=popularity&apiKey=${apiKey}`
+        );
+
+        // Filter and validate articles
+        const validArticles = response.data.articles.filter(
+          (article) =>
+            article.title &&
+            article.description &&
+            !article.title.toLowerCase().includes("removed") &&
+            !article.description.toLowerCase().includes("removed")
+        );
+
+        // Map valid articles to provide fallback for missing data
+        const formattedArticles = validArticles.map((article) => ({
+          title: article.title || "No title available",
+          description: article.description || "No description available",
+          url: article.url || null,
+        }));
+
+        setArticles(formattedArticles);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching news:', err);
-        setError('Failed to load news articles');
+        console.error("Error fetching news:", err);
+        setError("Failed to load news articles");
         setLoading(false);
       }
     };
-    
 
     fetchNews();
   }, []);
 
-  // Filter articles based on the search query
   const filteredArticles = articles.filter(
     (article) =>
       article.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -71,7 +54,7 @@ function News() {
   );
 
   if (loading) {
-    return <div>Loading...</div>; // Consider a spinner here
+    return <div>Loading...</div>;
   }
 
   if (error) {
@@ -80,30 +63,25 @@ function News() {
 
   return (
     <Div>
-      {/* Modal and Theme Section */}
       <Modal />
       <Theme
-        title="News"
-        image='./images/news.png'
-        width='300px'
-        description='Stay up-to-date with the latest gaming industry news, including updates on game releases, patches, esports events, and community-driven content.'
+        title="Esports News"
+        image="./images/news.png"
+        width="300px"
+        description="Stay updated with the latest esports news, including Free Fire, PUBG, Clash of Clans, and other popular gaming events worldwide."
       />
-      
-      {/* News List Section */}
+
       <div className="news-container">
         <h1>Latest News</h1>
-
-        {/* Search Bar */}
         <input
           type="text"
           placeholder="Search news..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)} // Update query state
+          onChange={(e) => setQuery(e.target.value)}
           className="search-bar"
           aria-label="Search News"
         />
 
-        {/* Display filtered articles */}
         <div className="news-list">
           {filteredArticles.length > 0 ? (
             filteredArticles.map((article, index) => (
@@ -115,7 +93,7 @@ function News() {
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </Div>
   );
 }
@@ -127,19 +105,24 @@ const NewsCard = ({ article }) => (
   <CardWrapper>
     <h2>{article.title}</h2>
     <p>{article.description}</p>
-    <a href={article.url} target="_blank" rel="noopener noreferrer">
-      Read more
-    </a>
+    {article.url ? (
+      <a href={article.url} target="_blank" rel="noopener noreferrer">
+        Read more
+      </a>
+    ) : (
+      <span>Link not available</span>
+    )}
   </CardWrapper>
 );
 
-// Styled-components for NewsCard
+// Styled-components with consistent theme
 const CardWrapper = styled.div`
-  background: #fff;
+  background: #800000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 15px;
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
+  color: white;
 
   &:hover {
     transform: translateY(-5px);
@@ -148,12 +131,12 @@ const CardWrapper = styled.div`
   h2 {
     font-size: 1.2em;
     margin-bottom: 10px;
-    color: #333;
+    color: white;
   }
 
   p {
     font-size: 1em;
-    color: #555;
+    color: #d3d3d3;
     margin-bottom: 10px;
   }
 
@@ -173,15 +156,17 @@ const Div = styled.div`
     width: 100vw;
     margin: 0 auto;
     box-sizing: border-box;
-    background: #ddd;
+    background: white;
+    color: white;
+    border-radius: 8px;
   }
 
   .news-container h1 {
     text-align: center;
     font-size: 2em;
     margin-bottom: 20px;
-    font-family: 'Ubuntu', sans-serif;
-    color: #333;
+    font-family: "Ubuntu", sans-serif;
+    color: #4682b4;
   }
 
   .search-bar {
@@ -196,7 +181,7 @@ const Div = styled.div`
 
   .search-bar:focus {
     outline: none;
-    border-color: #1092EA;
+    border-color: #1092ea;
   }
 
   .news-list {
@@ -204,7 +189,6 @@ const Div = styled.div`
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-top: 20px;
-    min-width: 300px;
   }
 
   @media (max-width: 768px) {
@@ -227,5 +211,3 @@ const ErrorMessage = styled.div`
   margin-top: 20px;
   font-weight: bold;
 `;
-
-
