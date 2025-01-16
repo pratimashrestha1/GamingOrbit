@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const BracketCreation = () => {
+  const [players, setPlayers] = useState(1); // Default value set to 1
+  const [tourId,setTourId]= useState(null);
   const [brackets, setBrackets] = useState([
     {
       id: Date.now(), // Unique ID for the bracket
       bracketType: 'Single Elimination', // Default bracket type
-      numTeams: 2, // Default number of teams
       membersPerTeam: 1, // Default members per team
     },
   ]);
+  console.log(players);
 
   const [bracketImage, setBracketImage] = useState('/images/tiesheets.png'); // Default image for brackets
   const navigate = useNavigate();
@@ -18,7 +21,7 @@ const BracketCreation = () => {
   const addNewBracket = () =>
     setBrackets((prev) => [
       ...prev,
-      { id: Date.now(), bracketType: 'Single Elimination', numTeams: 2, membersPerTeam: 1 },
+      { id: Date.now(), bracketType: 'Single Elimination', membersPerTeam: 1 },
     ]);
 
   // Remove a bracket by its ID
@@ -40,6 +43,50 @@ const BracketCreation = () => {
       );
     }
   };
+
+  const handleNext = async () => {
+    if (!tourId || !players) {
+      alert("Please provide both tournament ID and maxPlayers.");
+      return;
+    }
+
+    try {
+      // const response = await axios.post("http://localhost:4000/tour/maxPlayers", {
+      await axios.post("http://localhost:4000/tour/maxPlayers", {
+        id: tourId,
+        maxPlayers: players,
+      });
+
+      // alert("Max players updated successfully!");
+      // console.log(response.data);
+      navigate('/lastTour');
+    } catch (error) {
+      console.error("Error updating maxPlayers:", error);
+      alert(
+        error.response?.data?.message || "Failed to update maxPlayers. Try again!"
+      );
+    }
+  }
+
+  useEffect(() => {
+    // Fetch the data from the API
+    const fetchTourData = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/tour/tour-data");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+
+        // Store the `_id` value in the `tourId` variable
+        setTourId(data._id);
+      } catch (error) {
+        console.error("Error fetching tour data:", error);
+      }
+    };
+
+    fetchTourData();
+  }, []); // Empty dependency array to run only once on component mount
 
   return (
     <div
@@ -86,39 +133,19 @@ const BracketCreation = () => {
                 }}
               >
                 <option value="Single Elimination">Single Elimination</option>
-                <option value="Double Elimination">Double Elimination</option>
               </select>
             </div>
 
-            {/* Input for the number of teams */}
-            <div style={{ marginBottom: '10px' }}>
-              <label>Number of Teams: </label>
-              <input
-                type="number"
-                value={bracket.numTeams}
-                onChange={(e) => updateBracket(bracket.id, 'numTeams', e.target.value)}
-                min="2"
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  borderRadius: '5px',
-                  border: '1px solid white',
-                  backgroundColor: 'transparent',
-                  color: 'white',
-                }}
-              />
-            </div>
-
-            {/* Input for members per team */}
+            {/* Input for numbers of participants */}
             <div style={{ marginBottom: '20px' }}>
-              <label>Members Per Team: </label>
+              <label>No of players in a team: </label>
               <input
                 type="number"
-                value={bracket.membersPerTeam}
-                onChange={(e) => updateBracket(bracket.id, 'membersPerTeam', e.target.value)}
+                value={players} // Bind the input value to players state
+                onChange={(e) => setPlayers(Number(e.target.value))} // Directly update the players state
                 min="1"
                 style={{
-                  width: '100%',
+                  width: '96%',
                   padding: '10px',
                   borderRadius: '5px',
                   border: '1px solid white',
@@ -126,6 +153,7 @@ const BracketCreation = () => {
                   color: 'white',
                 }}
               />
+
             </div>
 
             {/* Remove button for brackets */}
@@ -168,7 +196,7 @@ const BracketCreation = () => {
 
         {/* Next button */}
         <button
-          onClick={() => navigate('/lastTour', { state: { brackets } })}
+          onClick={handleNext}
           disabled={brackets.length === 0} // Disable if no brackets
           style={{
             width: '250px',

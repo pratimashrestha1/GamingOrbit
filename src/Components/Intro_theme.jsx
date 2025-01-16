@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-function Intro_theme(props) {
+function IntroTheme({ title, image, width, description }) {
     const [animate, setAnimate] = useState(false);
-    // const [width, setWidth]= useState('50px');
 
     useEffect(() => {
         // Trigger the animation on page load
@@ -11,46 +10,29 @@ function Intro_theme(props) {
     }, []);
 
     return (
-        <Wrapper animate={animate}>
+        <Wrapper $animate={animate}>
             {/* Sticky background */}
             <div className="background"></div>
 
             {/* Scrolling contents */}
             <div className="contents">
-                <h1>{props.title}</h1>
+                <h1>{title}</h1>
                 <div className="contents-items">
-                    <img src={props.image} width={props.width} alt="main pic" />                    
-                    <p>{props.description}</p>
-                </div>                
+                    <img src={image} width={width} alt="main pic" />
+                    <p>{description}</p>
+                </div>
             </div>
-
-            {/* <div className="dummy">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-            </div>
-            <div className="dummy">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-            </div>
-            <div className="dummy">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-            </div>
-            <div className="dummy">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-            </div>
-            <div className="dummy">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi officia accusamus, sed impedit unde aperiam fugiat modi nesciunt! Tempora aut repudiandae nihil unde molestiae recusandae sed error veniam dolores voluptatibus.</p>
-            </div> */}
         </Wrapper>
     );
 }
 
-export default Intro_theme;
+export default IntroTheme;
 
-const Wrapper = styled.div`
+// Styled Component
+const Wrapper = styled.div.attrs((props) => ({
+    // Remove custom props like $animate from being passed to DOM
+    animate: undefined,
+}))`
     font-family: ${({ theme }) => theme.fontFamily.games};
     margin-top: 50px;
 
@@ -79,9 +61,9 @@ const Wrapper = styled.div`
             color: #e7f200;
             font-size: 5em;
             width: fit-content;
-            font-family: ${({ theme }) => theme.fontFamily.dot};            
+            font-family: ${({ theme }) => theme.fontFamily.dot};
             transform: translateX(-100%);
-            animation: ${({ animate }) => (animate ? 'flyIn 1s forwards' : 'none')};
+            animation: ${({ $animate }) => ($animate ? 'flyIn 1s forwards' : 'none')};
         }
 
         .contents-items {
@@ -89,8 +71,8 @@ const Wrapper = styled.div`
             text-align: center;
             opacity: 0;
             transform: translateX(-100%);
-            animation: ${({ animate }) => (animate ? 'flyIn 1s forwards' : 'none')};
-            animation-delay: 0.3s;    
+            animation: ${({ $animate }) => ($animate ? 'flyIn 1s forwards' : 'none')};
+            animation-delay: 0.3s;
             margin: auto 0;
 
             p {
@@ -110,13 +92,5 @@ const Wrapper = styled.div`
             opacity: 1;
             transform: translateY(0);
         }
-    }
-
-    .dummy {
-        position: relative;
-        z-index: 1;
-        border: 2px solid green;
-        background-color: white;
-        padding: 20px;
     }
 `;
