@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import { FaCamera, FaEdit, FaUsers, FaProjectDiagram } from 'react-icons/fa';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -10,6 +10,7 @@ const ViewTournament = () => {
   const [participants, setParticipants] = useState([]);
   const [visible, setVisible] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
+  const navigate= useNavigate();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -62,6 +63,13 @@ const ViewTournament = () => {
     }
   };
 
+  const handleBracket = () => {
+    navigate('/tie-sheet', {
+      state: { data: tournament._id } // Correctly pass the data object
+    });
+  };
+  
+
   return (
     <Wrapper>
       <div className="main-container">
@@ -103,7 +111,7 @@ const ViewTournament = () => {
               </span>
               See Participants
             </button>
-            <button className="button">
+            <button className="button" onClick={handleBracket}>
               <span className="icon-wrapper">
                 <FaProjectDiagram />
               </span>
