@@ -46,6 +46,7 @@ function MyTournament() {
 
   return (
     <div style={styles.container}>
+      <h1>Total tournaments: {tournaments.length}</h1>
       <h1 style={styles.title}>Join Tournament</h1>
       <div style={styles.tournamentsList}>
         {error && <div style={styles.error}>{error}</div>} {/* Display error message */}
