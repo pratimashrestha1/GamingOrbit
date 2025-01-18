@@ -23,6 +23,7 @@ import Edit from "./Components/tournament/Edit";
 import JoinTournament from "./Components/tournament/JoinTournament";
 import ViewTournament from "./Components/tournament/ViewTournament";
 import TieSheet from './Components/tournament/TieSheet';
+import MyTournament from './Components/tournament/MyTournament';
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
               <Route path="/joinTour" element={<JoinTournament/>} />
               <Route path="/viewTour" element={<ViewTournament/>} />
               <Route path="/tie-sheet" element={<TieSheet/>} />
+              <Route path="my-tournament" element={<MyTournament/>} />
             </Routes>
 
           </BrowserRouter>
