@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const JoinTournament = ({ tournamentss }) => {
+const JoinTournament = () => {
   const [tournaments, setTournaments] = useState([]);
-  const navigate = useNavigate(); // Use to programmatically navigate
+  const [error, setError] = useState(null); // Optional error state
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-        const response = await fetch('http://localhost:4000/tour/all-tour'); // Adjust your API endpoint
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+          setError('User ID is not available.');
+          return;
+        }
+
+        const response = await fetch(`http://localhost:4000/tour/all-tour/${userId}`);
         const data = await response.json();
 
-        if (data && data.length > 0) {
-          setTournaments(data);
+        // Check if the response contains tournaments and filter them
+        if (data.tournaments && data.tournaments.length > 0) {
+          // Filter out tournaments created by the logged-in user
+          const filteredTournaments = data.tournaments.filter(
+            (tournament) => tournament.createdBy !== userId
+          );
+          setTournaments(filteredTournaments);  // Set filtered tournaments
         } else {
           setTournaments([]); // Handle empty response
         }
       } catch (err) {
         console.error('Error fetching tournaments:', err);
+        setError('Error fetching tournaments'); // Set error message
         setTournaments([]); // Handle error scenario
       }
     };
@@ -33,6 +46,7 @@ const JoinTournament = ({ tournamentss }) => {
     <div style={styles.container}>
       <h1 style={styles.title}>Join Tournament</h1>
       <div style={styles.tournamentsList}>
+        {error && <div style={styles.error}>{error}</div>}  {/* Display error message */}
         {Array.isArray(tournaments) && tournaments.length > 0 ? (
           tournaments.map((tournament) => (
             <div key={tournament._id} style={styles.tournamentCard}>
@@ -57,77 +71,56 @@ const JoinTournament = ({ tournamentss }) => {
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#1e1e1e',
-    padding: '40px',
-    minHeight: '100vh',
-    color: '#fff',
+    padding: '20px',
   },
   title: {
-    fontFamily: "'Orbitron', sans-serif",
-    fontSize: '2.5rem',
-    color: 'white',
     textAlign: 'center',
-    marginBottom: '30px',
+    marginBottom: '20px',
   },
   tournamentsList: {
     display: 'flex',
-    flexDirection: 'column', // Stack the cards vertically
-    alignItems: 'center', // Center align the cards
-    gap: '20px', // Space between cards
-    width: '100%', // Ensures the list takes full width
+    flexDirection: 'column',
+    gap: '10px',
   },
   tournamentCard: {
-    backgroundColor: '#2c3e50',
-    padding: '20px',
-    borderRadius: '10px',
-    width: '70vw', // Set the width of each card to 70% of the viewport width
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
-    textAlign: 'center',
-    transition: 'transform 0.3s ease',
+    border: '1px solid #ccc',
+    padding: '10px',
+    borderRadius: '8px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   tournamentDetails: {
-    marginBottom: '20px',
+    flex: 1,
   },
   tournamentName: {
-    fontFamily: "'Press Start 2P', cursive",
-    fontSize: '1.5rem',
-    color: '#ffcc00',
+    fontSize: '1.2em',
     marginBottom: '10px',
   },
   game: {
-    fontSize: '1rem',
-    color: '#ddd',
+    fontSize: '1em',
+    marginBottom: '5px',
   },
   region: {
-    fontSize: '1rem',
-    color: '#ddd',
+    fontSize: '1em',
+    marginBottom: '5px',
   },
   startDate: {
-    fontSize: '1rem',
-    color: '#ddd',
-    marginBottom: '20px',
+    fontSize: '0.9em',
+    marginBottom: '10px',
   },
   joinButton: {
-    backgroundColor: '#800000',
+    backgroundColor: '#4CAF50',
     color: 'white',
     padding: '10px 20px',
-    fontSize: '1rem',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '4px',
     cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
   },
   error: {
-    fontSize: '1.5rem',
-    color: '#ff4500',
+    color: 'red',
     textAlign: 'center',
   },
 };
 
 export default JoinTournament;
-
-
-

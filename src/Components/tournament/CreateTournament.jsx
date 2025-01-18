@@ -80,11 +80,13 @@ const CreateTournament = () => {
     e.preventDefault();
     try {
       const { startDate, ...otherData } = formData;
+      const userId = localStorage.getItem('userId');
       const payload = {
         ...otherData,
         startDate: new Date(startDate).toISOString(),
+        userId
       };
-
+      // alert(userId);
       const response = await axios.post("http://localhost:4000/tour/create", payload);
       console.log("Tournament created successfully:", response.data);
       navigate("/brackets");
@@ -100,6 +102,10 @@ const CreateTournament = () => {
       }
     }
   };
+
+  const myTour=()=>{
+    navigate('/my-tournament');
+  }
 
   return (
     <Container>
@@ -179,6 +185,8 @@ const CreateTournament = () => {
           Create Tournament
         </button>
       </Form>
+
+      <button onClick={myTour}>My Tournaments</button>
     </Container>
   );
 };
