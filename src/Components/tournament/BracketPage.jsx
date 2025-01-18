@@ -143,7 +143,7 @@ const BracketCreation = () => {
                 type="number"
                 value={players} // Bind the input value to players state
                 onChange={(e) => setPlayers(Number(e.target.value))} // Directly update the players state
-                min="1"
+                min="2"
                 style={{
                   width: '96%',
                   padding: '10px',

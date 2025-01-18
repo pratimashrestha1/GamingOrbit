@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 function MyTournament() {
   const [tournaments, setTournaments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch tournaments created by the current user
@@ -37,95 +38,107 @@ function MyTournament() {
     fetchTournaments();
   }, []);
 
-  if (loading) return <div>Loading tournaments...</div>;
+  const handleJoinClick = (tournament) => {
+    navigate('/viewTour', { state: { tournament: tournament } });
+  };
 
-  if (error) return <div>{error}</div>;
+  if (loading) return <div style={styles.loading}>Loading tournaments...</div>;
 
   return (
-    <Div>
-      <h1>Total tournaments: {tournaments.length}</h1>
-      <div className="my-tournaments">
-        <h2 className="tournament-header">My Tournaments</h2>
-        {tournaments.length === 0 ? (
-          <p className="no-tournaments">You have not created any tournaments yet.</p>
+    <div style={styles.container}>
+      <h1 style={styles.title}>Join Tournament</h1>
+      <div style={styles.tournamentsList}>
+        {error && <div style={styles.error}>{error}</div>} {/* Display error message */}
+        {Array.isArray(tournaments) && tournaments.length > 0 ? (
+          tournaments.map((tournament) => (
+            <div key={tournament._id} style={styles.tournamentCard}>
+              <div style={styles.tournamentDetails}>
+                <h3 style={styles.tournamentName}>{tournament.tournamentName}</h3>
+                <p style={styles.game}>{tournament.game}</p>
+                <p style={styles.region}>{tournament.region}</p>
+                <p style={styles.startDate}>{new Date(tournament.startDate).toLocaleString()}</p>
+              </div>
+              <button
+                onClick={() => handleJoinClick(tournament)}
+                style={styles.joinButton}
+              >
+                Explore
+              </button>
+            </div>
+          ))
         ) : (
-          <ul className="tournament-list">
-            {tournaments.map((tournament) => (
-              <li key={tournament._id} className="tournament-item">
-                <h3>{tournament.tournamentName}</h3>
-                <p><strong>Game:</strong> {tournament.game}</p>
-                <p><strong>Region:</strong> {tournament.region}</p>
-                <p><strong>Status:</strong> {tournament.status}</p>
-                <p><strong>Start Date:</strong> {new Date(tournament.startDate).toLocaleString()}</p>
-              </li>
-            ))}
-          </ul>
+          <div style={styles.error}>No tournaments found.</div>
         )}
-        <button className="explore-btn">Explore More Tournaments</button>
       </div>
-    </Div>
+    </div>
   );
 }
 
 export default MyTournament;
 
-const Div = styled.div`
-.my-tournaments {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.tournament-header {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.no-tournaments {
-  color: #d9534f;
-  font-size: 1.2rem;
-}
-
-.tournament-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.tournament-item {
-  background-color: #fff;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.tournament-item h3 {
-  margin-top: 0;
-  color: #007bff;
-}
-
-.tournament-item p {
-  margin: 5px 0;
-  color: #555;
-}
-
-.explore-btn {
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 5px;
-  margin-top: 20px;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-  transition: background-color 0.3s;
-}
-
-.explore-btn:hover {
-  background-color: #0056b3;
-}
-`
+const styles = {
+  container: {
+    padding: '20px',
+    backgroundColor: '#f9f9f9',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  title: {
+    fontSize: '2rem',
+    marginBottom: '20px',
+    color: '#333',
+  },
+  tournamentsList: {
+    listStyleType: 'none',
+    padding: '0',
+  },
+  tournamentCard: {
+    backgroundColor: '#fff',
+    padding: '15px',
+    margin: '10px 0',
+    borderRadius: '8px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  },
+  tournamentDetails: {
+    marginBottom: '10px',
+  },
+  tournamentName: {
+    marginTop: '0',
+    color: '#007bff',
+  },
+  game: {
+    margin: '5px 0',
+    color: '#555',
+  },
+  region: {
+    margin: '5px 0',
+    color: '#555',
+  },
+  startDate: {
+    margin: '5px 0',
+    color: '#555',
+  },
+  joinButton: {
+    backgroundColor: '#007bff',
+    color: 'white',
+    padding: '12px 25px',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    fontSize: '1rem',
+    textAlign: 'center',
+    transition: 'background-color 0.3s',
+  },
+  joinButtonHover: {
+    backgroundColor: '#0056b3',
+  },
+  error: {
+    color: '#d9534f',
+    fontSize: '1.2rem',
+  },
+  loading: {
+    textAlign: 'center',
+    fontSize: '1.5rem',
+    color: '#007bff',
+  },
+};
