@@ -1,28 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LastTournament = () => {
   const [tournaments, setTournaments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTabs, setActiveTabs] = useState({}); // Store active tab per tournament
+  const [activeTabs, setActiveTabs] = useState({}); // Active tab for each tournament
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
+    const tourData = location.state?.tourData;
+    if (!tourData) {
+      setError('No tournament data provided.');
+      setLoading(false);
+      return;
+    }
+
     axios
-      .get('http://localhost:4000/tour/tour-data')
+      .get(`http://localhost:4000/tour/tour-data/${tourData._id}`)
       .then((response) => {
         const data = response.data;
-        setTournaments(Array.isArray(data) ? data : [data]);
+        const tournamentsData = Array.isArray(data) ? data : [data];
+        setTournaments(tournamentsData);
+
+        // Set default active tab to "Overview" for each tournament
+        const defaultTabs = tournamentsData.reduce((tabs, tournament) => {
+          tabs[tournament._id] = 'Overview';
+          return tabs;
+        }, {});
+        setActiveTabs(defaultTabs);
+
         setLoading(false);
       })
       .catch(() => {
-        setError('Error fetching tournament data');
+        setError('Error fetching tournament data.');
         setLoading(false);
       });
-  }, []);
+  }, [location.state]);
 
   const handleTabChange = (tournamentId, tab) => {
     setActiveTabs((prevTabs) => ({
@@ -39,20 +56,14 @@ const LastTournament = () => {
             <p><strong>Region:</strong> {tournament.region}</p>
             <p><strong>Start Date:</strong> {new Date(tournament.startDate).toLocaleString()}</p>
             <p><strong>Status:</strong> {tournament.status}</p>
+            <p><strong>Max players allowed:</strong> {tournament.maxPlayers}</p>
+            <p><strong>Participants:</strong> {tournament.participants.length}</p>
           </div>
         );
       case 'Brackets':
-        return (
-          <div className="tab-content">
-            <p>Brackets feature coming soon!</p>
-          </div>
-        );
+        return <div className="tab-content"><p>Brackets feature coming soon!</p></div>;
       case 'Participants':
-        return (
-          <div className="tab-content">
-            <p>Participants feature coming soon!</p>
-          </div>
-        );
+        return <div className="tab-content"><p>Participants feature coming soon!</p></div>;
       default:
         return null;
     }
@@ -63,13 +74,8 @@ const LastTournament = () => {
     alert('Tournament URL copied to clipboard!');
   };
 
-  if (loading) {
-    return <Wrapper><div className="loading">Loading tournaments...</div></Wrapper>;
-  }
-
-  if (error) {
-    return <Wrapper><div className="error">{error}</div></Wrapper>;
-  }
+  if (loading) return <Wrapper><div className="loading">Loading tournaments...</div></Wrapper>;
+  if (error) return <Wrapper><div className="error">{error}</div></Wrapper>;
 
   return (
     <Wrapper>
@@ -91,11 +97,9 @@ const LastTournament = () => {
                   </span>
                 ))}
               </div>
-              {activeTabs[tournament._id] && (
-                <div className="tab-content-wrapper">
-                  {renderTabContent(activeTabs[tournament._id], tournament)}
-                </div>
-              )}
+              <div className="tab-content-wrapper">
+                {renderTabContent(activeTabs[tournament._id], tournament)}
+              </div>
               <div className="button-container">
                 <button className="edit-button" onClick={() => navigate(`/view/${tournament._id}`)}>Edit Tournament</button>
                 <button className="delete-button">Delete Tournament</button>
@@ -116,7 +120,6 @@ const LastTournament = () => {
   );
 };
 
-
 export default LastTournament;
 
 const Wrapper = styled.div`
@@ -130,15 +133,7 @@ const Wrapper = styled.div`
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  .title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #0ea5e9;
-  }
-
-  .loading,
-  .error {
+  .loading, .error {
     text-align: center;
     font-size: 1.5rem;
     margin: 20px 0;
@@ -147,8 +142,8 @@ const Wrapper = styled.div`
   .tournament-list {
     list-style: none;
     padding: 0;
-    text-align: center;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
   }
 
@@ -200,6 +195,15 @@ const Wrapper = styled.div`
     gap: 10px;
   }
 
+  button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+    transition: background 0.3s ease;
+  }
+
   .edit-button {
     background: #22c55e;
     color: #f1f5f9;
@@ -220,31 +224,7 @@ const Wrapper = styled.div`
     color: #ffffff;
   }
 
-  .edit-button,
-  .delete-button,
-  .action-button,
-  .share-button {
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    border: none;
-    transition: background 0.3s ease;
-  }
-
-  .edit-button:hover {
-    background: #16a34a;
-  }
-
-  .delete-button:hover {
-    background: #dc2626;
-  }
-
-  .action-button:hover {
-    background: #0284c7;
-  }
-
-  .share-button:hover {
-    background: #4f46e5;
+  button:hover {
+    filter: brightness(1.2);
   }
 `;

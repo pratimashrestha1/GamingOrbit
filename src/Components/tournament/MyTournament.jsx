@@ -331,7 +331,7 @@ function MyTournament() {
   }, []);
 
   const handleJoinClick = (tournament) => {
-    navigate('/viewTour', { state: { tournament: tournament } });
+    navigate('/lastTour', { state: { tourData: tournament } });
   };
 
   if (loading) return <div style={styles.loading}>Loading tournaments...</div>;
