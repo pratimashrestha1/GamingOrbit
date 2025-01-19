@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { useLocation,useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FaCamera, FaEdit, FaUsers, FaProjectDiagram } from 'react-icons/fa';
 import styled from 'styled-components';
 import axios from 'axios';
+import TieSheet from './Tiesheet4MyTour'; // Import your TieSheet component
 
 const ViewTournament = () => {
   const location = useLocation();
   const tournament = location.state?.tournament;
   const [participants, setParticipants] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [showBracket, setShowBracket] = useState(false); // State for TieSheet visibility
   const [profileImage, setProfileImage] = useState(null);
-  const navigate= useNavigate();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -23,52 +24,39 @@ const ViewTournament = () => {
     }
   };
 
-  const storageLink = "https://example.com/storage-link"; // Replace with actual storage link
-
   if (!tournament) {
     return <div style={{ textAlign: 'center', marginTop: '100px' }}>No tournament data available.</div>;
   }
 
   const addParticipant = async () => {
-
     const username = localStorage.getItem('username');
     const userId = localStorage.getItem('userId');
-
     try {
       const response = await axios.post(`http://localhost:4000/tour/tournament/${tournament._id}/addParticipant`, {
         userId,
-        username
+        username,
       });
-      alert(response.data.message); // Handle success message
+      alert(response.data.message);
     } catch (error) {
-      if (error.response) {
-        // Server responded with a non-2xx status code
-        alert(error.response.data.message);
-      } else {
-        // Network error or no response
-        alert('Error adding participant:', error.message);
-      }
+      alert(error.response?.data?.message || 'Error adding participant.');
     }
   };
 
   const fetchParticipants = async () => {
     setVisible(!visible);
+    setShowBracket(false);
     try {
       const response = await axios.get(`http://localhost:4000/tour/tournament/${tournament._id}/fetchPaticipants`);
       setParticipants(response.data.participants);
-      // console.log(participants);
-
     } catch (error) {
-      console.error('Error fetching participants:', error.response ? error.response.data.message : error.message);
+      console.error('Error fetching participants:', error.response?.data?.message || error.message);
     }
   };
 
-  const handleBracket = () => {
-    navigate('/tie-sheet', {
-      state: { data: tournament._id } // Correctly pass the data object
-    });
+  const toggleBracket = () => {
+    setShowBracket(!showBracket);
+    setVisible(false);
   };
-  
 
   return (
     <Wrapper>
@@ -111,7 +99,7 @@ const ViewTournament = () => {
               </span>
               See Participants
             </button>
-            <button className="button" onClick={handleBracket}>
+            <button className="button" onClick={toggleBracket}>
               <span className="icon-wrapper">
                 <FaProjectDiagram />
               </span>
@@ -120,38 +108,37 @@ const ViewTournament = () => {
           </div>
         </div>
 
-        {profileImage && (
-          <a className="storage-link" href={storageLink} target="_blank" rel="noopener noreferrer">
-            View Profile Picture in Storage
-          </a>
-        )}
-      </div>
-
-
-      <div className='participants_list' style={{ display: visible ? 'block' : 'none' }}>
         {visible && (
-          <table>
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>Username</th>
-              </tr>
-            </thead>
-            <tbody>
-              {participants.length > 0 ? (
-                participants.map((participant) => (
-                  <tr key={participant.userId}>
-                    <td>{participant.userId}</td>
-                    <td>{participant.username}</td>
-                  </tr>
-                ))
-              ) : (
+          <div className="participants_list">
+            <table>
+              <thead>
                 <tr>
-                  <td colSpan="2">No participants found</td>
+                  <th>User ID</th>
+                  <th>Username</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {participants.length > 0 ? (
+                  participants.map((participant) => (
+                    <tr key={participant.userId}>
+                      <td>{participant.userId}</td>
+                      <td>{participant.username}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="2">No participants found</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {showBracket && (
+          <div className="tie-sheet-container">
+            <TieSheet data={tournament._id} />
+          </div>
         )}
       </div>
     </Wrapper>
@@ -350,6 +337,4 @@ const Wrapper = styled.div`
   color: #777;
   padding: 10px;
 }
-
-
 `

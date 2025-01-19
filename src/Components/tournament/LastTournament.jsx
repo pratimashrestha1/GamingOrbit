@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import TieSheet from './Tiesheet4MyTour';
 
 const LastTournament = () => {
   const [tournaments, setTournaments] = useState([]);
@@ -61,7 +62,11 @@ const LastTournament = () => {
           </div>
         );
       case 'Brackets':
-        return <div className="tab-content"><p>Brackets feature coming soon!</p></div>;
+        return (
+          <div className="tab-content">
+            <TieSheet data={tournament._id} />
+          </div>
+        );
       case 'Participants':
         return <div className="tab-content"><p>Participants feature coming soon!</p></div>;
       default:
