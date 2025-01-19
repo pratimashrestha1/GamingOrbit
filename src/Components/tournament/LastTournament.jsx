@@ -7,7 +7,7 @@ const LastTournament = () => {
   const [tournaments, setTournaments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState('Overview'); // Manage active tab
+  const [activeTabs, setActiveTabs] = useState({}); // Store active tab per tournament
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +23,13 @@ const LastTournament = () => {
         setLoading(false);
       });
   }, []);
+
+  const handleTabChange = (tournamentId, tab) => {
+    setActiveTabs((prevTabs) => ({
+      ...prevTabs,
+      [tournamentId]: tab,
+    }));
+  };
 
   const renderTabContent = (tab, tournament) => {
     switch (tab) {
@@ -77,16 +84,18 @@ const LastTournament = () => {
                 {['Overview', 'Brackets', 'Participants'].map((tab) => (
                   <span
                     key={tab}
-                    className={`tab ${activeTab === tab ? 'active' : ''}`}
-                    onClick={() => setActiveTab(tab)}
+                    className={`tab ${activeTabs[tournament._id] === tab ? 'active' : ''}`}
+                    onClick={() => handleTabChange(tournament._id, tab)}
                   >
                     {tab}
                   </span>
                 ))}
               </div>
-              <div className="tab-content-wrapper">
-                {renderTabContent(activeTab, tournament)}
-              </div>
+              {activeTabs[tournament._id] && (
+                <div className="tab-content-wrapper">
+                  {renderTabContent(activeTabs[tournament._id], tournament)}
+                </div>
+              )}
               <div className="button-container">
                 <button className="edit-button" onClick={() => navigate(`/view/${tournament._id}`)}>Edit Tournament</button>
                 <button className="delete-button">Delete Tournament</button>
@@ -106,6 +115,7 @@ const LastTournament = () => {
     </Wrapper>
   );
 };
+
 
 export default LastTournament;
 
