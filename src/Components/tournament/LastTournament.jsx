@@ -11,6 +11,24 @@ const LastTournament = () => {
   const [activeTabs, setActiveTabs] = useState({}); // Active tab for each tournament
   const navigate = useNavigate();
   const location = useLocation();
+  const [participants, setParticipants] = useState([]);
+
+  useEffect(() => {
+    const tourData = location.state?.tourData;
+    // console.log(tourData._id);
+    const fetchParticipants = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/tour/tournament/${tourData._id}/fetchPaticipants`);
+        setParticipants(response.data.participants); // Update participants state
+        // console.log(participants);
+      } catch (error) {
+        console.error('Error fetching participants:', error.response?.data?.message || error.message);
+      }
+    };
+
+    fetchParticipants();
+  }, [location.state]);
+
 
   useEffect(() => {
     const tourData = location.state?.tourData;
@@ -68,7 +86,33 @@ const LastTournament = () => {
           </div>
         );
       case 'Participants':
-        return <div className="tab-content"><p>Participants feature coming soon!</p></div>;
+        return (
+          <div className="participants_list">
+            <table>
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                {participants.length > 0 ? (
+                  participants.map((participant) => (
+                    <tr key={participant.userId}>
+                      <td>{participant.userId}</td>
+                      <td>{participant.username}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="2">No participants found</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        );
+
       default:
         return null;
     }
@@ -81,6 +125,24 @@ const LastTournament = () => {
 
   if (loading) return <Wrapper><div className="loading">Loading tournaments...</div></Wrapper>;
   if (error) return <Wrapper><div className="error">{error}</div></Wrapper>;
+
+  const deleteTournament = async () => {
+    const tourData = location.state?.tourData;
+    // console.log(tourData._id);
+    try {
+      const confirmed = window.confirm('Are you sure you want to delete this tournament?');
+      if (!confirmed) {
+        return;
+      }
+
+      // Make the delete request
+      await axios.delete(`http://localhost:4000/tour/delTour/${tourData._id}`);
+      alert("delete successfully !");
+    } catch (error) {
+      console.error('Error deleting tournament:', error.response?.data?.message || error.message);
+      // setMessage('Error deleting the tournament. Please try again.');
+    }
+  };
 
   return (
     <Wrapper>
@@ -107,7 +169,7 @@ const LastTournament = () => {
               </div>
               <div className="button-container">
                 <button className="edit-button" onClick={() => navigate(`/view/${tournament._id}`)}>Edit Tournament</button>
-                <button className="delete-button">Delete Tournament</button>
+                <button className="delete-button" onClick={deleteTournament}>Delete Tournament</button>
                 <button className="action-button">Manage Participants</button>
                 <button className="action-button">Bracket Seeding</button>
                 <button
@@ -232,4 +294,56 @@ const Wrapper = styled.div`
   button:hover {
     filter: brightness(1.2);
   }
+
+  .participants_list {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Table styles */
+.participants_list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+/* Table header styles */
+.participants_list th {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  font-size: 16px;
+}
+
+/* Table cell styles */
+.participants_list td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+/* Alternate row colors */
+.participants_list tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Hover effect for rows */
+.participants_list tr:hover {
+  background-color: #e9e9e9;
+}
+
+/* Message when no participants are found */
+.participants_list .no-participants {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  padding: 10px;
+}
 `;

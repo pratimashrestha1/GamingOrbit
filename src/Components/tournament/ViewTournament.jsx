@@ -293,7 +293,7 @@ const Wrapper = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow-x: auto;
-  max-width: 100%;
+  width: 80%;
 }
 
 /* Table styles */
@@ -336,5 +336,9 @@ const Wrapper = styled.div`
   font-style: italic;
   color: #777;
   padding: 10px;
+}
+
+.tie-sheet-container{
+  width: 90%;
 }
 `
