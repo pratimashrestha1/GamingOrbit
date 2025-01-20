@@ -4,12 +4,12 @@ import axios from 'axios';
 
 const BracketCreation = () => {
   const [players, setPlayers] = useState(1); // Default value set to 1
-  const [tourId,setTourId]= useState(null);
+  const [tour,setTour]= useState(null);
   const [brackets, setBrackets] = useState([
     {
       id: Date.now(), // Unique ID for the bracket
       bracketType: 'Single Elimination', // Default bracket type
-      membersPerTeam: 1, // Default members per team
+      membersPerTeam: 2, // Default members per team
     },
   ]);
   console.log(players);
@@ -45,21 +45,19 @@ const BracketCreation = () => {
   };
 
   const handleNext = async () => {
-    if (!tourId || !players) {
+    if (!tour._id || !players) {
       alert("Please provide both tournament ID and maxPlayers.");
       return;
     }
 
     try {
-      // const response = await axios.post("http://localhost:4000/tour/maxPlayers", {
       await axios.post("http://localhost:4000/tour/maxPlayers", {
-        id: tourId,
+        id: tour._id,
         maxPlayers: players,
       });
 
-      // alert("Max players updated successfully!");
-      // console.log(response.data);
-      navigate('/lastTour');
+        navigate('/lastTour', { state: { tourData: tour } });
+      
     } catch (error) {
       console.error("Error updating maxPlayers:", error);
       alert(
@@ -67,19 +65,24 @@ const BracketCreation = () => {
       );
     }
   }
+  
+  // const handleNext = async () => {
+  //   navigate('/lastTour', { state: { tourData: tour } });
+  // }
 
   useEffect(() => {
     // Fetch the data from the API
     const fetchTourData = async () => {
       try {
-        const response = await fetch("http://localhost:4000/tour/tour-data");
+        const response = await fetch("http://localhost:4000/tour/lastTourId");
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
+        // console.log(data._id);
 
         // Store the `_id` value in the `tourId` variable
-        setTourId(data._id);
+        setTour(data);
       } catch (error) {
         console.error("Error fetching tour data:", error);
       }

@@ -22,7 +22,7 @@ import LastTournament from './Components/tournament/LastTournament';
 import Edit from "./Components/tournament/Edit";
 import JoinTournament from "./Components/tournament/JoinTournament";
 import ViewTournament from "./Components/tournament/ViewTournament";
-import TieSheet from './Components/tournament/TieSheet';
+import TieSheet from './Components/tournament/BackupTieSheet';
 import MyTournament from './Components/tournament/MyTournament';
 
 
