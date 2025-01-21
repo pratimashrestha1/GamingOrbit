@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../Modal';
 
 const JoinTournament = () => {
   const [tournaments, setTournaments] = useState([]);
@@ -44,6 +45,7 @@ const JoinTournament = () => {
 
   return (
     <div style={styles.container}>
+      <Modal/>
       <h1 style={styles.title}>Join Tournament</h1>
       <div style={styles.tournamentsList}>
         {error && <div style={styles.error}>{error}</div>}  {/* Display error message */}
