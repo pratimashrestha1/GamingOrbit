@@ -36,61 +36,121 @@ const Header = () => {
   );
 };
 
+// const MainHeader = styled.header`
+// position: sticky;
+// top:0px;
+// background-image: ${({ theme }) => theme.colors.gradient};
+// font-family: ${({ theme }) => theme.fontFamily.games};
+// background-color: #222;
+// display:flex;
+// justify-content: space-between;
+// box-shadow: 0 10px 15px rgba(80, 15, 20, 1); 
+// z-index: 2;
+
+// img{
+//   max-width: 150px;
+//   }
+
+// .nav_menu{
+// ul{
+//   display:flex;
+//   gap:15px;
+//   margin: 0;
+
+//   li{
+//       color: #fff;
+//       list-style-type: none;
+//       align-content: center;
+//     }
+//       .navs{
+//       text-decoration: none;
+//       color: #fff;
+//       font-size: 1em; 
+
+//       &:hover{
+//       color: ${({ theme }) => theme.colors.logoBlue};
+//       border-bottom: 2px solid #FC0D50;
+//       transition: 0.3s ease;
+//       }
+//       }
+// }
+// }
+
+// .nav_logo{  
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+
+//   p{
+//   color: white;
+//   }
+//   .user_logo{
+//   color: #fff;
+//   width: 50px;
+//   padding: 15px;
+//   border-radius: 50%;
+//     }
+// }
+// `;
+
 const MainHeader = styled.header`
-position: sticky;
-top:0px;
-background-image: ${({ theme }) => theme.colors.gradient};
-font-family: ${({ theme }) => theme.fontFamily.games};
-background-color: #222;
-display:flex;
-justify-content: space-between;
-box-shadow: 0 10px 15px rgba(80, 15, 20, 1); 
-z-index: 2;
-
-img{
-  max-width: 150px;
-  }
-
-.nav_menu{
-ul{
-  display:flex;
-  gap:15px;
-  margin: 0;
-
-  li{
-      color: #fff;
-      list-style-type: none;
-      align-content: center;
-    }
-      .navs{
-      text-decoration: none;
-      color: #fff;
-      font-size: 1em; 
-
-      &:hover{
-      color: ${({ theme }) => theme.colors.logoBlue};
-      border-bottom: 2px solid #FC0D50;
-      transition: 0.3s ease;
-      }
-      }
-}
-}
-
-.nav_logo{  
+  position: sticky;
+  top: 0px;
+  background-image: ${({ theme }) => theme.colors.gradient};
+  font-family: ${({ theme }) => theme.fontFamily.games};
+  background-color: #222;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  box-shadow: 0 10px 15px rgba(80, 15, 20, 1);
+  z-index: 2;
 
-  p{
-  color: white;
+  img {
+    max-width: 150px;
   }
-  .user_logo{
-  color: #fff;
-  width: 50px;
-  padding: 15px;
-  border-radius: 50%;
+
+  .nav_menu {
+    ul {
+      display: flex;
+      gap: 15px;
+      margin: 0;
+
+      li {
+        color: #fff;
+        list-style-type: none;
+        align-content: center;
+      }
+
+      .navs {
+        text-decoration: none;
+        color: #fff;
+        font-size: 1em;
+
+        &:hover,
+        &.active {
+          color: ${({ theme }) => theme.colors.logoBlue};
+          border-bottom: 2px solid #FC0D50;
+          transition: 0.3s ease;
+        }
+      }
     }
-}
+  }
+
+  .nav_logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    p {
+      color: white;
+    }
+    .user_logo {
+      color: #fff;
+      width: 50px;
+      padding: 15px;
+      border-radius: 50%;
+    }
+  }
 `;
+
 
 export default Header;
