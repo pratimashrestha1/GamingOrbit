@@ -69,7 +69,12 @@ const Edit = () => {
         axios
             .put(`http://localhost:4000/tour/update/${tournamentId}`, tournament)
             .then(() => {
-                navigate('/lastTour');
+                navigate('/lastTour',{
+                    state:{
+                        tourData: tournament
+                    }
+                });
+            
             })
             .catch(() => {
                 setError('Error updating tournament');

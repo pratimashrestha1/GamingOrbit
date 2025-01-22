@@ -13,7 +13,6 @@ import Error from './Error';
 import { GlobalComponentProvider } from './GlobalComponentContext';
 import GoToTop from './Components/GoToTop';
 import CommunityDetails from './Components/CommunityDetails';
-// import News from './Components/News/News';  //i change for news.
 import Live from './Components/Live'
 import Watch from './Components/Watch'
 import CreateTournament from './Components/tournament/CreateTournament';
@@ -24,7 +23,7 @@ import JoinTournament from "./Components/tournament/JoinTournament";
 import ViewTournament from "./Components/tournament/ViewTournament";
 import TieSheet from './Components/tournament/BackupTieSheet';
 import MyTournament from './Components/tournament/MyTournament';
-
+import LoadFromTop from './Components/LoadFromTop';
 
 function App() {
   const theme = {
@@ -51,6 +50,7 @@ function App() {
       <GlobalComponentProvider>
         <div>
           <BrowserRouter>
+            <LoadFromTop />
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -61,20 +61,20 @@ function App() {
               <Route path="/about" element={<Aboutus />} />
               <Route path="*" element={<Error />} />
               <Route path="/community/:communityId" element={<CommunityDetails />} />
-              <Route path="/live" element={<Live/>} />
-              <Route path="/watch" element={<Watch/>} />
-              <Route path="/create-tournament" element={<CreateTournament/>} />
-              <Route path="/brackets" element={<BracketPage/>} />
-              <Route path="/lastTour" element={<LastTournament/>} />
-              <Route path="/view/:tournamentId" element={<Edit/>} />
-              <Route path="/joinTour" element={<JoinTournament/>} />
-              <Route path="/viewTour" element={<ViewTournament/>} />
-              <Route path="/tie-sheet" element={<TieSheet/>} />
-              <Route path="my-tournament" element={<MyTournament/>} />
+              <Route path="/live" element={<Live />} />
+              <Route path="/watch" element={<Watch />} />
+              <Route path="/create-tournament" element={<CreateTournament />} />
+              <Route path="/brackets" element={<BracketPage />} />
+              <Route path="/lastTour" element={<LastTournament />} />
+              <Route path="/view/:tournamentId" element={<Edit />} />
+              <Route path="/joinTour" element={<JoinTournament />} />
+              <Route path="/viewTour" element={<ViewTournament />} />
+              <Route path="/tie-sheet" element={<TieSheet />} />
+              <Route path="my-tournament" element={<MyTournament />} />
             </Routes>
 
           </BrowserRouter>
-          <GoToTop/>
+          <GoToTop />
         </div>
       </GlobalComponentProvider>
     </ThemeProvider>
