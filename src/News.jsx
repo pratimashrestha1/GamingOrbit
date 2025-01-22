@@ -14,9 +14,9 @@ function News() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const apiKey = process.env.REACT_APP_NEWS_API_KEY;
+        // const apiKey = process.env.REACT_APP_NEWS_API_KEY;
         const response = await axios.get(
-          `https://newsapi.org/v2/everything?q=esports&language=en&sortBy=popularity&apiKey=${apiKey}`
+          `https://newsapi.org/v2/everything?q=esports&language=en&sortBy=popularity&apiKey=d3c06d565ea54631898aee2d4fc75e7c`
         );
 
         // Filter and validate articles
