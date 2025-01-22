@@ -24,7 +24,7 @@ const CreateTournament = () => {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await fetch("https://restcountries.com/v3.1/all");
+        const response = await fetch("http://localhost:4000/postData/countries");
         const data = await response.json();
         const countryNames = data.map((country) => country.name.common);
         const sortedCountries = [
