@@ -5,6 +5,10 @@ function InputAndSvg(props) {
     const [count, setCount] = useState(0);
     const [participants, setParticipants] = useState([]);
 
+    const isPowerOfTwo = (num) => {
+        return (num & (num - 1)) === 0 && num > 0;
+    };
+
     // Fetch participants from API
     useEffect(() => {
         const fetchParticipants = async () => {
@@ -38,13 +42,13 @@ function InputAndSvg(props) {
                 <div className="input-list">
                     {[...Array(currentCount)].map((_, index) => (
                         <input
-                            // key={`input-${currentCount}-${index}`}
+                            key={`input-${currentCount}-${index}`}
                             value={
-                                participants[index]
+                                i === 1 && participants[index] // Only for the first tier
                                     ? participants[index].username
-                                    : `Player ${index + 1}`
+                                    : ``
                             }
-                            // readOnly // Inputs are pre-filled and not editable
+                            readOnly // Inputs are pre-filled and not editable
                         />
                     ))}
                 </div>
@@ -78,7 +82,16 @@ function InputAndSvg(props) {
 
     return (
         <Container>
-            <div>{renderTiers(count)}</div>
+            {isPowerOfTwo(participants.length) ? (
+                <div>{renderTiers(count)}</div>
+            ) : (
+                <div className="error-message">
+                    <p>
+                        The number of participants must be a power of 2 (e.g., 2, 4, 8, 16, etc.)
+                        to generate a tournament bracket.
+                    </p>
+                </div>
+            )}
         </Container>
     );
 }
@@ -131,16 +144,17 @@ const Container = styled.div`
     }
 
     .input-list input {
-        // box-sizing: border-box;
         padding: 10px;
         border: 2px solid #330066;
         border-radius: 5px;
-        // background: linear-gradient(to right, #330066, #660033), repeat;
         color: black;
-        // font-weight: bold;
-        // font-size: 23px;
         font-family: 'Orbitron', sans-serif;
         width: 100%;
         max-width: 150px;
+        transition: 0.3s ease;
+        
+        &:focus{
+            scale: 1.1;
+        }
     }
 `;
