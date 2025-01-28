@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import TieSheet from './Tiesheet4MyTour';
+import TieSheet from './SvgTieSheet';
 
 const LastTournament = () => {
   const [tournaments, setTournaments] = useState([]);

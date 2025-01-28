@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { FaCamera, FaEdit, FaUsers, FaProjectDiagram } from 'react-icons/fa';
 import styled from 'styled-components';
 import axios from 'axios';
-import TieSheet from './Tiesheet4MyTour'; // Import your TieSheet component
+import TieSheet from './SvgTieSheet'; // Import your TieSheet component
 
 const ViewTournament = () => {
   const location = useLocation();
