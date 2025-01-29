@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
+import domtoimage from "dom-to-image";
 
 function InputAndSvg(props) {
     const [count, setCount] = useState(0);
     const [participants, setParticipants] = useState([]);
-    const [winners, setWinners] = useState({}); // Store winners at each round
+    const [winners, setWinners] = useState({});
+    const containerRef = useRef(null);
 
     const isPowerOfTwo = (num) => (num & (num - 1)) === 0 && num > 0;
 
-    // Fetch participants from API
     useEffect(() => {
         const fetchParticipants = async () => {
             try {
@@ -29,7 +30,6 @@ function InputAndSvg(props) {
         fetchParticipants();
     }, [props.data]);
 
-    // Handle winner selection
     const handleWinnerSelection = (tier, index, name) => {
         setWinners((prev) => {
             const updatedWinners = { ...prev };
@@ -39,51 +39,52 @@ function InputAndSvg(props) {
         });
     };
 
-    const renderTiers = (currentCount, tier = 1, i=1) => {
+    const renderTiers = (currentCount, tier = 1, i = 1) => {
         if (currentCount < 1) return null;
-
         const nextCount = Math.floor(currentCount / 2);
         const nextTier = tier + 1;
         const nextI = i * 2;
 
         return (
             <div className="tier" key={tier}>
-                {/* Input Column */}
                 <div className="input-list">
                     {[...Array(currentCount)].map((_, index) => (
                         <input
                             key={`input-${tier}-${index}`}
                             value={
-                                tier === 1 && participants[index] // First tier from API
+                                tier === 1 && participants[index]
                                     ? participants[index].username
                                     : winners[tier]?.[index] || ""
                             }
                             readOnly
-                            onClick={() => handleWinnerSelection(nextTier, Math.floor(index / 2), 
-                                tier === 1 && participants[index] 
-                                    ? participants[index].username 
-                                    : winners[tier]?.[index])}
-                            className={winners[nextTier]?.includes(
-                                tier === 1 && participants[index] 
-                                    ? participants[index].username 
-                                    : winners[tier]?.[index]
-                            ) ? "winner" : ""}
+                            onClick={() =>
+                                handleWinnerSelection(
+                                    nextTier,
+                                    Math.floor(index / 2),
+                                    tier === 1 && participants[index]
+                                        ? participants[index].username
+                                        : winners[tier]?.[index]
+                                )
+                            }
+                            className={
+                                winners[nextTier]?.includes(
+                                    tier === 1 && participants[index]
+                                        ? participants[index].username
+                                        : winners[tier]?.[index]
+                                )
+                                    ? "winner"
+                                    : ""
+                            }
                         />
                     ))}
                 </div>
 
-                {/* SVG Column */}
                 <div className="svg-column">
                     {[...Array(nextCount)].map((_, index) => {
-                        const svgHeight = 2 * (25 * i); 
+                        const svgHeight = 2 * (25 * i);
                         return (
-                            <svg
-                                key={`svg-${tier}-${index}`}
-                                style={{ height: `${svgHeight}px` }}
-                                width="50"
-                            >
+                            <svg key={`svg-${tier}-${index}`} style={{ height: `${svgHeight}px` }} width="50">
                                 <path
-                                    // d={`m10 10 h25 v${25 * tier} h25 h-25 v${25 * tier} h-25`}
                                     d={`m10 10 h25 v${25 * i} h25 h-25 v${25 * i} h-25`}
                                     strokeWidth="2"
                                     fill="none"
@@ -93,25 +94,40 @@ function InputAndSvg(props) {
                     })}
                 </div>
 
-                {/* Recursive call for the next tier */}
                 {renderTiers(nextCount, nextTier, nextI)}
             </div>
         );
     };
 
+    const downloadAsJpg = () => {
+        if (containerRef.current) {
+            domtoimage.toJpeg(containerRef.current, { quality: 1, bgcolor: "#ffffff",})
+                .then((dataUrl) => {
+                    const link = document.createElement("a");
+                    link.href = dataUrl;
+                    link.download = "tournament_bracket.jpg";
+                    link.click();
+                })
+                .catch((error) => {
+                    console.error("Error capturing image:", error);
+                });
+        }
+    };
+
+
     return (
         <Container>
             <h1>Single Elimination System</h1>
             {isPowerOfTwo(participants.length) ? (
-                <div>{renderTiers(count)}</div>
+                <div ref={containerRef} style={{ padding: "50px 0 50px 50px"}}>
+                    {renderTiers(count)}
+                </div>
             ) : (
                 <div className="error-message">
-                    <h3>
-                        The number of participants must be a power of 2 (e.g., 2, 4, 8, 16, etc.)
-                        to generate a tournament bracket.
-                    </h3>
+                    <h3>The number of participants must be a power of 2 (e.g., 2, 4, 8, 16, etc.)</h3>
                 </div>
             )}
+            <button onClick={downloadAsJpg} className="download-btn">Download as JPG</button>
         </Container>
     );
 }
@@ -167,8 +183,24 @@ const Container = styled.div`
         max-width: 150px;
         transition: 0.3s ease;
         
-        &:focus{
+        &:focus {
             scale: 1.1;
+        }
+    }
+
+    .download-btn {
+        margin-top: 20px;
+        padding: 10px 15px;
+        font-size: 16px;
+        background-color: #330066;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        
+        &:hover {
+            background-color: #ff3366;
         }
     }
 `;
