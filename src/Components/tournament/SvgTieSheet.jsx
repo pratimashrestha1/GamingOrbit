@@ -4,10 +4,9 @@ import styled from "styled-components";
 function InputAndSvg(props) {
     const [count, setCount] = useState(0);
     const [participants, setParticipants] = useState([]);
+    const [winners, setWinners] = useState({}); // Store winners at each round
 
-    const isPowerOfTwo = (num) => {
-        return (num & (num - 1)) === 0 && num > 0;
-    };
+    const isPowerOfTwo = (num) => (num & (num - 1)) === 0 && num > 0;
 
     // Fetch participants from API
     useEffect(() => {
@@ -20,7 +19,7 @@ function InputAndSvg(props) {
                 console.log("API Response:", data);
                 if (data.message === "Participants fetched successfully") {
                     setParticipants(data.participants);
-                    setCount(data.participants.length); // Set count based on participants
+                    setCount(data.participants.length);
                 }
             } catch (error) {
                 console.error("Error fetching participants:", error);
@@ -30,25 +29,45 @@ function InputAndSvg(props) {
         fetchParticipants();
     }, [props.data]);
 
-    const renderTiers = (currentCount, i = 1) => {
+    // Handle winner selection
+    const handleWinnerSelection = (tier, index, name) => {
+        setWinners((prev) => {
+            const updatedWinners = { ...prev };
+            if (!updatedWinners[tier]) updatedWinners[tier] = [];
+            updatedWinners[tier][index] = name;
+            return updatedWinners;
+        });
+    };
+
+    const renderTiers = (currentCount, tier = 1, i=1) => {
         if (currentCount < 1) return null;
 
-        const nextCount = Math.floor(currentCount / 2); // Halve the count for the next tier
-        const nextI = i * 2; // Double the value of i for the next tier
+        const nextCount = Math.floor(currentCount / 2);
+        const nextTier = tier + 1;
+        const nextI = i * 2;
 
         return (
-            <div className="tier" key={currentCount}>
+            <div className="tier" key={tier}>
                 {/* Input Column */}
                 <div className="input-list">
                     {[...Array(currentCount)].map((_, index) => (
                         <input
-                            key={`input-${currentCount}-${index}`}
+                            key={`input-${tier}-${index}`}
                             value={
-                                i === 1 && participants[index] // Only for the first tier
+                                tier === 1 && participants[index] // First tier from API
                                     ? participants[index].username
-                                    : ``
+                                    : winners[tier]?.[index] || ""
                             }
-                        // readOnly // Inputs are pre-filled and not editable
+                            readOnly
+                            onClick={() => handleWinnerSelection(nextTier, Math.floor(index / 2), 
+                                tier === 1 && participants[index] 
+                                    ? participants[index].username 
+                                    : winners[tier]?.[index])}
+                            className={winners[nextTier]?.includes(
+                                tier === 1 && participants[index] 
+                                    ? participants[index].username 
+                                    : winners[tier]?.[index]
+                            ) ? "winner" : ""}
                         />
                     ))}
                 </div>
@@ -56,14 +75,15 @@ function InputAndSvg(props) {
                 {/* SVG Column */}
                 <div className="svg-column">
                     {[...Array(nextCount)].map((_, index) => {
-                        const svgHeight = 2 * (25 * i); // Dynamic height based on v
+                        const svgHeight = 2 * (25 * i); 
                         return (
                             <svg
-                                key={`svg-${currentCount}-${index}`}
+                                key={`svg-${tier}-${index}`}
                                 style={{ height: `${svgHeight}px` }}
                                 width="50"
                             >
                                 <path
+                                    // d={`m10 10 h25 v${25 * tier} h25 h-25 v${25 * tier} h-25`}
                                     d={`m10 10 h25 v${25 * i} h25 h-25 v${25 * i} h-25`}
                                     strokeWidth="2"
                                     fill="none"
@@ -74,7 +94,7 @@ function InputAndSvg(props) {
                 </div>
 
                 {/* Recursive call for the next tier */}
-                {renderTiers(nextCount, nextI)}
+                {renderTiers(nextCount, nextTier, nextI)}
             </div>
         );
     };
@@ -99,7 +119,6 @@ function InputAndSvg(props) {
 export default InputAndSvg;
 
 const Container = styled.div`
-    // background: linear-gradient(to right, #000033, #330033);
     width: 100%;
     height: 100vh;
     padding: 20px;
@@ -117,31 +136,25 @@ const Container = styled.div`
         justify-content: space-around;
 
         svg {
-        stroke: #330066;
-        fill: none;
-        margin-bottom: 20px;
-        transition: stroke 0.3s ease;
-        overflow: visible;
+            stroke: #330066;
+            fill: none;
+            margin-bottom: 20px;
+            transition: stroke 0.3s ease;
+            overflow: visible;
 
-        &:hover{
-        stroke: #ff3366;
+            &:hover {
+                stroke: #ff3366;
             }
         }
     }
 
-    input[type="number"] {
-        margin-bottom: 20px;
-        padding: 5px;
-        border: 2px solid black;
-        border-radius: 5px;
-        background: linear-gradient(to right, #330066, #660033);
-        color: white;
-        font-family: 'Orbitron', sans-serif;
+    .winner {
+        background: #12e34a;
+        border-color: #ff3366;
     }
 
     .tier {
         display: flex;
-        // gap: 10px;
     }
 
     .input-list input {
