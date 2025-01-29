@@ -113,14 +113,16 @@ const ViewTournament = () => {
             <table>
               <thead>
                 <tr>
+                  <th>S.N</th>
                   <th>User ID</th>
                   <th>Username</th>
                 </tr>
               </thead>
               <tbody>
                 {participants.length > 0 ? (
-                  participants.map((participant) => (
+                  participants.map((participant,index) => (
                     <tr key={participant.userId}>
+                      <td>{index+1}</td>
                       <td>{participant.userId}</td>
                       <td>{participant.username}</td>
                     </tr>

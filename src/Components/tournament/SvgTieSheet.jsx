@@ -48,7 +48,7 @@ function InputAndSvg(props) {
                                     ? participants[index].username
                                     : ``
                             }
-                            readOnly // Inputs are pre-filled and not editable
+                        // readOnly // Inputs are pre-filled and not editable
                         />
                     ))}
                 </div>
@@ -62,7 +62,6 @@ function InputAndSvg(props) {
                                 key={`svg-${currentCount}-${index}`}
                                 style={{ height: `${svgHeight}px` }}
                                 width="50"
-                                overflow="visible"
                             >
                                 <path
                                     d={`m10 10 h25 v${25 * i} h25 h-25 v${25 * i} h-25`}
@@ -82,14 +81,15 @@ function InputAndSvg(props) {
 
     return (
         <Container>
+            <h1>Single Elimination System</h1>
             {isPowerOfTwo(participants.length) ? (
                 <div>{renderTiers(count)}</div>
             ) : (
                 <div className="error-message">
-                    <p>
+                    <h3>
                         The number of participants must be a power of 2 (e.g., 2, 4, 8, 16, etc.)
                         to generate a tournament bracket.
-                    </p>
+                    </h3>
                 </div>
             )}
         </Container>
@@ -121,6 +121,7 @@ const Container = styled.div`
         fill: none;
         margin-bottom: 20px;
         transition: stroke 0.3s ease;
+        overflow: visible;
 
         &:hover{
         stroke: #ff3366;
