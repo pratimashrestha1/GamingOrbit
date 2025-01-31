@@ -73,30 +73,39 @@ const JoinTournament = () => {
 
 const styles = {
   container: {
-    padding: '20px',
+    padding: '50px',  // Reduced padding to create space but keep overall padding
+    display: 'flex',
+    flexDirection: 'column',  // Ensure title is at the top and tournaments list follows
+    alignItems: 'center',  // Center the content horizontally
+    minHeight: '100vh',
   },
   title: {
     textAlign: 'center',
-    marginBottom: '20px',
+    marginBottom: '30px',  // Space between title and tournaments list
+    fontSize: '2em',  // Optional: Increase font size of the title if desired
+    color:'blue',
   },
   tournamentsList: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap: '20px',  // Added more space between tournament cards
+    maxWidth: '1000px',  // Limit the width to prevent cards from stretching too wide
+    padding: '20px',  // Add padding around the tournament cards section
   },
   tournamentCard: {
     border: '1px solid #ccc',
-    padding: '10px',
+    padding: '20px',  // More padding to create space inside each card
     borderRadius: '8px',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between',  // Space between details and button
     alignItems: 'center',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Optional: Add a shadow for better visibility
   },
   tournamentDetails: {
     flex: 1,
   },
   tournamentName: {
-    fontSize: '1.2em',
+    fontSize: '1.3em',  // Slightly larger font size for better visibility
     marginBottom: '10px',
   },
   game: {
@@ -118,11 +127,14 @@ const styles = {
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
+    fontWeight: 'bold',
   },
   error: {
     color: 'red',
     textAlign: 'center',
+    marginBottom: '20px',  // Space below the error message
   },
 };
+
 
 export default JoinTournament;

@@ -170,8 +170,6 @@ const LastTournament = () => {
               <div className="button-container">
                 <button className="edit-button" onClick={() => navigate(`/view/${tournament._id}`)}>Edit Tournament</button>
                 <button className="delete-button" onClick={deleteTournament}>Delete Tournament</button>
-                <button className="action-button">Manage Participants</button>
-                <button className="action-button">Bracket Seeding</button>
                 <button
                   className="share-button"
                   onClick={() => copyToClipboard(`${window.location.origin}/view/${tournament._id}`)}
