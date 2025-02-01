@@ -93,7 +93,7 @@
       const email = document.getElementById('email').value;
 
       try {
-        const response = await fetch('http://localhost:4000/postData/sentOtp', {
+        const response = await fetch('https://gamingorbit.onrender.com/postData/sentOtp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -119,7 +119,7 @@
       const otp = document.getElementById('otp').value;
 
       try {
-        const response = await fetch('http://localhost:4000/postData/verifyOtp', {
+        const response = await fetch('https://gamingorbit.onrender.com/postData/verifyOtp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -131,7 +131,7 @@
         if (response.ok) {
           // alert(result.message || 'OTP verified successfully');
           // Redirect to form.html with email as a query parameter
-          window.location.href = `http://localhost:4000/form.html?email=${encodeURIComponent(email)}`;
+          window.location.href = `https://gamingorbit.onrender.com/form.html?email=${encodeURIComponent(email)}`;
         } else {
           alert(result.error || 'Invalid OTP');
         }
