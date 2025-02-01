@@ -32,7 +32,7 @@ const ViewTournament = () => {
     const username = localStorage.getItem('username');
     const userId = localStorage.getItem('userId');
     try {
-      const response = await axios.post(`http://localhost:4000/tour/tournament/${tournament._id}/addParticipant`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/tour/tournament/${tournament._id}/addParticipant`, {
         userId,
         username,
       });
@@ -46,7 +46,7 @@ const ViewTournament = () => {
     setVisible(!visible);
     setShowBracket(false);
     try {
-      const response = await axios.get(`http://localhost:4000/tour/tournament/${tournament._id}/fetchPaticipants`);
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/tour/tournament/${tournament._id}/fetchPaticipants`);
       setParticipants(response.data.participants);
     } catch (error) {
       console.error('Error fetching participants:', error.response?.data?.message || error.message);

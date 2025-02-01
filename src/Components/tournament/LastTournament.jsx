@@ -18,7 +18,7 @@ const LastTournament = () => {
     // console.log(tourData._id);
     const fetchParticipants = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/tour/tournament/${tourData._id}/fetchPaticipants`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/tour/tournament/${tourData._id}/fetchPaticipants`);
         setParticipants(response.data.participants); // Update participants state
         // console.log(participants);
       } catch (error) {
@@ -39,7 +39,7 @@ const LastTournament = () => {
     }
 
     axios
-      .get(`http://localhost:4000/tour/tour-data/${tourData._id}`)
+      .get(`${process.env.REACT_APP_API_BASE_URL}/tour/tour-data/${tourData._id}`)
       .then((response) => {
         const data = response.data;
         const tournamentsData = Array.isArray(data) ? data : [data];
@@ -136,7 +136,7 @@ const LastTournament = () => {
       }
 
       // Make the delete request
-      await axios.delete(`http://localhost:4000/tour/delTour/${tourData._id}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/tour/delTour/${tourData._id}`);
       alert("delete successfully !");
     } catch (error) {
       console.error('Error deleting tournament:', error.response?.data?.message || error.message);

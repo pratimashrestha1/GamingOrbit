@@ -18,7 +18,7 @@ function MyTournament() {
           return;
         }
 
-        const response = await axios.get(`http://localhost:4000/tour/my-tournaments/${userId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/tour/my-tournaments/${userId}`);
         if (response.data.tournaments && Array.isArray(response.data.tournaments)) {
           setTournaments(response.data.tournaments);
         } else {

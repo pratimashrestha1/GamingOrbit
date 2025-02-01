@@ -10,7 +10,7 @@ function CommunityList() {
     // Fetch data from API
     const fetchCommunities = async () => {
       try {
-        const response = await fetch('http://localhost:4000/postData/topCommunities');
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/postData/topCommunities`);
         const data = await response.json();
         setCommunities(data);
       } catch (error) {
@@ -32,7 +32,7 @@ function CommunityList() {
       <div className="community-grid">
         {communities.map((community) => (
           <div className="community-1" key={community._id}>
-            <img src={`http://localhost:4000/${community.photo}`} alt={community.cn} />
+            <img src={`${process.env.REACT_APP_API_BASE_URL}/${community.photo}`} alt={community.cn} />
             <div className="details">
               <h2>{community.cn}</h2>
               <p>{community.description}</p>

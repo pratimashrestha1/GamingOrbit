@@ -20,7 +20,7 @@ function Community() {
       {/* create your own community */}
       <div className="community-creation">
         <div class="create-form">
-          <form action="http://localhost:4000/postData/communityCreate" method="POST" encType="multipart/form-data">
+          <form action={`${process.env.REACT_APP_API_BASE_URL}/postData/communityCreate`} method="POST" encType="multipart/form-data">
             <h1>Make your own community!</h1>
 
             <input type="text" placeholder="Name of your community" name="cn" />

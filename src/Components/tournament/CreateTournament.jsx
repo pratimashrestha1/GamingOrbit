@@ -24,7 +24,7 @@ const CreateTournament = () => {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await fetch("http://localhost:4000/postData/countries");
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/postData/countries`);
         const data = await response.json();
         const countryNames = data.map((country) => country.name.common);
         const sortedCountries = [
@@ -58,7 +58,7 @@ const CreateTournament = () => {
 
     if (name === "tournamentName" && value.trim() !== "") {
       try {
-        const response = await axios.post("http://localhost:4000/tour/check-name", {
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/tour/check-name`, {
           tournamentName: value,
         });
 
@@ -83,7 +83,7 @@ const CreateTournament = () => {
         startDate: new Date(startDate).toISOString(),
         userId,
       };
-      const response = await axios.post("http://localhost:4000/tour/create", payload);
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/tour/create`, payload);
       console.log("Tournament created successfully:", response.data);
       navigate("/brackets");
     } catch (error) {

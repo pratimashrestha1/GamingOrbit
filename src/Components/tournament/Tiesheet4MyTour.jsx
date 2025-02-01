@@ -50,7 +50,7 @@ function TieSheet(props) {
     const rounds = generateBrackets(input);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/tour/tournament/${props.data}/fetchPaticipants`)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/tour/tournament/${props.data}/fetchPaticipants`)
             .then((response) => response.json())
             .then((data) => {
                 setPlayers(data.participants); // Assuming the API response has a 'participants' key

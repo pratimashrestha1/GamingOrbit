@@ -27,7 +27,7 @@ const Edit = () => {
         }
 
         axios
-            .get(`http://localhost:4000/tour/view/${tournamentId}`) // Correct API call
+            .get(`${process.env.REACT_APP_API_BASE_URL}/tour/view/${tournamentId}`) // Correct API call
             .then((response) => {
                 setTournament(response.data.tournament); // Assuming data is under 'tournament' key
                 setLoading(false);
@@ -67,7 +67,7 @@ const Edit = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .put(`http://localhost:4000/tour/update/${tournamentId}`, tournament)
+            .put(`${process.env.REACT_APP_API_BASE_URL}/tour/update/${tournamentId}`, tournament)
             .then(() => {
                 navigate('/lastTour',{
                     state:{

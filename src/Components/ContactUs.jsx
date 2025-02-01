@@ -7,7 +7,7 @@ const ContactUs = () => {
       <Card>
         <Title>Get in Touch</Title>
         <Subtitle>We're here to help! Reach out to us anytime.</Subtitle>
-        <Form action="http://localhost:4000/postData/contact" method="post">
+        <Form action={`${process.env.REACT_APP_API_BASE_URL}/postData/contact`} method="post">
           <Label>Name</Label>
           <Input type="text" placeholder="Your Name" name="name"/>
           <Label>Email</Label>

@@ -9,7 +9,7 @@ function CommunityDetails() {
     useEffect(() => {
         const fetchCommunityDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/postData/CommunityView/${communityId}`);
+                const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/postData/CommunityView/${communityId}`);
                 const data = await response.json();
                 setCommunity(data);
             } catch (error) {
@@ -28,7 +28,7 @@ function CommunityDetails() {
     return (
         <Div>
             <div className="main">
-                <img src={`http://localhost:4000/${community.data.photo}`} alt={community.data.cn} />
+                <img src={`${process.env.REACT_APP_API_BASE_URL}/${community.data.photo}`} alt={community.data.cn} />
                 <div className="right">
                     <h1>{community.data.cn}</h1>
                     <p>{community.data.description}</p>

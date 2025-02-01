@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:4000'); // Connect to Socket.IO server
+const socket = io(process.env.REACT_APP_API_BASE_URL); // Connect to Socket.IO server
 
 const StreamingPage = () => {
   const [mediaStream, setMediaStream] = useState(null);

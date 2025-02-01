@@ -16,7 +16,7 @@ const JoinTournament = () => {
           return;
         }
 
-        const response = await fetch(`http://localhost:4000/tour/all-tour/${userId}`);
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/tour/all-tour/${userId}`);
         const data = await response.json();
 
         // Check if the response contains tournaments and filter them

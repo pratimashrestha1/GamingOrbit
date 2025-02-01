@@ -51,7 +51,7 @@ const BracketCreation = () => {
     }
 
     try {
-      await axios.post("http://localhost:4000/tour/maxPlayers", {
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/tour/maxPlayers`, {
         id: tour._id,
         maxPlayers: players,
       });
@@ -74,7 +74,7 @@ const BracketCreation = () => {
     // Fetch the data from the API
     const fetchTourData = async () => {
       try {
-        const response = await fetch("http://localhost:4000/tour/lastTourId");
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/tour/lastTourId`);
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }

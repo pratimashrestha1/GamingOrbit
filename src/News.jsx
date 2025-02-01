@@ -14,7 +14,7 @@ function News() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/postData/news');
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/postData/news`);
 
         // Filter and validate articles
         const validArticles = response.data.articles.filter(

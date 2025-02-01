@@ -14,7 +14,7 @@ function InputAndSvg(props) {
         const fetchParticipants = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:4000/tour/tournament/${props.data}/fetchPaticipants`
+                    `${process.env.REACT_APP_API_BASE_URL}/tour/tournament/${props.data}/fetchPaticipants`
                 );
                 const data = await response.json();
                 console.log("API Response:", data);
