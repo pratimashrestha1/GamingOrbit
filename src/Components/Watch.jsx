@@ -31,7 +31,7 @@ const styles = {
         padding: '20px',
     },
     h1: {
-        margin: '20px',
+        margin: '21px',
         fontSize: '2rem',
         color: '#00d4ff',
     },
