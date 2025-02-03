@@ -32,20 +32,21 @@ const Header = () => {
     </MainHeader>
   );
 };
+export default Header;
+
+
 
 const MainHeader = styled.header`
   position: sticky;
-  top: 0;
+  top: 0px;
   background-image: ${({ theme }) => theme.colors.gradient};
   font-family: ${({ theme }) => theme.fontFamily.games};
   background-color: #222;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   box-shadow: 0 10px 15px rgba(80, 15, 20, 1);
   z-index: 2;
-  padding: 10px 20px; /* Add padding for spacing */
-  
+
   img {
     max-width: 150px;
   }
@@ -85,7 +86,6 @@ const MainHeader = styled.header`
     p {
       color: white;
     }
-    
     .user_logo {
       color: #fff;
       width: 50px;
@@ -93,44 +93,5 @@ const MainHeader = styled.header`
       border-radius: 50%;
     }
   }
-
-  /* Media query for smaller screens */
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    .nav_menu {
-      margin-top: 10px;
-      ul {
-        flex-direction: column; /* Stack nav items vertically */
-        align-items: center; /* Center the nav items */
-      }
-    }
-
-    .nav_logo {
-      flex-direction: column;
-      margin-top: 10px;
-      gap: 5px;
-    }
-    
-    /* Make logo smaller on smaller screens */
-    img {
-      max-width: 120px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    padding: 10px; /* Reduce padding for very small screens */
-    .nav_menu {
-      ul {
-        gap: 10px; /* Reduce gap between items */
-      }
-    }
-
-    .nav_logo .user_logo {
-      width: 40px;
-      padding: 10px; /* Smaller profile image */
-    }
-  }
 `;
 
-export default Header;
