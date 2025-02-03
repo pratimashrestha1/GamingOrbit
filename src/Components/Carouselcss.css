@@ -59,3 +59,34 @@
 .indicator-inactive {
   background-color: grey;
 }
+
+/* *****************************************************************   media query */
+@media (max-width: 600px) {
+  /* .carousel {
+    width: 90vw; 
+    height: 50vh; 
+    top: 4rem; 
+    right: 50%;
+    transform: translateX(50%); 
+  }
+
+  .slide {
+    border-radius: 0.3rem;
+    box-shadow: 0px 0px 5px #666;
+  }
+
+  .indicators {
+    bottom: 0.5rem; 
+  }
+
+  .indicator {
+    height: 4px;
+    width: 4px;
+    margin: 0 0.15rem;
+  } */
+.carousel{
+  display: none;
+
+}
+}
+

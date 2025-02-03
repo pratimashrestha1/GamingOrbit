@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function CommunityList() {
   const [communities, setCommunities] = useState([]);
@@ -10,7 +10,9 @@ function CommunityList() {
     // Fetch data from API
     const fetchCommunities = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/postData/topCommunities`);
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/postData/topCommunities`
+        );
         const data = await response.json();
         setCommunities(data);
       } catch (error) {
@@ -32,12 +34,17 @@ function CommunityList() {
       <div className="community-grid">
         {communities.map((community) => (
           <div className="community-1" key={community._id}>
-            <img src={`${process.env.REACT_APP_API_BASE_URL}/${community.photo}`} alt={community.cn} />
+            <img
+              src={`${process.env.REACT_APP_API_BASE_URL}/${community.photo}`}
+              alt={community.cn}
+            />
             <div className="details">
               <h2>{community.cn}</h2>
               <p>{community.description}</p>
               <div className="button-container">
-                <button onClick={() => handleClick(community._id)}>Explore</button>
+                <button onClick={() => handleClick(community._id)}>
+                  Explore
+                </button>
                 <button>Join</button>
               </div>
             </div>
@@ -51,8 +58,8 @@ function CommunityList() {
 export default CommunityList;
 
 const Div = styled.div`
-    background: white;
-    padding: 0 50px;
+  background: white;
+  padding: 0 50px;
 
   h1 {
     text-align: center; /* Center the heading */
@@ -147,47 +154,52 @@ const Div = styled.div`
       }
 
       &:first-of-type:hover {
-        background-color: #1976D2; /* Darker blue on hover */
+        background-color: #1976d2; /* Darker blue on hover */
       }
     }
   }
 
   //***************************************************************  media query start
-  @media (max-width: 600px){
-        .community-grid {
-          display: flex;
-          // flex-direction: column;
-          flex-wrap: wrap;
-      }
+  @media (max-width: 600px) {
+    .community-grid {
+      display: flex;
+      // flex-direction: column;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
 
-      .community-1{
-        img {
+    .community-1 {
+      img {
         width: 100px;
         height: 150px;
-          }
-        .details{
-          h2{
-            font-size: 20px;
-          }
+      }
+      .details {
+        /* display: -webkit-box;
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical;
+        overflow: hidden; */
+        /* height: 150px; */
+        h2 {
+          font-size: 20px;
+        }
 
-          p{
-             font-size: 15px;
-             color: red;
-         
-             &::first-letter {
-               font-size: 1em;
-                }
+        p {
+          font-size: 15px;
+          white-space: pre;
+          /* height: 80px; */
+
+          &::first-letter {
+            font-size: 1em;
           }
+        }
 
-          .button-container{
-
-             button {
-                  padding: 5px;
-                  font-weight: normal;
-                }
+        .button-container {
+          button {
+            padding: 5px;
+            font-weight: normal;
           }
         }
       }
+    }
   }
-
 `;

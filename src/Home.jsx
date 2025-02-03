@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import Modal from './Components/Modal';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import Modal from "./Components/Modal";
+import styled from "styled-components";
 import { Carousel } from "./Components/Carousel";
 import carouselData from "./data/carouselData.json";
-import Footer from "./Components/Footer"
+import Footer from "./Components/Footer";
 
 function Home() {
-  const [pvalue, setPvalue] = useState('Connect');
+  const [pvalue, setPvalue] = useState("Connect");
   const { slides } = carouselData;
   const [addClass1, setAddClass1] = useState();
   const [addClass2, setAddClass2] = useState();
@@ -14,7 +14,7 @@ function Home() {
   const [addClass4, setAddClass4] = useState();
 
   useEffect(() => {
-    const values = ['Connect', 'Play', 'Stream'];
+    const values = ["Connect", "Play", "Stream"];
     let index = 0;
 
     const interval = setInterval(() => {
@@ -27,23 +27,23 @@ function Home() {
 
   const handleMouseOver1 = () => {
     setAddClass1(true);
-  }
+  };
   const handleMouseOver2 = () => {
     setAddClass2(true);
-  }
+  };
   const handleMouseOver3 = () => {
     setAddClass3(true);
-  }
+  };
   const handleMouseOver4 = () => {
     setAddClass4(true);
-  }
+  };
 
   const handleMouseOut = () => {
     setAddClass1(false);
     setAddClass2(false);
     setAddClass3(false);
     setAddClass4(false);
-  }
+  };
 
   return (
     <Div>
@@ -51,9 +51,16 @@ function Home() {
       {/* main display home screen */}
       <div className="main">
         <h1>Gaming Orbit</h1>
-        <p>Lets <span>{pvalue}</span> together</p>
-        <br /><br />
-        <p>Our aims is to help you increase your circle and make strong community based on common interest and boost your gaming capability.Let's share our gaming knowledge to form robust and unbeatable squad.</p>
+        <p>
+          Lets <span>{pvalue}</span> together
+        </p>
+        <br />
+        <br />
+        <p>
+          Our aims is to help you increase your circle and make strong community
+          based on common interest and boost your gaming capability.Let's share
+          our gaming knowledge to form robust and unbeatable squad.
+        </p>
         <Carousel data={slides} />
       </div>
 
@@ -61,52 +68,101 @@ function Home() {
       <div className="news">
         {/* logo line  */}
         <div className="img_container">
-          <img className={addClass1 ? 'rotate' : ''} src="./images/gamenews.jpg" alt="game news" />
+          <img
+            className={addClass1 ? "rotate" : ""}
+            src="./images/gamenews.jpg"
+            alt="game news"
+          />
         </div>
         <div className="img_container">
-          <img className={addClass2 ? 'rotate' : ''} src="./images/gamehost.jpg" alt="game host" />
+          <img
+            className={addClass2 ? "rotate" : ""}
+            src="./images/gamehost.jpg"
+            alt="game host"
+          />
         </div>
         <div className="img_container">
-          <img className={addClass3 ? 'rotate' : ''} src="./images/gamecommuity.jpg" alt="game community" />
+          <img
+            className={addClass3 ? "rotate" : ""}
+            src="./images/gamecommuity.jpg"
+            alt="game community"
+          />
         </div>
         <div className="img_container">
-          <img className={addClass4 ? 'rotate' : ''} src="./images/topgames.jpg" alt="top games" />
+          <img
+            className={addClass4 ? "rotate" : ""}
+            src="./images/topgames.jpg"
+            alt="top games"
+          />
         </div>
 
         {/* card line */}
-        <div className="cards 1" onMouseOver={handleMouseOver1} onMouseOut={handleMouseOut}>
+        <div
+          className="cards 1"
+          onMouseOver={handleMouseOver1}
+          onMouseOut={handleMouseOut}
+        >
           <h2>Games News</h2>
-          <p>To see the latest news and recent updates about games and different events click here.</p>
+          <p>
+            To see the latest news and recent updates about games and different
+            events click here.
+          </p>
         </div>
-        <div className="cards 2" onMouseOver={handleMouseOver2} onMouseOut={handleMouseOut}>
+        <div
+          className="cards 2"
+          onMouseOver={handleMouseOver2}
+          onMouseOut={handleMouseOut}
+        >
           <h2>Host Game</h2>
-          <p>wanna host game or see stream of running game tournaments click here.</p>
+          <p>
+            wanna host game or see stream of running game tournaments click
+            here.
+          </p>
         </div>
-        <div className="cards 3" onMouseOver={handleMouseOver3} onMouseOut={handleMouseOut}>
+        <div
+          className="cards 3"
+          onMouseOver={handleMouseOver3}
+          onMouseOut={handleMouseOut}
+        >
           <h2>Communities</h2>
-          <p>There are many communities, if you wanna join or create one click here.</p>
+          <p>
+            There are many communities, if you wanna join or create one click
+            here.
+          </p>
         </div>
-        <div className="cards 4" onMouseOver={handleMouseOver4} onMouseOut={handleMouseOut}>
+        <div
+          className="cards 4"
+          onMouseOver={handleMouseOver4}
+          onMouseOut={handleMouseOut}
+        >
           <h2>Top Games</h2>
-          <p>This year top games according to game rank association these games are included. Lets share your opinion and exchange review and recommendation. And report if any unsatisfied things about game is troubling you.</p>
+          <p>
+            This year top games according to game rank association these games
+            are included. Lets share your opinion and exchange review and
+            recommendation. And report if any unsatisfied things about game is
+            troubling you.
+          </p>
         </div>
       </div>
 
       <Footer />
     </Div>
-
   );
 }
+export default Home;
+
+// ***************************************************************************  css start
 
 const Div = styled.div`
-font-family: ${({ theme }) => theme.fontFamily.games};
+  font-family: ${({ theme }) => theme.fontFamily.games};
   .main {
     width: 100vw;
     height: 100vh;
-    background-image: linear-gradient(to bottom right,#020f1f,#4d0702);
+    background-image: linear-gradient(to bottom right, #020f1f, #4d0702);
 
-    h1, p {
-    width: 40%;
+    h1,
+    p {
+      width: 40%;
       margin: 0;
       padding: 0;
       font-family: ${({ theme }) => theme.fontFamily.games};
@@ -133,41 +189,74 @@ font-family: ${({ theme }) => theme.fontFamily.games};
   }
 
   // cards section section start
-  .news{
-  height: 700px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
-  align-items: center;
+  .news {
+    height: 700px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
 
-  img{width:120px}
+    img {
+      width: 120px;
+    }
 
-  .img_container{
-  max-width: 120px;
-  height: 100px;
-  }
+    .img_container {
+      max-width: 120px;
+      height: 100px;
+    }
 
-  .cards{
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(#820423,#2b020c);
-  color: #fff;
-  border-left: 2px solid #fff;
-  text-align: center;
-  transition: transform 0.5s ease;
+    .cards {
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(#820423, #2b020c);
+      color: #fff;
+      border-left: 2px solid #fff;
+      text-align: center;
+      transition: transform 0.5s ease;
 
-  &:hover{
-  transform: translate(0,-30px);
-  }
-  }
+      &:hover {
+        transform: translate(0, -30px);
+      }
+    }
 
-  .rotate{
-  transform: rotate(360deg);
-  transition: transform 0.5s ease;
-  }
+    .rotate {
+      transform: rotate(360deg);
+      transition: transform 0.5s ease;
+    }
   }
   // news section end here
 
-`;
+  // ***************************************************************************  css start
+  @media (max-width: 600px) {
+    .main {
+      h1,
+      p {
+        width: 100%;
+        margin: 0;
+        /* padding: 1rem 2rem 0 0.5rem; */
+        position: relative;
+        top: 1rem;
+        left: 0rem;
+        text-align: center;
+      }
+      p {
+        line-height: 3cap;
+        text-align: left;
+        word-spacing: 1cap;
+        text-align: center;
+      }
+    }
 
-export default Home;
+    .news {
+      height: auto;
+      grid-template-columns: repeat(2, 1fr); /* Two columns */
+      grid-template-rows: repeat(4, auto); /* Four rows */
+      gap: 10px; /* Adjust spacing */
+
+      img {
+        width: 80px;
+        mix-blend-mode: multiply;  //remove white background of an image
+      }
+    }
+  }
+`;
