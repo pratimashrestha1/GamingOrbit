@@ -1,149 +1,138 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ContactUs = () => {
+function ContactUs() {
   return (
     <Container>
-      <Card>
-        <Title>Get in Touch</Title>
-        <Subtitle>We're here to help! Reach out to us anytime.</Subtitle>
-        <Form action={`${process.env.REACT_APP_API_BASE_URL}/postData/contact`} method="post">
-          <Label>Name</Label>
-          <Input type="text" placeholder="Your Name" name="name"/>
-          <Label>Email</Label>
-          <Input type="email" placeholder="Your Email" name="email" />
-          <Label>Contact No</Label>
-          <Input type="text" placeholder="Your Contact Number" name="contact_no"/>
-          <Label>Message</Label>
-          <Textarea placeholder="Your Message" name="message"></Textarea>
-          <Button type='submit'>Send Message</Button>
-        </Form>
-      </Card>
+      <div className="card">
+        <h2 className="title">Get in Touch</h2>
+        <p className="subtitle">We're here to help! Reach out to us anytime.</p>
+        <form className="form" action={`${process.env.REACT_APP_API_BASE_URL}/postData/contact`} method="post">
+          <label className="label">Name</label>
+          <input type="text" className="input" placeholder="Your Name" name="name" required />
+          
+          <label className="label">Email</label>
+          <input type="email" className="input" placeholder="Your Email" name="email" required />
+          
+          <label className="label">Contact No</label>
+          <input type="text" className="input" placeholder="Your Contact Number" name="contact_no" required />
+          
+          <label className="label">Message</label>
+          <textarea className="textarea" placeholder="Your Message" name="message" required></textarea>
+          
+          <button type="submit" className="button">Send Message</button>
+        </form>
+      </div>
     </Container>
   );
-};
+}
 
-// Styled Components
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('images/contactbg.jpg');
-  background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
+  background: url('images/contactbg.jpg') no-repeat center center/cover;
   padding: 20px;
-`;
 
-const Card = styled.div`
-  width: 100%;
-  max-width: 500px;
-  background: rgba(200, 200, 200, 0.28);
-  backdrop-filter: blur(6.7px);
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 600px) {
-    padding: 20px;
+  .card {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
-`;
 
-const Title = styled.h2`
-  color: #fff;
-  font-size: 26px;
-  margin-bottom: 10px;
-  text-align: center;
-`;
-
-const Subtitle = styled.p`
-  color: #fff;
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 20px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  color: #fff;
-  font-size: 14px;
-  margin-bottom: 5px;
-`;
-
-const Input = styled.input`
-  background:none;
-  color: #fff;
-  border-width: 0px;
-  border-radius: 4px;
-  box-shadow: 0 4px 4px 2px rgba(255, 255, 255, 0.2); /* Bottom-only shadow */
-  padding: 12px;
-  margin-bottom: 15px;
-
- &:focus {
-    outline: none;
+  .title {
     color: #fff;
-    background: rgba(200,200,200,0.2);
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-align: center;
   }
 
-  &::placeholder{
+  .subtitle {
+    color: #ddd;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .label {
     color: #fff;
+    font-size: 14px;
+    margin-bottom: 5px;
   }
-`;
 
-const Textarea = styled.textarea`
-  background: none;
-  color: #fff;
-  box-shadow: 0 4px 4px 2px rgba(255, 255, 255, 0.2); /* Bottom-only shadow */
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  height: 100px;
-  resize: none;
-  border-width: 0px;
-
-  &:focus {
-    outline: none;
+  .input, .textarea {
+    background: rgba(255, 255, 255, 0.2);
     color: #fff;
-    background: rgba(200,200,200,0.2);
-  }
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 16px;
 
-  &::placeholder{
-    color: #fff;
-  }
-`;
-
-const Button = styled.button`
-  color: #fff;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  text-transform: uppercase;
-  box-shadow: 0 4px 4px 2px rgba(255, 255, 255, 0.2); /* Bottom-only shadow */
-  background: none;
-
-  &:focus {
-    outline: none;
-    color: white;
-    background: ${({theme})=>theme.colors.gradient};
-    
     &::placeholder{
-    color: white;
-  }
+      color: #fff;
+    }
   }
 
-  &:hover {
-    background: ${({theme})=>theme.colors.gradient};
+  .input:focus, .textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .textarea {
+    height: 120px;
+    resize: none;
+  }
+
+  .button {
     color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 65, 108, 0.5);
   }
 
   @media (max-width: 600px) {
-    padding: 10px;
+    .card {
+      padding: 25px;
+    }
+
+    .title {
+      font-size: 24px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+    }
+
+    .input, .textarea {
+      font-size: 14px;
+      padding: 10px;
+    }
+
+    .button {
+      font-size: 14px;
+      padding: 10px;
+    }
   }
 `;
 

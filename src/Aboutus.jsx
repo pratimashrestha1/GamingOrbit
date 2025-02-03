@@ -114,4 +114,72 @@ font-family: ${({ theme }) => theme.fontFamily.games};
     }
   }
 }
+
+// *****************************************************************   media query start
+
+@media only Screen and (max-width:600px){
+  
+.profile{
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
+  .top{
+    flex-direction: column;
+    width: 100%;
+
+    .title{
+    font-size: 2rem;
+    margin:0;
+    }
+
+    .define{
+    width: auto;
+    text-align: center;
+    float: right;
+    font-size: 15px;
+    margin:0px;
+    }
+  }
+
+  .bottom{
+    margin:0;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+
+      &>div{
+      border: 3px solid #4d0717;
+      max-width: fit-content;
+
+      p:first-of-type{
+        padding: 5px;
+        border-radius: 20px;   
+        margin-top: -25xp;
+        z-index: 1;   
+      }
+      
+      .position{
+        padding: 5px;
+      }
+
+      p{
+        text-align: center;
+        margin: 0;
+
+        span{font-size: 14px;}
+      }
+      }
+  }
+
+  img{
+      width: 150px;
+      height: 50px;   
+    }
+}
+
+}//media query close bracket
 `

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
 import Modal from "./Components/Modal";
 import Theme from "./Components/Intro_theme";
 import Footer from "./Components/Footer";
+import styled from "styled-components";
 
 function News() {
   const [articles, setArticles] = useState([]);
@@ -55,7 +55,7 @@ function News() {
   }
 
   if (error) {
-    return <ErrorMessage>{error}</ErrorMessage>;
+    return <div className="error-message">{error}</div>;
   }
 
   return (
@@ -82,7 +82,25 @@ function News() {
         <div className="news-list">
           {filteredArticles.length > 0 ? (
             filteredArticles.map((article, index) => (
-              <NewsCard key={index} article={article} />
+              <div className="news-card" key={index}>
+                <h2>{article.title
+                  .split(" ")
+                  .slice(0, 6)
+                  .join(" ")}</h2>
+                <p>{
+                  article.description
+                    .split(" ")
+                    .slice(0, 20)
+                    .join(" ")
+                }</p>
+                {article.url ? (
+                  <a href={article.url} target="_blank" rel="noopener noreferrer">
+                    Read more
+                  </a>
+                ) : (
+                  <span>Link not available</span>
+                )}
+              </div>
             ))
           ) : (
             <p>No results found.</p>
@@ -97,60 +115,10 @@ function News() {
 
 export default News;
 
-// NewsCard Component
-const NewsCard = ({ article }) => (
-  <CardWrapper>
-    <h2>{article.title}</h2>
-    <p>{article.description}</p>
-    {article.url ? (
-      <a href={article.url} target="_blank" rel="noopener noreferrer">
-        Read more
-      </a>
-    ) : (
-      <span>Link not available</span>
-    )}
-  </CardWrapper>
-);
-
-// Styled-components with consistent theme
-const CardWrapper = styled.div`
-  background: #800000;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  border-radius: 8px;
-  transition: transform 0.3s ease-in-out;
-  color: white;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-
-  h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: white;
-  }
-
-  p {
-    font-size: 1em;
-    color: #d3d3d3;
-    margin-bottom: 10px;
-  }
-
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-`;
-
 const Div = styled.div`
   .news-container {
-    padding: 20px 200px;
-    width: 100vw;
+    padding: 20px 10%;
+    width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
     background: white;
@@ -183,28 +151,87 @@ const Div = styled.div`
 
   .news-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     margin-top: 20px;
   }
 
-  @media (max-width: 768px) {
+  .news-list p {
+    color: #000;
+  }
+
+  .news-list .news-card {
+    background: #800000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    color: white;
+  }
+
+  .news-list .news-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .news-list .news-card h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: white;
+  }
+
+  .news-list .news-card p {
+    font-size: 1em;
+    color: #d3d3d3;
+    margin-bottom: 10px;
+  }
+
+  .news-list .news-card a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .news-list .news-card a:hover {
+    text-decoration: underline;
+  }
+
+  /* For medium screens */
+  @media (max-width: 1024px) {
+    .news-container {
+      padding: 20px 5%;
+    }
+
     .news-list {
       grid-template-columns: 1fr 1fr;
     }
   }
 
-  @media (max-width: 480px) {
+  /* For small screens */
+  @media (max-width: 768px) {
+    .news-container h1 {
+      font-size: 1.8em;
+    }
+
     .news-list {
       grid-template-columns: 1fr;
     }
-  }
-`;
 
-const ErrorMessage = styled.div`
-  text-align: center;
-  color: red;
-  font-size: 1.2em;
-  margin-top: 20px;
-  font-weight: bold;
+    .news-container {
+      padding: 20px 15px;
+    }
+  }
+
+  /* For extra small screens */
+  @media (max-width: 480px) {
+    .news-container h1 {
+      font-size: 1.5em;
+    }
+
+    .news-list .news-card {
+      padding: 10px;
+    }
+
+    .news-container {
+      padding: 20px 10px;
+    }
+  }
 `;

@@ -52,69 +52,99 @@ function Footer() {
 export default Footer
 
 const Div = style.div`
-overflow: hidden;
-background-image: url('images/heikei_app.svg');
+    overflow: hidden;
+    background-image: url('images/heikei_app.svg');
 
-div{
-    height: 500px;
-    display: flex;
-}
+    div {
+        height: 500px;
+        display: flex;
+        flex-direction: row; /* Ensure it's row by default */
+    }
 
-img{
-width: 200px;
-}
+    img {
+        width: 200px;
+    }
 
-li{
-list-style-type: none;
-cursor: pointer;
-transition: transform 0.5s ease,font-weight 0.5s ease;
+    li {
+        list-style-type: none;
+        cursor: pointer;
+        transition: transform 0.5s ease, font-weight 0.5s ease;
 
-&:hover{
-    transform: translatey(-3px);
-    font-weight: bold;
-}
-}
+        &:hover {
+            transform: translatey(-3px);
+            font-weight: bold;
+        }
+    }
 
-ul li:nth-child(1):hover{transform: none;
-    font-weight: regular;}
+    ul li:nth-child(1):hover {
+        transform: none;
+        font-weight: regular;
+    }
 
-h3{
-cursor: default;
-}
+    h3 {
+        cursor: default;
+    }
 
-ul:nth-child(1){
-flex-grow: 1;
-}
-ul:nth-child(2){
-flex-grow: 1;
-}
-ul:nth-child(3){
-flex-grow: 3;
-}
-ul:nth-child(4){
-flex-grow:1 ;
-}
+    ul:nth-child(1),
+    ul:nth-child(2),
+    ul:nth-child(3),
+    ul:nth-child(4) {
+        flex-grow: 1;
+    }
 
-.icons{
-display: flex;
-}
-.icon{
-flex-wrap: wrap-reverse;
-font-size: 2em;
-margin: 5px;
-color:#FC0D50;
-transition: all 0.5s ease;
+    .icons {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
-&:hover{
-color: #1092EA;
-cursor: pointer;
-transform: scale(1.5);
-}
-}
+    .icon {
+        font-size: 2em;
+        margin: 5px;
+        color: #FC0D50;
+        transition: all 0.5s ease;
 
-p{
-text-align: center;
-color: #fff;
-margin-bottom: 30px;
-}
+        &:hover {
+            color: #1092EA;
+            cursor: pointer;
+            transform: scale(1.5);
+        }
+    }
+
+    p {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 30px;
+    }
+
+
+
+    // **********************************************************   Media query for screens max-width 600px
+    @media (max-width: 600px) {
+        div{
+            height: fit-content;
+            display: grid;
+            grid-template-columns: auto auto; 
+        }
+        
+        img{
+            max-width: 150px;
+        }
+
+        .icons{
+            height: fit-content;
+
+            a{
+                height: fit-content;
+            }
+
+            .icon{
+                font-size: 1.5em;
+                margin: 3px;
+            }
+        }
+
+        p{
+            margin-top: 100px;
+        }
+    }
 `

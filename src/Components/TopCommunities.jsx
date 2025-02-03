@@ -151,4 +151,43 @@ const Div = styled.div`
       }
     }
   }
+
+  //***************************************************************  media query start
+  @media (max-width: 600px){
+        .community-grid {
+          display: flex;
+          // flex-direction: column;
+          flex-wrap: wrap;
+      }
+
+      .community-1{
+        img {
+        width: 100px;
+        height: 150px;
+          }
+        .details{
+          h2{
+            font-size: 20px;
+          }
+
+          p{
+             font-size: 15px;
+             color: red;
+         
+             &::first-letter {
+               font-size: 1em;
+                }
+          }
+
+          .button-container{
+
+             button {
+                  padding: 5px;
+                  font-weight: normal;
+                }
+          }
+        }
+      }
+  }
+
 `;

@@ -77,13 +77,12 @@ export default Modal;
 const Div = styled.div`
 form{
     font-family: ${({ theme }) => theme.fontFamily.games};
-    position: absolute;
+    position: fixed;
     transform: translate(-50%,-50%);
     top: 50%;
     left: 50%;
     width: 500px;
     height: 450px;
-    background-color: rgba(0,0,0,0.5);
     border: 2px solid;
     border-color: ${({ theme }) => theme.colors.logoBlue};
     border-radius: 15px;
@@ -93,16 +92,18 @@ form{
     align-items: center;
     font-size: 18px;
     z-index: 1000;
+    background: rgba(70, 70, 70, 0.28);
+    backdrop-filter: blur(6.7px);
 
     .close{
-        color: white;
+        color: red;
         position: absolute;
         top: 5px;
         right: 1em;
-        border: 1px solid white;
-        border-radius: 50%;
+        /* border: 1px solid white; */
+        /* border-radius: 50%; */
         padding: 0 3px;
-        box-shadow: 0 0 10px 1px white;
+        text-shadow: 2px 2px 5px rgba(200, 200, 200, 1);
         cursor: pointer;
         font-weight: bold;
     }
