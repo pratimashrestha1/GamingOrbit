@@ -28,7 +28,6 @@ function IntroTheme({ title, image, width, description }) {
 
 export default IntroTheme;
 
-// Styled Component
 const Wrapper = styled.div.attrs((props) => ({
     // Remove custom props like $animate from being passed to DOM
     animate: undefined,
@@ -91,6 +90,32 @@ const Wrapper = styled.div.attrs((props) => ({
         100% {
             opacity: 1;
             transform: translateY(0);
+        }
+    }
+
+
+    //media query ******************************************************** 
+
+    @media(max-width: 600px){
+        width: 100%;
+
+        .contents{
+            width: 100%;
+            overflow: hidden;
+            
+            h1{
+                display: none;
+            }
+
+            .contents-items{
+                width: 100%;
+                img{
+                    width: 40%;
+                }
+                p{
+                    margin-right: 2em;
+                }
+            }
         }
     }
 `;

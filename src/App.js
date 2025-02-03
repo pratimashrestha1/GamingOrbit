@@ -1,6 +1,6 @@
 // import './App.css';
-import React from 'react';
-import Header from './Components/Header';
+import React, { useState,useEffect,lazy, Suspense } from 'react';
+// import Header from './Components/Header';
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Home';
@@ -24,6 +24,7 @@ import ViewTournament from "./Components/tournament/ViewTournament";
 import TieSheet from './Components/tournament/BackupTieSheet';
 import MyTournament from './Components/tournament/MyTournament';
 import LoadFromTop from './Components/LoadFromTop';
+// import PracticeHeader from './Components/PracticeHeader'
 
 function App() {
   const theme = {
@@ -45,13 +46,26 @@ function App() {
     },
     media: { mobile: "768px", tab: "998px" },
   }
+
+  const HeaderDesktop = lazy(() => import("./Components/Header"));
+  const HeaderMobile = lazy(() => import("./Components/PracticeHeader"));
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 600);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 600);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalComponentProvider>
         <div>
           <BrowserRouter>
             <LoadFromTop />
-            <Header />
+            <Suspense fallback={<div>Loading...</div>}>
+              {isDesktop ? <HeaderDesktop /> : <HeaderMobile />}
+            </Suspense>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/host" element={<Host />} />
@@ -70,7 +84,8 @@ function App() {
               <Route path="/joinTour" element={<JoinTournament />} />
               <Route path="/viewTour" element={<ViewTournament />} />
               <Route path="/tie-sheet" element={<TieSheet />} />
-              <Route path="my-tournament" element={<MyTournament />} />
+              <Route path="/my-tournament" element={<MyTournament />} />
+              {/* <Route path="/practice" element={<PracticeHeader />} /> */}
             </Routes>
 
           </BrowserRouter>

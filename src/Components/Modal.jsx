@@ -92,7 +92,7 @@ form{
     align-items: center;
     font-size: 18px;
     z-index: 1000;
-    background: rgba(70, 70, 70, 0.28);
+    background: rgba(200, 200, 200, 0.28);
     backdrop-filter: blur(6.7px);
 
     .close{
@@ -100,8 +100,6 @@ form{
         position: absolute;
         top: 5px;
         right: 1em;
-        /* border: 1px solid white; */
-        /* border-radius: 50%; */
         padding: 0 3px;
         text-shadow: 2px 2px 5px rgba(200, 200, 200, 1);
         cursor: pointer;
@@ -164,6 +162,27 @@ form{
         &:focus{
         transform: scale(1.1);
         transition: transform 0.5s ease infinity;
+        }
+    }
+}
+
+
+/* ********************************************************* media query start */
+@media (max-width: 600px){
+    form{
+    width: 70vw;
+    height: 50vh;
+    border: 2px solid;
+    font-size: 18px;
+    }
+
+    img{
+    max-width: 40px;
+    }
+
+    input{
+        &::placeholder{
+            font-size: 1em;
         }
     }
 }

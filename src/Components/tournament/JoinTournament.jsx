@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Modal from '../Modal';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Modal from "../Modal";
+import styled from "styled-components";
 
 const JoinTournament = () => {
   const [tournaments, setTournaments] = useState([]);
@@ -10,13 +11,15 @@ const JoinTournament = () => {
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-        const userId = localStorage.getItem('userId');
+        const userId = localStorage.getItem("userId");
         if (!userId) {
-          setError('User ID is not available.');
+          setError("User ID is not available.");
           return;
         }
 
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/tour/all-tour/${userId}`);
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/tour/all-tour/${userId}`
+        );
         const data = await response.json();
 
         // Check if the response contains tournaments and filter them
@@ -25,13 +28,13 @@ const JoinTournament = () => {
           const filteredTournaments = data.tournaments.filter(
             (tournament) => tournament.createdBy !== userId
           );
-          setTournaments(filteredTournaments);  // Set filtered tournaments
+          setTournaments(filteredTournaments); // Set filtered tournaments
         } else {
           setTournaments([]); // Handle empty response
         }
       } catch (err) {
-        console.error('Error fetching tournaments:', err);
-        setError('Error fetching tournaments'); // Set error message
+        console.error("Error fetching tournaments:", err);
+        setError("Error fetching tournaments"); // Set error message
         setTournaments([]); // Handle error scenario
       }
     };
@@ -40,101 +43,135 @@ const JoinTournament = () => {
   }, []);
 
   const handleJoinClick = (tournament) => {
-    navigate('/viewTour', { state: { tournament: tournament } });
+    navigate("/viewTour", { state: { tournament: tournament } });
   };
 
   return (
-    <div style={styles.container}>
-      <Modal/>
-      <h1 style={styles.title}>Join Tournament</h1>
-      <div style={styles.tournamentsList}>
-        {error && <div style={styles.error}>{error}</div>}  {/* Display error message */}
-        {Array.isArray(tournaments) && tournaments.length > 0 ? (
-          tournaments.map((tournament) => (
-            <div key={tournament._id} style={styles.tournamentCard}>
-              <div style={styles.tournamentDetails}>
-                <h3 style={styles.tournamentName}>{tournament.tournamentName}</h3>
-                <p style={styles.game}>{tournament.game}</p>
-                <p style={styles.region}>{tournament.region}</p>
-                <p style={styles.startDate}>{new Date(tournament.startDate).toLocaleString()}</p>
+    <Div>
+      <Modal />
+      <div className="container">
+        <h1 className="title">Join Tournament</h1>
+        <div className="tournamentsList">
+          {error && <div className="error">{error}</div>}{" "}
+          {/* Display error message */}
+          {Array.isArray(tournaments) && tournaments.length > 0 ? (
+            tournaments.map((tournament) => (
+              <div key={tournament._id} className="tournamentCard">
+                <div className="tournamentDetails">
+                  <h3 className="tournamentName">
+                    {tournament.tournamentName}
+                  </h3>
+                  <p className="game">{tournament.game}</p>
+                  <p className="region">{tournament.region}</p>
+                  <p className="startDate">
+                    {new Date(tournament.startDate).toLocaleString()}
+                  </p>
+                </div>
+                <button
+                  onClick={() => handleJoinClick(tournament)}
+                  className="joinButton"
+                >
+                  Explore
+                </button>
               </div>
-              <button onClick={() => handleJoinClick(tournament)} style={styles.joinButton}>
-                Explore
-              </button>
-            </div>
-          ))
-        ) : (
-          <div style={styles.error}>No tournaments found.</div>
-        )}
+            ))
+          ) : (
+            <div className="error">No tournaments found.</div>
+          )}
+        </div>
       </div>
-    </div>
+    </Div>
   );
 };
 
-const styles = {
-  container: {
-    padding: '50px',  // Reduced padding to create space but keep overall padding
-    display: 'flex',
-    flexDirection: 'column',  // Ensure title is at the top and tournaments list follows
-    alignItems: 'center',  // Center the content horizontally
-    minHeight: '100vh',
-  },
-  title: {
-    textAlign: 'center',
-    marginBottom: '30px',  // Space between title and tournaments list
-    fontSize: '2em',  // Optional: Increase font size of the title if desired
-    color:'blue',
-  },
-  tournamentsList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',  // Added more space between tournament cards
-    maxWidth: '1000px',  // Limit the width to prevent cards from stretching too wide
-    padding: '20px',  // Add padding around the tournament cards section
-  },
-  tournamentCard: {
-    border: '1px solid #ccc',
-    padding: '20px',  // More padding to create space inside each card
-    borderRadius: '8px',
-    display: 'flex',
-    justifyContent: 'space-between',  // Space between details and button
-    alignItems: 'center',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Optional: Add a shadow for better visibility
-  },
-  tournamentDetails: {
-    flex: 1,
-  },
-  tournamentName: {
-    fontSize: '1.3em',  // Slightly larger font size for better visibility
-    marginBottom: '10px',
-  },
-  game: {
-    fontSize: '1em',
-    marginBottom: '5px',
-  },
-  region: {
-    fontSize: '1em',
-    marginBottom: '5px',
-  },
-  startDate: {
-    fontSize: '0.9em',
-    marginBottom: '10px',
-  },
-  joinButton: {
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-  },
-  error: {
-    color: 'red',
-    textAlign: 'center',
-    marginBottom: '20px',  // Space below the error message
-  },
-};
-
-
 export default JoinTournament;
+
+//********************************************************  style component
+const Div = styled.div`
+  .container {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+    color: blue;
+  }
+
+  .tournamentsList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 2em;
+    justify-content: stretch;
+  }
+
+  .tournamentCard {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .tournamentDetails {
+    flex: 1;
+  }
+
+  .tournamentName {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+  }
+
+  .game,
+  .region,
+  .startDate {
+    font-size: 1em;
+    margin-bottom: 5px;
+  }
+
+  .joinButton {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .error {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  //********************************************************  media query
+  @media (max-width: 600px) {
+    .tournamentsList {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 10px;
+    }
+
+    .tournamentCard {
+      width: 100%;
+      margin-left: -2em;
+      padding-right: 3em;
+    }
+
+    .joinButton {
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+  }
+`;
