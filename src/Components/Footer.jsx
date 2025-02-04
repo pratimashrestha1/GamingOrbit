@@ -6,6 +6,7 @@ import { FaSquareGithub } from "react-icons/fa6";
 import { IoLogoLinkedin } from "react-icons/io5";
 import { FaSquareWhatsapp } from "react-icons/fa6";
 import { BiLogoGmail } from "react-icons/bi";
+import {NavLink} from "react-router-dom"
 
 function Footer() {
     return (
@@ -33,7 +34,7 @@ function Footer() {
                     <li>Media Kit</li>
                 </ul>
                 <ul>
-                    <li><img src="./images/crop_thikkako_no_bg.png" alt="logo" /></li>
+                    <li><NavLink to="/"><img src="./images/crop_thikkako_no_bg.png" alt="logo" /></NavLink></li>
                     <div className="icons">
                         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaSquareFacebook className='icon' /></a>
                         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaSquareInstagram className='icon' /></a>
