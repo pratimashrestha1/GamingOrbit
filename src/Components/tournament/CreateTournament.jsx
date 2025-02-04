@@ -24,7 +24,9 @@ const CreateTournament = () => {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/postData/countries`);
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/postData/countries`
+        );
         const data = await response.json();
         const countryNames = data.map((country) => country.name.common);
         const sortedCountries = [
@@ -58,9 +60,12 @@ const CreateTournament = () => {
 
     if (name === "tournamentName" && value.trim() !== "") {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/tour/check-name`, {
-          tournamentName: value,
-        });
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/tour/check-name`,
+          {
+            tournamentName: value,
+          }
+        );
 
         if (!response.data.success) {
           setNameError("Tournament name is already taken.");
@@ -68,7 +73,10 @@ const CreateTournament = () => {
           setNameError("");
         }
       } catch (error) {
-        console.error("Error validating name:", error.response?.data || error.message);
+        console.error(
+          "Error validating name:",
+          error.response?.data || error.message
+        );
       }
     }
   };
@@ -83,12 +91,19 @@ const CreateTournament = () => {
         startDate: new Date(startDate).toISOString(),
         userId,
       };
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/tour/create`, payload);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/tour/create`,
+        payload
+      );
       console.log("Tournament created successfully:", response.data);
       navigate("/brackets");
     } catch (error) {
-      console.error("Error creating tournament:", error.response?.data || error.message);
-      const errorMessage = error.response?.data?.message || "Something went wrong";
+      console.error(
+        "Error creating tournament:",
+        error.response?.data || error.message
+      );
+      const errorMessage =
+        error.response?.data?.message || "Something went wrong";
       if (errorMessage.includes("name")) {
         setNameError(errorMessage);
       } else if (errorMessage.includes("URL")) {
@@ -156,7 +171,12 @@ const CreateTournament = () => {
 
           <label>
             Game:
-            <select name="game" value={formData.game} onChange={handleChange} required>
+            <select
+              name="game"
+              value={formData.game}
+              onChange={handleChange}
+              required
+            >
               <option value="PUBG">PUBG</option>
               <option value="FREEFIRE">Freefire</option>
               <option value="FORTNITE">Fortnite</option>
@@ -172,7 +192,12 @@ const CreateTournament = () => {
 
           <label>
             Region:
-            <select name="region" value={formData.region} onChange={handleChange} required>
+            <select
+              name="region"
+              value={formData.region}
+              onChange={handleChange}
+              required
+            >
               {countries.map((country) => (
                 <option key={country} value={country}>
                   {country}
@@ -183,7 +208,11 @@ const CreateTournament = () => {
 
           <label>
             Status:
-            <select name="status" value={formData.status} onChange={handleChange}>
+            <select
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+            >
               <option value="Public">Public</option>
               <option value="Private">Private</option>
             </select>
@@ -213,28 +242,6 @@ const Container = styled.div`
   background: url("images/bluemoroon3.jpg") no-repeat center center/cover;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-
-  button {
-    padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 6px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
-
-  button:hover {
-    background-color: #0056b3;
-  }
-`;
-
 const Form = styled.form`
   margin-top: 20px;
   padding: 40px;
@@ -255,6 +262,7 @@ const Form = styled.form`
 
   input,
   select {
+    box-sizing: border-box;
     width: 100%;
     padding: 12px;
     border-radius: 6px;
@@ -275,6 +283,62 @@ const Form = styled.form`
     background-color: #4a4a4a;
     cursor: not-allowed;
   }
+
+  @media (max-width: 600px) {
+    box-sizing: border-box;
+    margin: 20px;
+    max-width: 90%;
+
+    h2 {
+      font-size: 20px;
+    }
+
+    input,
+    select {
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 12px;
+    }
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+
+  button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    button {
+      width: 90%;
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
 `;
 
 const Placeholder = styled.div`
@@ -290,6 +354,15 @@ const Placeholder = styled.div`
   p {
     font-size: 16px;
     color: #ffffff;
+  }
+
+  @media (max-width: 600px) {
+    h2 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 14px;
+    }
   }
 `;
 
