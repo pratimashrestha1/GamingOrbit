@@ -144,6 +144,8 @@ const Div = styled.div`
         max-height: 300px;
         opacity: 1;
         transform: translateY(0);
+        padding-bottom: 10px;
+
         li {
           width: 100%;
           text-align: left;

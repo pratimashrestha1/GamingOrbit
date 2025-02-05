@@ -86,6 +86,7 @@ const Div = styled.div`
   @media (max-width: 600px) {
     .main {
       flex-direction: column;
+      height: fit-content;
     }
 
     .main::before {
