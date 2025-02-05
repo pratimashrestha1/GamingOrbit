@@ -10,9 +10,9 @@ function PracticeHeader() {
   const [show, setShow] = useState(false);
   const { toggleComponentVisibility } = useGlobalComponent();
 
-  const menuToggle = () => {
-    setShow(!show);
-  };
+  // const menuToggle = () => {
+  //   setShow(!show);
+  // };
 
   return (
     <Div>
@@ -35,8 +35,8 @@ function PracticeHeader() {
 
       <div className="bottom">
         <div className="bottom_left">
-          <nav className={show ? "nav1" : "nav2"}>
-          {/* <nav className="nav1"> */}
+          <nav className={show ? "nav1" : ""}>
+            {/* <nav className="nav1"> */}
             <li>
               <NavLink to="./news">News</NavLink>
             </li>
@@ -55,7 +55,7 @@ function PracticeHeader() {
           </nav>
         </div>
         <div className="bottom_right">
-          <CiMenuBurger onClick={menuToggle} className="menu_icon" />
+          <CiMenuBurger onClick={() => setShow(!show)} className="menu_icon" />
         </div>
       </div>
     </Div>
@@ -108,23 +108,51 @@ const Div = styled.div`
 
     .bottom_left {
       flex-grow: 1;
-      .nav1 {
-        /* display: none; */
+
+      nav {
         list-style-type: none;
-        text-align: center;
-        /* transition: 0.5s ease-in; */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out,
+          transform 0.5s ease-in-out;
 
         li {
           width: 100%;
-          /* border-bottom: 3px solid rgba(0, 0, 0, 0.5); */
-          /* background: rgba(30,30,30,0.5); */
           text-align: left;
           padding-left: 1em;
 
           a {
             width: 100%;
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1em;
+            width: 100%;
+            color: #fff;
+
+            &:hover,
+            &.active {
+              color: ${({ theme }) => theme.colors.logoBlue};
+              border-bottom: 2px solid #fc0d50;
+              transition: 0.3s ease;
+            }
+          }
+        }
+      }
+
+      .nav1 {
+        max-height: 300px;
+        opacity: 1;
+        transform: translateY(0);
+        li {
+          width: 100%;
+          text-align: left;
+          padding-left: 1em;
+
+          a {
+            width: 100%;
+            text-decoration: none;
+            font-size: 1em;
             width: 100%;
             color: #fff;
 
@@ -140,8 +168,6 @@ const Div = styled.div`
     }
 
     .bottom_right {
-      /* height: 100%; */
-      /* display: grid; */
       .menu_icon {
         color: #fff;
         font-size: 1.3em;
@@ -154,10 +180,5 @@ const Div = styled.div`
         }
       }
     }
-  }
-
-  .nav2 {
-    display: none;
-    /* transition: 0.5s ease-out; */
   }
 `;
