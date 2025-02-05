@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
-import TieSheet from './SvgTieSheet';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+import styled from "styled-components";
+import TieSheet from "./SvgTieSheet";
 
 const LastTournament = () => {
   const [tournaments, setTournaments] = useState([]);
@@ -18,28 +18,34 @@ const LastTournament = () => {
     // console.log(tourData._id);
     const fetchParticipants = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/tour/tournament/${tourData._id}/fetchPaticipants`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/tour/tournament/${tourData._id}/fetchPaticipants`
+        );
         setParticipants(response.data.participants); // Update participants state
         // console.log(participants);
       } catch (error) {
-        console.error('Error fetching participants:', error.response?.data?.message || error.message);
+        console.error(
+          "Error fetching participants:",
+          error.response?.data?.message || error.message
+        );
       }
     };
 
     fetchParticipants();
   }, [location.state]);
 
-
   useEffect(() => {
     const tourData = location.state?.tourData;
     if (!tourData) {
-      setError('No tournament data provided.');
+      setError("No tournament data provided.");
       setLoading(false);
       return;
     }
 
     axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}/tour/tour-data/${tourData._id}`)
+      .get(
+        `${process.env.REACT_APP_API_BASE_URL}/tour/tour-data/${tourData._id}`
+      )
       .then((response) => {
         const data = response.data;
         const tournamentsData = Array.isArray(data) ? data : [data];
@@ -47,7 +53,7 @@ const LastTournament = () => {
 
         // Set default active tab to "Overview" for each tournament
         const defaultTabs = tournamentsData.reduce((tabs, tournament) => {
-          tabs[tournament._id] = 'Overview';
+          tabs[tournament._id] = "Overview";
           return tabs;
         }, {});
         setActiveTabs(defaultTabs);
@@ -55,7 +61,7 @@ const LastTournament = () => {
         setLoading(false);
       })
       .catch(() => {
-        setError('Error fetching tournament data.');
+        setError("Error fetching tournament data.");
         setLoading(false);
       });
   }, [location.state]);
@@ -69,36 +75,49 @@ const LastTournament = () => {
 
   const renderTabContent = (tab, tournament) => {
     switch (tab) {
-      case 'Overview':
+      case "Overview":
         return (
           <div className="tab-content">
-            <p><strong>Region:</strong> {tournament.region}</p>
-            <p><strong>Start Date:</strong> {new Date(tournament.startDate).toLocaleString()}</p>
-            <p><strong>Status:</strong> {tournament.status}</p>
-            <p><strong>Max players allowed:</strong> {tournament.maxPlayers}</p>
-            <p><strong>Participants:</strong> {tournament.participants.length}</p>
+            <p>
+              <strong>Region:</strong> {tournament.region}
+            </p>
+            <p>
+              <strong>Start Date:</strong>{" "}
+              {new Date(tournament.startDate).toLocaleString()}
+            </p>
+            <p>
+              <strong>Status:</strong> {tournament.status}
+            </p>
+            <p>
+              <strong>Max players allowed:</strong> {tournament.maxPlayers}
+            </p>
+            <p>
+              <strong>Participants:</strong> {tournament.participants.length}
+            </p>
           </div>
         );
-      case 'Brackets':
+      case "Brackets":
         return (
           <div className="tab-content">
             <TieSheet data={tournament._id} />
           </div>
         );
-      case 'Participants':
+      case "Participants":
         return (
           <div className="participants_list">
             <table>
               <thead>
                 <tr>
-                  <th>User ID</th>
+                  <th>Index</th>
+                  <th>UserId</th>
                   <th>Username</th>
                 </tr>
               </thead>
               <tbody>
                 {participants.length > 0 ? (
-                  participants.map((participant) => (
+                  participants.map((participant, index) => (
                     <tr key={participant.userId}>
+                      <td>{index + 1}</td>
                       <td>{participant.userId}</td>
                       <td>{participant.username}</td>
                     </tr>
@@ -120,26 +139,43 @@ const LastTournament = () => {
 
   const copyToClipboard = (url) => {
     navigator.clipboard.writeText(url);
-    alert('Tournament URL copied to clipboard!');
+    alert("Tournament URL copied to clipboard!");
   };
 
-  if (loading) return <Wrapper><div className="loading">Loading tournaments...</div></Wrapper>;
-  if (error) return <Wrapper><div className="error">{error}</div></Wrapper>;
+  if (loading)
+    return (
+      <Wrapper>
+        <div className="loading">Loading tournaments...</div>
+      </Wrapper>
+    );
+  if (error)
+    return (
+      <Wrapper>
+        <div className="error">{error}</div>
+      </Wrapper>
+    );
 
   const deleteTournament = async () => {
     const tourData = location.state?.tourData;
     // console.log(tourData._id);
     try {
-      const confirmed = window.confirm('Are you sure you want to delete this tournament?');
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this tournament?"
+      );
       if (!confirmed) {
         return;
       }
 
       // Make the delete request
-      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/tour/delTour/${tourData._id}`);
+      await axios.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/tour/delTour/${tourData._id}`
+      );
       alert("delete successfully !");
     } catch (error) {
-      console.error('Error deleting tournament:', error.response?.data?.message || error.message);
+      console.error(
+        "Error deleting tournament:",
+        error.response?.data?.message || error.message
+      );
       // setMessage('Error deleting the tournament. Please try again.');
     }
   };
@@ -151,13 +187,17 @@ const LastTournament = () => {
           {tournaments.map((tournament) => (
             <li className="tournament-item" key={tournament._id}>
               <div className="tournament-header">
-                <h2>{tournament.game} Tournament By: {tournament.tournamentName}</h2>
+                <h2>
+                  {tournament.game} Tournament By: {tournament.tournamentName}
+                </h2>
               </div>
               <div className="tabs">
-                {['Overview', 'Brackets', 'Participants'].map((tab) => (
+                {["Overview", "Brackets", "Participants"].map((tab) => (
                   <span
                     key={tab}
-                    className={`tab ${activeTabs[tournament._id] === tab ? 'active' : ''}`}
+                    className={`tab ${
+                      activeTabs[tournament._id] === tab ? "active" : ""
+                    }`}
                     onClick={() => handleTabChange(tournament._id, tab)}
                   >
                     {tab}
@@ -168,11 +208,22 @@ const LastTournament = () => {
                 {renderTabContent(activeTabs[tournament._id], tournament)}
               </div>
               <div className="button-container">
-                <button className="edit-button" onClick={() => navigate(`/view/${tournament._id}`)}>Edit Tournament</button>
-                <button className="delete-button" onClick={deleteTournament}>Delete Tournament</button>
+                <button
+                  className="edit-button"
+                  onClick={() => navigate(`/view/${tournament._id}`)}
+                >
+                  Edit Tournament
+                </button>
+                <button className="delete-button" onClick={deleteTournament}>
+                  Delete Tournament
+                </button>
                 <button
                   className="share-button"
-                  onClick={() => copyToClipboard(`${window.location.origin}/view/${tournament._id}`)}
+                  onClick={() =>
+                    copyToClipboard(
+                      `${window.location.origin}/view/${tournament._id}`
+                    )
+                  }
                 >
                   Share
                 </button>
@@ -187,6 +238,8 @@ const LastTournament = () => {
 
 export default LastTournament;
 
+
+/* ************************************************************  media query */
 const Wrapper = styled.div`
   .container {
     max-width: 1200px;
@@ -198,7 +251,8 @@ const Wrapper = styled.div`
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  .loading, .error {
+  .loading,
+  .error {
     text-align: center;
     font-size: 1.5rem;
     margin: 20px 0;
@@ -294,54 +348,68 @@ const Wrapper = styled.div`
   }
 
   .participants_list {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;
-  max-width: 100%;
-}
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    max-width: 100%;
+  }
 
-/* Table styles */
-.participants_list table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
+  /* Table styles */
+  .participants_list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
 
-/* Table header styles */
-.participants_list th {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px;
-  text-align: left;
-  font-size: 16px;
-}
+  /* Table header styles */
+  .participants_list th {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    font-size: 16px;
+  }
 
-/* Table cell styles */
-.participants_list td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  text-align: left;
-  font-size: 14px;
-}
+  /* Table cell styles */
+  .participants_list td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;
+  }
 
-/* Alternate row colors */
-.participants_list tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
+  /* Alternate row colors */
+  .participants_list tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
 
-/* Hover effect for rows */
-.participants_list tr:hover {
-  background-color: #e9e9e9;
-}
+  /* Hover effect for rows */
+  .participants_list tr:hover {
+    background-color: #e9e9e9;
+  }
 
-/* Message when no participants are found */
-.participants_list .no-participants {
-  text-align: center;
-  font-style: italic;
-  color: #777;
-  padding: 10px;
-}
+  /* Message when no participants are found */
+  .participants_list .no-participants {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    padding: 10px;
+  }
+
+  /* ************************************************************  media query */
+  @media (max-width: 600px){
+    overflow-x: auto;
+    table{
+      th:nth-child(2), tr td:nth-child(2){
+        display: none;
+      }
+    }
+
+    .tab-content{
+      overflow-x: auto;
+    }
+  }
 `;

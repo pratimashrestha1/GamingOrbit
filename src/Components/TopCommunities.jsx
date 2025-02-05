@@ -162,31 +162,39 @@ const Div = styled.div`
   //***************************************************************  media query start
   @media (max-width: 600px) {
     .community-grid {
+      box-sizing: border-box;
       display: flex;
-      // flex-direction: column;
       flex-wrap: wrap;
       gap: 1em;
+      width: 100vw;
+      padding: 0 10px;
     }
 
     .community-1 {
+      width: 100%;
+      margin-left: -3em;
+      height: 150px;
+
       img {
         width: 100px;
         height: 150px;
       }
       .details {
-        /* display: -webkit-box;
-        -webkit-line-clamp: 3; 
-        -webkit-box-orient: vertical;
-        overflow: hidden; */
-        /* height: 150px; */
         h2 {
-          font-size: 20px;
+          max-width: 80%;
+          font-size: 18px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         p {
-          font-size: 15px;
-          white-space: pre;
-          /* height: 80px; */
+          display: -webkit-box;
+          -webkit-line-clamp: 3; /* Adjust the number of lines */
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          word-wrap: break-word;
+          text-overflow: ellipsis;
 
           &::first-letter {
             font-size: 1em;

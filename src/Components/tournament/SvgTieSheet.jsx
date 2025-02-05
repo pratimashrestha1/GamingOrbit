@@ -150,6 +150,7 @@ const Container = styled.div`
 
   .renderTierContainer {
     padding: 50px 0 50px 50px;
+    width: auto;
   }
 
   .input-list {
@@ -219,11 +220,24 @@ const Container = styled.div`
 
   /* ******************************************************************** media query */
   @media (max-width: 600px) {
-    width: 100vw;
-    padding: 0;
+      width: 100%;
+      padding: 0;
+      overflow-x: auto; /* Enable horizontal scrolling */
 
-    .renderTierContainer {
-      padding: 50px 0;
+      .renderTierContainer {
+        padding: 50px 0;
+        width: max-content; /* Ensures it doesn't squeeze into a small screen */
+        min-width: 100%; /* Prevents shrinking */
+        overflow-x: auto; /* Allows scrolling when necessary */
+      }
+
+      .tier {
+        flex-wrap: nowrap;
+        gap: 0px;
+      }
+
+      .input-list{
+        margin-right: -10px;
+      }
     }
-  }
 `;
