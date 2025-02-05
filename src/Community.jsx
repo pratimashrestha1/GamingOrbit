@@ -191,6 +191,8 @@ const Div = styled.div`
   //***************************************************************  media query start
   @media (max-width: 600px) {
     .community-creation {
+      align-items: center;
+      box-sizing: border-box;
       img {
         display: none;
       }
@@ -203,6 +205,13 @@ const Div = styled.div`
           width: 70%;
           margin: 0 auto;
           text-align: center;
+
+          input,
+          select,
+          textarea {
+            box-sizing: border-box;
+            width: 100%;
+          }
 
           h1 {
             text-align: center;
