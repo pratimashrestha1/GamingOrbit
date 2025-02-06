@@ -1,17 +1,40 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { io } from "socket.io-client";
 import styled from "styled-components";
 
-const socket = io(process.env.REACT_APP_API_BASE_URL); // Connect to Socket.IO server
+const socket = io(process.env.REACT_APP_API_BASE_URL);
 
 const StreamingPage = () => {
   const [mediaStream, setMediaStream] = useState(null);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [error, setError] = useState(null);
 
   const videoRef = useRef(null);
 
-  const startCamera = async () => {
+  useEffect(() => {
+    const isCameraOn = JSON.parse(localStorage.getItem("cameraOn")) === true;
+    if (isCameraOn) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: true })
+        .then((stream) => {
+          setMediaStream(stream);
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
+        })
+        .catch((err) => console.error("Error accessing camera:", err));
+    }
+
+    return () => {
+      if (mediaStream) {
+        mediaStream.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, []);
+
+  const startCamera = useCallback(async () => {
+    if (mediaStream) return; // Prevent multiple streams
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
@@ -19,36 +42,51 @@ const StreamingPage = () => {
       });
       setMediaStream(stream);
       videoRef.current.srcObject = stream;
+      localStorage.setItem("cameraOn", JSON.stringify(true));
     } catch (err) {
       console.error("Error starting camera:", err);
+      setError("Camera access denied. Please allow camera permissions.");
     }
-  };
+  }, [mediaStream]);
 
-  const stopCamera = () => {
+  const stopCamera = useCallback(() => {
     if (mediaStream) {
       mediaStream.getTracks().forEach((track) => track.stop());
       setMediaStream(null);
       setMediaRecorder(null);
+      localStorage.setItem("cameraOn", JSON.stringify(false));
     }
-  };
+  }, [mediaStream]);
 
-  const goLive = () => {
+  const goLive = useCallback(() => {
+    if (!mediaStream || mediaRecorder) return;
+    const recorder = new MediaRecorder(mediaStream, {
+      mimeType: "video/webm; codecs=vp8,opus",
+    });
+
+    recorder.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        socket.emit("binarystream", event.data);
+      }
+    };
+
+    recorder.start(100);
+    setMediaRecorder(recorder);
+    setIsStreaming(true);
+  }, [mediaStream, mediaRecorder]);
+
+  const stopLive = useCallback(() => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setMediaRecorder(null);
+      setIsStreaming(false);
+    }
+
     if (mediaStream) {
-      const recorder = new MediaRecorder(mediaStream, {
-        mimeType: "video/webm; codecs=vp8,opus",
-      });
-
-      recorder.ondataavailable = (event) => {
-        if (event.data && event.data.size > 0) {
-          socket.emit("binarystream", event.data);
-        }
-      };
-
-      recorder.start(100); // Send data every 100ms
-      setMediaRecorder(recorder);
-      setIsStreaming(true);
+      mediaStream.getTracks().forEach((track) => track.stop());
+      setMediaStream(null);
     }
-  };
+  }, [mediaRecorder, mediaStream]);
 
   return (
     <Div>
@@ -56,28 +94,14 @@ const StreamingPage = () => {
         <h1 className="title">Gaming Orbit Streaming</h1>
         <div className="video-container">
           <video ref={videoRef} autoPlay muted className="video" />
+          {error && <p className="error">{error}</p>}
           <div className="button-container">
-            <button
-              onClick={startCamera}
-              className="button"
-              disabled={mediaStream}
-            >
-              Start Camera
+            <button onClick={startCamera} className="button" disabled={mediaStream}>Start Camera</button>
+            <button onClick={stopCamera} className="button" disabled={!mediaStream}>Stop Camera</button>
+            <button onClick={goLive} className="button" disabled={!mediaStream || mediaRecorder}>
+              {isStreaming ? <div className="loader"></div> : "Go Live"}
             </button>
-            <button
-              onClick={stopCamera}
-              className="button"
-              disabled={!mediaStream}
-            >
-              Stop Camera
-            </button>
-            <button
-              onClick={goLive}
-              className="button"
-              disabled={!mediaStream || mediaRecorder}
-            >
-            {isStreaming?(<div className="loader"></div>):"Go Live"}
-            </button>
+            <button onClick={stopLive} className="button" disabled={!isStreaming}>Stop Live</button>
           </div>
         </div>
       </div>
@@ -86,6 +110,7 @@ const StreamingPage = () => {
 };
 
 export default StreamingPage;
+
 
 const Div = styled.div`
   /* Container */
@@ -132,6 +157,7 @@ const Div = styled.div`
   .button-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   /* Buttons */
