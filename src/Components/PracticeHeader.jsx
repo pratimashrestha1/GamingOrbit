@@ -38,19 +38,19 @@ function PracticeHeader() {
           <nav className={show ? "nav1" : ""}>
             {/* <nav className="nav1"> */}
             <li>
-              <NavLink to="./news">News</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./news">News</NavLink>
             </li>
             <li>
-              <NavLink to="./community">Community</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./community">Community</NavLink>
             </li>
             <li>
-              <NavLink to="./topgames">Top games</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./topgames">Top games</NavLink>
             </li>
             <li>
-              <NavLink to="./host">Host</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./host">Host</NavLink>
             </li>
             <li>
-              <NavLink to="./about">About Us</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./about">About Us</NavLink>
             </li>
           </nav>
         </div>
@@ -105,6 +105,7 @@ const Div = styled.div`
     display: flex;
     justify-content: space-between;
     box-shadow: 0 10px 15px rgba(80, 15, 20, 1);
+    /* padding-bottom: 1em; */
 
     .bottom_left {
       flex-grow: 1;
@@ -129,6 +130,7 @@ const Div = styled.div`
             font-size: 1em;
             width: 100%;
             color: #fff;
+            line-height: 1.5;
 
             &:hover,
             &.active {
@@ -141,23 +143,23 @@ const Div = styled.div`
       }
 
       .nav1 {
-        max-height: 300px;
+        max-height: 320px;
         opacity: 1;
         transform: translateY(0);
-        padding-bottom: 10px;
+        /* padding-bottom: 10px; */
 
         li {
           width: 100%;
           text-align: left;
           padding-left: 1em;
-
+      
           a {
             width: 100%;
             text-decoration: none;
             font-size: 1em;
             width: 100%;
             color: #fff;
-
+            
             &:hover,
             &.active {
               color: ${({ theme }) => theme.colors.logoBlue};
@@ -172,8 +174,8 @@ const Div = styled.div`
     .bottom_right {
       .menu_icon {
         color: #fff;
-        font-size: 1.3em;
-        padding: 2px 0;
+        font-size: 1.4em;
+        padding: 2px 2px 2px 0;
         font-weight: bold;
         /* margin: auto; */
 
