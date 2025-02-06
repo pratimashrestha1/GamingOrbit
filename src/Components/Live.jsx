@@ -7,6 +7,7 @@ const socket = io(process.env.REACT_APP_API_BASE_URL); // Connect to Socket.IO s
 const StreamingPage = () => {
   const [mediaStream, setMediaStream] = useState(null);
   const [mediaRecorder, setMediaRecorder] = useState(null);
+  const [isStreaming, setIsStreaming] = useState(false);
 
   const videoRef = useRef(null);
 
@@ -45,7 +46,7 @@ const StreamingPage = () => {
 
       recorder.start(100); // Send data every 100ms
       setMediaRecorder(recorder);
-      console.log("Streaming started...");
+      setIsStreaming(true);
     }
   };
 
@@ -75,7 +76,7 @@ const StreamingPage = () => {
               className="button"
               disabled={!mediaStream || mediaRecorder}
             >
-              Go Live
+            {isStreaming?(<div className="loader"></div>):"Go Live"}
             </button>
           </div>
         </div>
@@ -154,5 +155,25 @@ const Div = styled.div`
   .button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 `;
