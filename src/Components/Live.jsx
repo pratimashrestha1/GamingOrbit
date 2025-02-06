@@ -2,7 +2,11 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { io } from "socket.io-client";
 import styled from "styled-components";
 
-const socket = io(process.env.REACT_APP_API_BASE_URL);
+const socket = io(process.env.REACT_APP_API_BASE_URL, {
+  transports: ["websocket"], // Force WebSocket, skip polling
+  withCredentials: true
+});
+
 
 const StreamingPage = () => {
   const [mediaStream, setMediaStream] = useState(null);
