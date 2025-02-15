@@ -38,19 +38,29 @@ function PracticeHeader() {
           <nav className={show ? "nav1" : ""}>
             {/* <nav className="nav1"> */}
             <li>
-              <NavLink onClick={() => setShow(false)} to="./news">News</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./news">
+                News
+              </NavLink>
             </li>
             <li>
-              <NavLink onClick={() => setShow(false)} to="./community">Community</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./community">
+                Community
+              </NavLink>
             </li>
             <li>
-              <NavLink onClick={() => setShow(false)} to="./topgames">Top games</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./topgames">
+                Top games
+              </NavLink>
             </li>
             <li>
-              <NavLink onClick={() => setShow(false)} to="./host">Host</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./host">
+                Host
+              </NavLink>
             </li>
             <li>
-              <NavLink onClick={() => setShow(false)} to="./about">About Us</NavLink>
+              <NavLink onClick={() => setShow(false)} to="./about">
+                About Us
+              </NavLink>
             </li>
           </nav>
         </div>
@@ -66,8 +76,6 @@ export default PracticeHeader;
 
 const Div = styled.div`
   max-width: 600px;
-  /* position: fixed;
-  top: 0px; */
   background-image: ${({ theme }) => theme.colors.gradient};
   font-family: ${({ theme }) => theme.fontFamily.games};
 
@@ -152,14 +160,14 @@ const Div = styled.div`
           width: 100%;
           text-align: left;
           padding-left: 1em;
-      
+
           a {
             width: 100%;
             text-decoration: none;
             font-size: 1em;
             width: 100%;
             color: #fff;
-            
+
             &:hover,
             &.active {
               color: ${({ theme }) => theme.colors.logoBlue};
