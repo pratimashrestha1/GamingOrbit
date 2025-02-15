@@ -16,7 +16,7 @@ const JoinTournament = () => {
           setError("User ID is not available.");
           return;
         }
-
+        
         const response = await fetch(
           `${process.env.REACT_APP_API_BASE_URL}/tour/all-tour/${userId}`
         );

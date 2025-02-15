@@ -24,6 +24,7 @@ import ViewTournament from "./Components/tournament/ViewTournament";
 import TieSheet from './Components/tournament/BackupTieSheet';
 import MyTournament from './Components/tournament/MyTournament';
 import LoadFromTop from './Components/LoadFromTop';
+import ResetPassword from './ResetPassword';
 
 function App() {
   const theme = {
@@ -84,6 +85,7 @@ function App() {
               <Route path="/viewTour" element={<ViewTournament />} />
               <Route path="/tie-sheet" element={<TieSheet />} />
               <Route path="/my-tournament" element={<MyTournament />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
             </Routes>
 
           </BrowserRouter>

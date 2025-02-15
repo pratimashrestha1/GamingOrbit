@@ -30,6 +30,7 @@ function Modal() {
         localStorage.setItem("username", data.username);
         localStorage.setItem("profile", data.photo);
         localStorage.setItem("userId", data.userId);
+        localStorage.setItem("email", data.email);
         alert("login successful");
       } else {
         alert("invalid username and password");
