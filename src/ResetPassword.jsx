@@ -5,6 +5,7 @@ import styled from "styled-components";
 function ResetPassword() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
+  const email = searchParams.get('email');
 
   const [userEmail, setUserEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -14,7 +15,6 @@ function ResetPassword() {
 
   useEffect(() => {
     // You can get the email from localStorage if it's stored there
-    const email = localStorage.getItem("email");
     setUserEmail(email); // Set the email to state
   }, []);
 
