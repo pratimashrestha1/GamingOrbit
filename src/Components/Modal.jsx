@@ -40,6 +40,18 @@ function Modal() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("profile");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("email");
+
+    alert("Logged out successfully!");
+
+    toggleComponentVisibility(); // Optional, if you want to close the modal on logout
+    window.location.reload(); // Optional, refresh the page to reset UI state
+  };
+
   return (
     <>
       {isComponentVisible && (
@@ -72,6 +84,14 @@ function Modal() {
                 <p>Forgot password?</p>
               </a>
             </div>
+
+            <button
+              type="button"
+              className="logout-button"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
           </form>
         </Div>
       )}
@@ -173,6 +193,24 @@ const Div = styled.div`
       }
     }
   }
+
+  .logout-button {
+  margin-top: 10px;
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darkred;
+  }
+}
+
 
   /* ********************************************************* media query start */
   @media (max-width: 600px) {

@@ -16,7 +16,7 @@ function ResetPassword() {
   useEffect(() => {
     // You can get the email from localStorage if it's stored there
     setUserEmail(email); // Set the email to state
-  }, []);
+  }, [email]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
