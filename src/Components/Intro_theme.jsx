@@ -33,7 +33,7 @@ const Wrapper = styled.div.attrs((props) => ({
     animate: undefined,
 }))`
     font-family: ${({ theme }) => theme.fontFamily.games};
-    margin-top: 50px;
+    margin-top: 120px;
 
     .background {
         position: sticky;
