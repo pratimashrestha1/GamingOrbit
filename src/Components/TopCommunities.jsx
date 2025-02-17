@@ -35,7 +35,8 @@ function CommunityList() {
         {communities.map((community) => (
           <div className="community-1" key={community._id}>
             <img
-              src={`${process.env.REACT_APP_API_BASE_URL}/${community.photo}`}
+              // src={`${process.env.REACT_APP_API_BASE_URL}/${community.photo}`}
+              src={`${community.photo}`}
               alt={community.cn}
             />
             <div className="details">

@@ -35,6 +35,7 @@ const StreamingPage = () => {
         mediaStream.getTracks().forEach((track) => track.stop());
       }
     };
+    // eslint-disable-next-line
   }, []);
 
   const startCamera = useCallback(async () => {

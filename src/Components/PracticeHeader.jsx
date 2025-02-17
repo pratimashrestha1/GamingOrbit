@@ -25,7 +25,7 @@ function PracticeHeader() {
         <div className="top_right">
           <p>{username}</p>
           <img
-            src={`${process.env.REACT_APP_API_BASE_URL}/${profile}`}
+            src={`${profile}`}
             className="user_logo"
             alt="profile"
             onClick={toggleComponentVisibility}
