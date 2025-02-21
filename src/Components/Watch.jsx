@@ -24,6 +24,7 @@ const WatchLiveStream = () => {
 
 // Inline CSS styles for the component
 const Div = styled.div`
+  margin-top: 80px;
   .watch_container {
     font-family: Arial, sans-serif;
     text-align: center;

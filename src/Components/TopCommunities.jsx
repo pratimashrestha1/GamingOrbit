@@ -46,7 +46,7 @@ function CommunityList() {
                 <button onClick={() => handleClick(community._id)}>
                   Explore
                 </button>
-                <button>Join</button>
+                {/* <button>Join</button> */}
               </div>
             </div>
           </div>

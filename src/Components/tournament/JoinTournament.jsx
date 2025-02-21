@@ -88,6 +88,7 @@ export default JoinTournament;
 
 //********************************************************  style component
 const Div = styled.div`
+  margin-top: 70px;
   .container {
     padding: 50px;
     display: flex;

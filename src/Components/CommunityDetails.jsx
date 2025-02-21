@@ -30,7 +30,8 @@ function CommunityDetails() {
     <Div>
       <div className="main">
         <img
-          src={`${process.env.REACT_APP_API_BASE_URL}/${community.data.photo}`}
+          // src={`${process.env.REACT_APP_API_BASE_URL}/${community.data.photo}`}
+          src={`${community.data.photo}`}
           alt={community.data.cn}
         />
         <div className="right">
@@ -48,6 +49,7 @@ function CommunityDetails() {
 export default CommunityDetails;
 
 const Div = styled.div`
+  margin-top: 120px;
   .main {
     margin-top: 50px;
     width: 100vw;

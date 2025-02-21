@@ -236,6 +236,7 @@ export default CreateTournament;
 
 const Container = styled.div`
   display: flex;
+  margin-top: 80px;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
