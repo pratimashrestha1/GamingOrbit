@@ -9,7 +9,6 @@ MongoDB
 React.js
 Bootstrap CSS Socket.io styled-components
 
-
 📚 Table of Contents
 Overview
 Getting Started
